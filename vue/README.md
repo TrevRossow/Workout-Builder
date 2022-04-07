@@ -10,19 +10,14 @@ The first thing you'll need to do is to download any dependencies by running thi
 npm install
 ```
 
-Next you'll need to open the `.env` file that's located in the root of the project. You can store the environment variables that you want to use throughout your application in this file. When you open it, it'll look like this:
+Next take a moment to look at the  `.env` file that's located in the root of the project. You can store environment variables that you want to use throughout your application in this file. When you open it, it'll look like this:
 
 ```
 # Java
 VUE_APP_REMOTE_API=http://localhost:8080
-
-# .NET
-VUE_APP_REMOTE_API=https://localhost:44358
 ```
 
 Your Vue frontend communicates with this API endpoint to authenticate and register users.
-
-Before moving on, you'll need to modify the `.env` file. If you're a Java student, remove the .NET API endpoint from the `.env` file. If you're a .NET student, remove the Java API endpoint from the `.env` file. Make sure the URL is correct, and then save the file.
 
 The last thing to do is start the back-end application before you work on the front-end application. Start your application with the following command:
 

@@ -90,4 +90,31 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+#register {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+}
+
+.sr-only {
+  padding: 10%;
+}
+
+#confirmPassword {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+button {
+  margin-top: 10%;
+}
+
+
+</style>

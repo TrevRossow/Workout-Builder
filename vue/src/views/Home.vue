@@ -78,15 +78,15 @@ export default {
 };
 </script>
 <style scoped>
+.home{
 
-
-
-
+}
 .main{
   display: flex;
   justify-content: center;
   padding: 20px;
   height: 100%;
+  padding-bottom: 0px;
 }
 
 
@@ -98,9 +98,8 @@ export default {
 }
 
 article{
-   width:400px;
-   padding: 2rem;
   box-shadow: 3px 3px 10px 5px gray;
-
+  padding: 10px;
+  width: 500px;
 }
 </style>

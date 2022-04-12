@@ -1,5 +1,5 @@
 <template>
-  <div id="login" class="text-center">
+  <div id="login" class="testbox">
     <form class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
@@ -12,28 +12,31 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
-      <input
-        type="text"
-        id="username"
-        class="form-control"
-        placeholder="Username"
-        v-model="user.username"
-        required
-        autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        placeholder="Password"
-        v-model="user.password"
-        required
-      />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
-    </form>
+
+      <label id="icon" for="name">
+  <i><font-awesome-icon icon="fa-user"/></i>
+  </label>
+  <input type="text" 
+  name="name" 
+  id="name" 
+  placeholder="Username"
+  v-model="user.username"
+  required
+  autofocus/>
+
+<label id="icon" for="name">
+    <i> <font-awesome-icon icon="fa fa-key"/></i>
+  </label>
+  <input type="password" 
+  name="name" id="name" 
+  placeholder="Password"   
+  v-model="user.password"
+  required/>
+</form>
+ <div class="send">
+<button class=" btn-lg btn-primary btn-block" type="submit"> Sign In</button>
+<router-link :to="{ name: 'register' }">Need an account?</router-link>
+</div>
   </div>
 </template>
 
@@ -74,3 +77,98 @@ export default {
   }
 };
 </script>
+<style scoped>
+h1 {
+  font-size: 32px;
+  font-weight: 300;
+  color: #4c4c4c;
+  text-align: center;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.testbox {
+  margin: 20px auto;
+  width: 340px; 
+  height: 465px; 
+  border-radius: 8px/7px; 
+  background-color: #ebebeb; 
+  box-shadow: 1px 2px 5px black; 
+  border: solid 1px #cbc9c9;
+
+}
+
+hr{
+  color: #a9a9a9;
+  opacity: 0.3;
+}
+
+form{
+  margin: 0 30px;
+
+}
+
+input[type=text],input[type=password]{
+  width: 200px; 
+  height: 39px; 
+  border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
+  background-color: #fff;  
+  box-shadow: 1px 2px 5px black; 
+  border: solid 1px #cbc9c9;
+  margin-left: -5px;
+  margin-top: 13px; 
+  padding-left: 10px;
+}
+
+input{
+  margin-bottom: 15px;
+}
+
+
+#icon {
+  display: inline-block;
+  width: 40px;
+  background-color: #3a57af;
+  padding: 8px 8px 8px 12px;
+  margin-left: 15px;
+  margin-right: 10px;
+  color: white;
+  box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+  border: solid 0px #cbc9c9;
+}
+
+
+.gender {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.send{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+button {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  width: 100px; height: 30px; 
+  border-radius: 5px; 
+  background-color: #3a57af; 
+  box-shadow: 0 3px rgba(58,87,175,.75);
+  align-self: center;
+  margin-bottom: 10px;
+
+}
+
+button :hover {
+  top: 3px;
+  background-color: black;
+  border: #4c4c4c;
+ 
+}
+</style>

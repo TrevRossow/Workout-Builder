@@ -5,6 +5,8 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import trainerPage from '../views/TrainerPage.vue'
+import userPage from '../views/UserPage.vue'
 
 Vue.use(Router)
 
@@ -53,6 +55,23 @@ const router = new Router({
         requiresAuth: false
       }
     },
+    {
+      path: "/user",
+      name: "user",
+      component: userPage,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/trainer",
+      name: "trainer",
+      component:
+       trainerPage,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 

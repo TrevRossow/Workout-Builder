@@ -26,13 +26,13 @@
         autofocus
       />
 
-      <label id="icon" for="name">
+      <label id="icon" for="password">
         <i> <font-awesome-icon icon="fa fa-key" /></i>
       </label>
       <input
         type="password"
-        name="name"
-        id="name"
+        name="password"
+        id="password"
         placeholder="Password"
         v-model="user.password"
         required
@@ -68,11 +68,14 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            if(this.isTrainer(response.data.user.authorities)) {
+            console.log(response.data.user.authorities[0].name)
+            if(this.isTrainer(response.data.user.authorities[0].name)) {
             this.$router.push({ name: 'trainer' });
-          } else {
+          } else if (this.isUser(response.data.user.authorities[0].name)){
             this.$router.push({ name: 'user' });
-          }
+            }else{
+              this.$router.push({ name: 'login' });
+            }
           }
         })
         .catch(error => {
@@ -83,12 +86,15 @@ export default {
           }
         });
     },
-    isTrainer(user) {
-      user.forEach(role => {
-        if(role === "ROLE_TRAINER"){
+    isTrainer(authorities) {
+      if(authorities === "ROLE_ADMIN"){
           return true;
         } 
-      });
+    },
+    isUser(authorities) {
+      if(authorities === "ROLE_USER"){
+          return true;
+        } 
     }
   }
 };

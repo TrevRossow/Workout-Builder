@@ -8,7 +8,8 @@
         </header>
         <nav>
           <div class="navDiv">
-            <button id="loginHome" v-on:click="$router.push({name:'login'})"> Login
+            <button id="loginHome" v-on:click="signInOut();$router.push({name:'login'})"
+            v-if="(signedIn != true)">Login
             <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" />
             </button>
           <button id="loginHome" v-on:click="$router.push({name:'logout'})"
@@ -57,8 +58,14 @@ export default {
   name: "App",
 
   data: () => ({
+    signedIn: false
     //
   }),
+  methods: {
+    signInOut(){
+      this.signedIn = true;
+    }
+  }
 };
 </script>
 <style>

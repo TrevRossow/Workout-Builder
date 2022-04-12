@@ -1,18 +1,19 @@
 <template>
 <div class="testbox">
   <h1>Registration</h1>
-  <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+  <form @submit.prevent="register">
+    <div class="alert" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>  
-  <form @submit.prevent="register">
   
-<!--   <label id="icon" for="name">
+<!-- <label id="icon" for="name">
   <i><font-awesome-icon icon="fa fa-mail-bulk"/></i>
   </label>
   <input type="text" 
   name="name" id="name" 
   placeholder="Email" 
-  required/> -->
+  required/>
+ -->
 
   <label id="icon" for="name">
   <i><font-awesome-icon icon="fa-user"/></i>
@@ -81,7 +82,7 @@ export default {
     register() {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
-        this.registrationErrorMsg = 'Password & Confirm Password do not match.';
+        this.registrationErrorMsg = 'Passwords do not match.';
       } else {
         authService
           .register(this.user)
@@ -157,6 +158,21 @@ label.radio:before {
   width: 20px;
   height: 20px;
   border-radius: 100%;
+}
+
+.alert{
+  box-shadow: 1px 2px 5px black; 
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  background-color:rgb(240, 52, 52);
+  color: #ebebeb;
+  border-radius: 5px;
+  animation: shake;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 label.radio:after {

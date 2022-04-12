@@ -1,9 +1,10 @@
 <template>
   <div id="login" class="testbox">
     <form class="form-signin" @submit.prevent="login">
+  
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
-      <div
-        class="alert alert-danger"
+      <div 
+        class="alert"
         role="alert"
         v-if="invalidCredentials"
       >Invalid username and password!</div>
@@ -12,6 +13,7 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
+     
 
       <label id="icon" for="name">
   <i><font-awesome-icon icon="fa-user"/></i>
@@ -32,11 +34,11 @@
   placeholder="Password"   
   v-model="user.password"
   required/>
-</form>
- <div class="send">
-<button class=" btn-lg btn-primary btn-block" type="submit"> Sign In</button>
+   <div class="send">
+<button  type="submit"> Sign In</button>
 <router-link :to="{ name: 'register' }">Need an account?</router-link>
 </div>
+</form>
   </div>
 </template>
 
@@ -99,8 +101,42 @@ h1 {
 
 }
 
+.alert{
+  box-shadow: 1px 2px 5px black; 
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  background-color:rgb(240, 52, 52);
+  color: #ebebeb;
+  border-radius: 5px;
+  animation: shake;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+
 hr{
-  color: #a9a9a9;
+  color: #f86c6c;
   opacity: 0.3;
 }
 

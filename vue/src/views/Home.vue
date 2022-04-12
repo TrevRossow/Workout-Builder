@@ -80,6 +80,10 @@ export default {
 <style scoped>
 .home{
 
+  width: 100%
+
+
+
 }
 .main{
   display: flex;
@@ -100,6 +104,6 @@ export default {
 article{
   box-shadow: 3px 3px 10px 5px gray;
   padding: 10px;
-  width: 500px;
+  width: 300px;
 }
 </style>

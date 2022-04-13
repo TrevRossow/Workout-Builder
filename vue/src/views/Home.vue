@@ -14,12 +14,11 @@
     </div>
     <div class="articleDiv">
       <article>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
-            including versions of Lorem Ipsum.</p>
+        <h3>Life Changing!</h3>
+        <q>Since starting with The Elevated Fitness® program I have experienced greatly improved strength,
+           postural stability, and flexibility. The sleek design of the app and simple to use the features 
+           make selecting and creating a workout a breeze!</q><br>
+           <font-awesome-icon icon="fa-solid fa-star" v-for="review in reviews" v-bind:key="review"/>
       </article>
       <article>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -47,6 +46,8 @@ export default {
   name: "home",
   data() {
     return {
+      reviews:["","","","",""],
+    
       caroImages: [
         {
           id: 1,

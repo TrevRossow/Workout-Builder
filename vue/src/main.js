@@ -5,12 +5,12 @@ import store from './store/index'
 import axios from 'axios'
 import vuetify from './plugins/vuetify'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {   faFacebookSquare, faTwitter, faLinkedin, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons'
-import {  faShoppingCart, faKey, faMailBulk, faUser, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import {   faFacebookSquare, faTwitter, faLinkedin, faYoutubeSquare,  } from '@fortawesome/free-brands-svg-icons'
+import {  faShoppingCart, faKey, faMailBulk, faUser, faArrowRightToBracket, faArrowRightFromBracket, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faFacebookSquare, faTwitter, 
-  faShoppingCart, faKey, faMailBulk, faUser, faLinkedin, faYoutubeSquare, faArrowRightToBracket, faArrowRightFromBracket)
+  faShoppingCart, faKey, faMailBulk, faUser, faLinkedin, faYoutubeSquare, faArrowRightToBracket, faArrowRightFromBracket, faStar)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -13,27 +13,40 @@
     </div>
     <div class="articleDiv">
       <article>
-        <h3>Life Changing!</h3>
-        <q>Since starting with The Elevated Fitness® program I have experienced greatly improved strength,
+        <h3>Our Mission</h3><br>
+        <p>
+          Here at Elevated Fitness® we are passionate about sharing our love of fitness with the world.
+          We work hard hand picking every trainer to best suit our client's needs.
+          Whether you're looking for a random work out to spice up your routine, or a customized session with a world-class trainer, 
+          Elevated Fitness® has you covered. <br><br>
+          Don't take our word for it though,
+          Sign up today for a 457,00 day free trial and see for yourself!
+        </p>
+      </article>
+      <article>
+        <h3>Program Overview</h3><br>
+        <p>
+          Here at Elevated Fitness®, we want you to work out whatever way you see fit. Bored with your daily routine? 
+          try our random work out generator. Need a little more structure in your life? Work one-on-one with our hand picked trainers,
+          and find what's best for you!<br><br>
+         Here at Elevated Fitness® You're The Boss!
+        </p>
+      </article>
+      <article>
+        <h3>Reviews:</h3><br>
+        <div id="reviewDiv">
+        <h3>Life Changing!
+        </h3>
+        <i id=reviewStar>
+          <font-awesome-icon 
+         icon="fa-solid fa-star" v-for="review in reviews" v-bind:key="review"/>
+         </i></div>
+        <q>
+          Since starting with The Elevated Fitness® program I have experienced greatly improved strength,
            postural stability, and flexibility. The sleek design of the app and simple to use the features 
-           make selecting and creating a workout a breeze!</q><br>
-           <font-awesome-icon icon="fa-solid fa-star" id="" v-for="review in reviews" v-bind:key="review"/>
-      </article>
-      <article>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
-            including versions of Lorem Ipsum.</p>
-      </article>
-      <article>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
-            including versions of Lorem Ipsum.</p>
+           make selecting and creating a workout a breeze!
+           </q><br><br>
+           
       </article>
   
     </div>
@@ -85,13 +98,20 @@ export default {
 </script>
 <style scoped>
 
-.main{
-  padding: 20px;
-
+#reviewDiv{
+display: flex;
 
 }
 
+#reviewStar {
+  color: gold;
+  justify-content: right;
+  padding-left: 6rem;
+}
 
+.main{
+  padding: 20px;
+}
 
 .articleDiv{
   display: flex;

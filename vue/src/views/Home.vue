@@ -2,12 +2,11 @@
   <div class="home">
     <v-app class="vapp">
       <div class= "main">
-    <v-carousel class="carousel">
+    <v-carousel class="carousel" height="600" width= 75%>
       <v-carousel-item id="caroimg"
       v-for="img in caroImages"
       :key="img.id"
       :src="img.src"
-    
       >
       </v-carousel-item>
     </v-carousel>
@@ -50,23 +49,23 @@ export default {
       caroImages: [
         {
           id: 1,
-          src: "/Asset/Carousel/CaroAssets/istockphoto-991036038-612x612.jpg",
-          title: 'smiling guy'
+          src: "/Asset/Photos/pexels-julia-larson-6455813.jpg",
+          title: 'lady split squats'
         },
         {
           id: 2,
-          src: "/Asset/Carousel/CaroAssets/istockphoto-1141393089-612x612.jpg",
-          title: 'ladies running'
+          src: "/Asset/Photos/pexels-andrea-piacquadio-3776144.jpg",
+          title: 'ladies dumbells'
         },
         {
           id: 3,
-          src: "/Asset/Carousel/CaroAssets/istockphoto-1225596371-612x612.jpg",
-          title: 'ladies posing'
+          src: "/Asset/Photos/pexels-andres-ayrton-6551098.jpg",
+          title: 'lady on machine'
         },
         {
           id: 4,
-          src: "/Asset/Carousel/CaroAssets/pexels-pixabay-38630.jpg",
-          title: 'muscly dude'
+          src: "/Asset/Photos/bench.jpg",
+          title: 'dude front squat'
         },
         {
           id: 5,
@@ -76,7 +75,7 @@ export default {
         {
           id: 6,
           src: "/Asset/Carousel/CaroAssets/workout-limitless-endurance-gym-colorful-smoke-1920x1080-929.jpg",
-          title: 'inspire'
+          title: 'limitless'
         },
       ],
     };

@@ -2,13 +2,15 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Exercise;
 import com.techelevator.model.ExerciseNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcExerciseDao implements  ExerciseDao {
+public class JdbcExerciseDao implements ExerciseDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -22,7 +24,7 @@ public class JdbcExerciseDao implements  ExerciseDao {
         String sql = "select * from exercises";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        while(results.next()) {
+        while (results.next()) {
             Exercise exercise = mapRowToExercise(results);
             exercises.add(exercise);
         }
@@ -36,20 +38,38 @@ public class JdbcExerciseDao implements  ExerciseDao {
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, exerciseId);
         if (results.next()) {
             return mapRowToExercise(results);
-        }
-        else {
-            throw new ExerciseNotFoundException();
+        } else {
+            throw new ExerciseNotFoundException("Exercise not found");
         }
     }
 
     @Override
-    public Exercise findByExerciseName(String name) {
-        return null;
+    public Exercise findByExerciseName(String name) throws ExerciseNotFoundException {
+        if (!StringUtils.hasText(name)) {
+            throw new IllegalArgumentException();
+        }
+
+        for (Exercise exercise : this.getAll()) {
+            if (exercise.getName().toLowerCase().equals(name.toLowerCase())) {
+                return exercise;
+
+            }
+        }
+        throw new ExerciseNotFoundException("Exercise " + name + " was not found.");
     }
 
     @Override
-    public Exercise findByMuscleGroup(String group) {
-        return null;
+    public List<Exercise> findByMuscleGroup(String group) {
+        List<Exercise> exercises  = new ArrayList<>();
+        String sql = "SELECT * FROM exercises WHERE muscle_group = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,group);
+
+        while(results.next()){
+            Exercise exercise = mapRowToExercise(results);
+            exercises.add(exercise);
+        }
+        return  exercises;
     }
 
     @Override

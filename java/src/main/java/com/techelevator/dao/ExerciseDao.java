@@ -12,7 +12,7 @@ public interface ExerciseDao {
 
     Exercise findByExerciseName(String name);
 
-    Exercise findByMuscleGroup(String group);
+    List<Exercise> findByMuscleGroup(String group);
 
     Exercise findByType(String type);
 

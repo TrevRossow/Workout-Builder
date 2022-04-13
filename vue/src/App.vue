@@ -8,11 +8,17 @@
         </header>
         <nav>
           <div class="navDiv">
-            <button id="loginHome" v-on:click="$router.push({name:'login'})"
+            <button id="loginHome" class="btn" v-on:click="$router.push({name:'login'})"
             v-if="($store.state.token === '' )">Login
             <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" />
             </button>
-          <button id="loginHome" v-on:click="$router.push({name:'logout'})"
+
+            <button id="dashboardBtn" class="btn" v-on:click="getUser()"
+            v-if="($store.state.token != '')"> Menu
+            <font-awesome-icon icon="fa-bars"/>
+            </button>
+
+          <button id="loginHome" class="btn" v-on:click="$router.push({name:'logout'})"
             v-bind:to="{ name: 'logout' }"
             v-if="($store.state.token != '')">Logout
             <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
@@ -61,9 +67,17 @@ export default {
     //
   }),
   methods: {
-    signInOut(){
-      this.$store.state.signedIn != this.$store.state.signedIn;
-    }
+    getUser(){
+       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER" && this.$router.name) {
+              this.$router.replace({ name: "trainer" });
+            } else if (this.$store.state.user.authorities[0].name === "ROLE_USER") {
+              this.$router.replace({ name: "user" });
+            } else {
+              this.$router.push({ name: "login" });
+            }
+          }
+      
+    
   }
 };
 </script>
@@ -107,7 +121,7 @@ nav {
   grid-row: 1fr 1fr;
 }
 
-#loginHome  {
+.btn {
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -118,7 +132,7 @@ nav {
   margin: 15px
 }
 
-button :hover {
+.btn:hover {
   top: 3px;
   border: #4c4c4c;
  

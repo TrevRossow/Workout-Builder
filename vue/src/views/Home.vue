@@ -15,7 +15,7 @@
       <article>
         <h3>Our Mission</h3><br>
         <p>
-          Here at Elevated Fitness® we are passionate about sharing our love of fitness with the world.
+          Our team at Elevated Fitness® are passionate about sharing our love of fitness with the world.
           We work hard hand picking every trainer to best suit our client's needs.
           Whether you're looking for a random work out to spice up your routine, or a customized session with a world-class trainer, 
           Elevated Fitness® has you covered. <br><br>
@@ -58,7 +58,7 @@ export default {
   name: "home",
   data() {
     return {
-      reviews:["","","","",""],
+      reviews:["1","2","3","4","5"],
     
       caroImages: [
         {

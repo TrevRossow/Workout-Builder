@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techelevator.model.UserNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.techelevator.model.User;
+import org.springframework.util.StringUtils;
 
 @Service
 public class JdbcUserDao implements UserDao {
@@ -24,7 +27,12 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByUsername(String username) {
-        return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
+        if (! StringUtils.hasText(username)) throw new IllegalArgumentException();
+        try {
+            return jdbcTemplate.queryForObject("select user_id from users where username = ?", Integer.class, username);
+        } catch(EmptyResultDataAccessException e) {
+            throw new UsernameNotFoundException("User " + username + " was not found.");
+        }
     }
 
 	@Override
@@ -34,7 +42,7 @@ public class JdbcUserDao implements UserDao {
 		if(results.next()) {
 			return mapRowToUser(results);
 		} else {
-			throw new RuntimeException("userId "+userId+" was not found.");
+			throw new UserNotFoundException();
 		}
 	}
 
@@ -54,6 +62,8 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User findByUsername(String username) throws UsernameNotFoundException {
+        if (! StringUtils.hasText(username)) throw new IllegalArgumentException();
+
         for (User user : this.findAll()) {
             if( user.getUsername().toLowerCase().equals(username.toLowerCase())) {
                 return user;

@@ -22,28 +22,11 @@ public class TestingDatabaseConfig {
     private static final String DB_PORT =
             Objects.requireNonNullElse(System.getenv("DB_PORT"), "5432");
     private static final String DB_NAME =
-            Objects.requireNonNullElse(System.getenv("DB_NAME"), "final_capstone_test");
+            Objects.requireNonNullElse(System.getenv("DB_NAME"), "final_capstone");
     private static final String DB_USER =
             Objects.requireNonNullElse(System.getenv("DB_USER"), "postgres");
     private static final String DB_PASSWORD =
             Objects.requireNonNullElse(System.getenv("DB_PASSWORD"), "postgres1");
-
-
-    private SingleConnectionDataSource adminDataSource;
-    private JdbcTemplate adminJdbcTemplate;
-
-    @PostConstruct
-    public void setup() {
-        if (System.getenv("DB_HOST") == null) {
-            adminDataSource = new SingleConnectionDataSource();
-            adminDataSource.setUrl("jdbc:postgresql://localhost:5432/postgres");
-            adminDataSource.setUsername("postgres");
-            adminDataSource.setPassword("postgres1");
-            adminJdbcTemplate = new JdbcTemplate(adminDataSource);
-            adminJdbcTemplate.update("DROP DATABASE IF EXISTS \"" + DB_NAME + "\";");
-            adminJdbcTemplate.update("CREATE DATABASE \"" + DB_NAME + "\";");
-        }
-    }
 
     private DataSource ds = null;
 
@@ -57,18 +40,8 @@ public class TestingDatabaseConfig {
         dataSource.setPassword(DB_PASSWORD);
         dataSource.setAutoCommit(false); //So we can rollback after each test.
 
-        ScriptUtils.executeSqlScript(dataSource.getConnection(), new ClassPathResource("test-data.sql"));
-
         ds = dataSource;
         return ds;
     }
 
-    @PreDestroy
-    public void cleanup() throws SQLException {
-        if (adminDataSource != null) {
-            adminJdbcTemplate.update("DROP DATABASE \"" + DB_NAME + "\";");
-            adminDataSource.getConnection().close();
-            adminDataSource.destroy();
-        }
-    }
 }

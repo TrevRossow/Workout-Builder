@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +24,7 @@ public class User {
       this.username = username;
       this.password = password;
       this.activated = true;
+      if (StringUtils.hasText(authorities)) this.setAuthorities(authorities);
    }
 
    public Long getId() {

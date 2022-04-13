@@ -17,7 +17,6 @@
             v-if="($store.state.token != '')">Logout
             <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
             </button>
-        
           </div>
         </nav>
       </div>

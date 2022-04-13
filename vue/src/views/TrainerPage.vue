@@ -24,8 +24,8 @@
             v-model="tabs"
             align-with-title
           >
-            <v-tab href="#one">
-              Summary
+            <v-tab v href="#two">
+              Summary 
             </v-tab>
             <v-tab href="#two">
               Workouts
@@ -52,10 +52,10 @@
             :key="content"
             :value="content"
           >
-
             <v-card id="main"
             flat
-            ripple=""
+            
+           
             >
             </v-card>
           </v-tab-item>
@@ -68,11 +68,15 @@
 
 <script>
 export default {
-  data: () => ({
-    fab: false,
-    hidden: false,
-    tabs: null,
-  }),
+data () {
+    return {
+      tab: null,
+      items: [
+        'web', 'shopping', 'videos', 'images', 'news',
+      ],
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    }
+  },
 
   computed: {
     activeFab () {

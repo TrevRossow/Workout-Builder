@@ -17,7 +17,7 @@
         <q>Since starting with The Elevated Fitness® program I have experienced greatly improved strength,
            postural stability, and flexibility. The sleek design of the app and simple to use the features 
            make selecting and creating a workout a breeze!</q><br>
-           <font-awesome-icon icon="fa-solid fa-star" v-for="review in reviews" v-bind:key="review"/>
+           <font-awesome-icon icon="fa-solid fa-star" id="" v-for="review in reviews" v-bind:key="review"/>
       </article>
       <article>
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.

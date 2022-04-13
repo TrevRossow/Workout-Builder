@@ -8,11 +8,11 @@
         </header>
         <nav>
           <div class="navDiv">
-            <button id="loginHome" v-on:click="signInOut();$router.push({name:'login'})"
-            v-if="(this.$store.state.signedIn === false || $store.state.token === '' )">Login
+            <button id="loginHome" v-on:click="$router.push({name:'login'})"
+            v-if="($store.state.token === '' )">Login
             <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" />
             </button>
-          <button id="loginHome" v-on:click="signInOut();$router.push({name:'logout'})"
+          <button id="loginHome" v-on:click="$router.push({name:'logout'})"
             v-bind:to="{ name: 'logout' }"
             v-if="($store.state.token != '')">Logout
             <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
@@ -63,7 +63,7 @@ export default {
   }),
   methods: {
     signInOut(){
-      this.$store.state.signedIn =! this.$store.state.signedIn;
+      this.$store.state.signedIn != this.$store.state.signedIn;
     }
   }
 };

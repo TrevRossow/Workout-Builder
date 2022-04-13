@@ -33,6 +33,9 @@
             <v-tab href="#three">
               Exercises
             </v-tab>
+            <v-tab href="#four">
+              Exercises
+            </v-tab>
             <v-tabs-slider color="pink"></v-tabs-slider>
           </v-tabs>
         </template>
@@ -45,15 +48,14 @@
       <v-card-text id="text"> 
         <v-tabs-items v-model="tabs">
           <v-tab-item
-            v-for="content in ['one', 'two', 'three']"
+            v-for="content in ['one', 'two', 'three','four']"
             :key="content"
             :value="content"
           >
+
             <v-card id="main"
             flat
             ripple=""
-      
-              
             >
             </v-card>
           </v-tab-item>

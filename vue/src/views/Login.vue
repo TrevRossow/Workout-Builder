@@ -87,7 +87,7 @@ export default {
         });
     },
     isTrainer(authorities) {
-      if(authorities === "ROLE_ADMIN"){
+      if(authorities === "ROLE_TRAINER"){
           return true;
         } 
     },
@@ -95,7 +95,8 @@ export default {
       if(authorities === "ROLE_USER"){
           return true;
         } 
-    }
+    },
+    
   }
 };
 

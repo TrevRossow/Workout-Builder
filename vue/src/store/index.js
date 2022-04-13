@@ -20,6 +20,33 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+
+    exercises: [
+    {
+        exercise_id: 1, 
+        exercise_name: "Bench Press",
+        exercise_description: "Lower the weight with control to lower portion of the chest and then press",
+        muscle_group: "Chest",
+        rep_range: 8,
+        exercise_type: "Strength"
+    },
+    {
+      exercise_id: 2, 
+      exercise_name: "Bench Press",
+      exercise_description: "Lower the weight with control to lower portion of the chest and then press",
+      muscle_group: "Chest",
+      rep_range: 8,
+      exercise_type: "Strength"
+  },
+  {
+    exercise_id: 3, 
+    exercise_name: "Bench Press",
+    exercise_description: "Lower the weight with control to lower portion of the chest and then press",
+    muscle_group: "Chest",
+    rep_range: 8,
+    exercise_type: "Strength"
+}
+    ],
   
     
   },

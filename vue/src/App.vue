@@ -68,10 +68,11 @@ export default {
   }),
   methods: {
     getUser(){
-       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER" && this.$router.name) {
-              this.$router.replace({ name: "trainer" });
+      const id = this.$store.state.user.id
+       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
+              this.$router.replace({ name: "trainer" ,params:{id: id} });
             } else if (this.$store.state.user.authorities[0].name === "ROLE_USER") {
-              this.$router.replace({ name: "user" });
+              this.$router.replace({ name: "user", params:{id: id} });
             } else {
               this.$router.push({ name: "login" });
             }

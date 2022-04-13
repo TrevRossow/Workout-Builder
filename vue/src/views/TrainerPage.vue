@@ -1,105 +1,97 @@
 <template>
-   <div id="app">
-  <v-app id="inspire">
-    <v-card id="lateral">
-      <v-toolbar id="toolbar"
-        dark
-        tabs
-        flat
-        color="blue"
-      >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Trainer Dashboard</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-        
-        <!-- DashBoard and tabs /-->
-        <template v-slot:extension>
-          <v-tabs
-            v-model="tabs"
-            align-with-title
-          >
-            <v-tab v href="#two">
-              Summary 
-            </v-tab>
-            <v-tab href="#two">
-              Workouts
-            </v-tab>
-            <v-tab href="#three">
-              Exercises
-            </v-tab>
-            <v-tab href="#four">
-              Exercises
-            </v-tab>
-            <v-tabs-slider color="pink"></v-tabs-slider>
-          </v-tabs>
-        </template>
+  <div id="app">
+    <v-app id="inspire">
+      <v-card id="lateral">
+        <v-toolbar id="toolbar" dark tabs flat color="blue">
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+          <v-toolbar-title>Trainer Dashboard</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
 
-        <!-- Main content area below tabs -->
-      </v-toolbar>
+          <!-- DashBoard and tabs /-->
+          <template v-slot:extension>
+            <v-tabs v-model="tabs" align-with-title>
+              <v-tab v-on:click="addExercise = false"> Summary </v-tab>
+              <v-tab href="#two"> Workouts </v-tab>
+              <v-tab href="#three"> Exercises </v-tab>
+              <v-tab v-on:click="addExercise = true"> Add Exercise </v-tab>
+              <v-tabs-slider color="pink"></v-tabs-slider>
+            </v-tabs>
+          </template>
 
-      <!-- Might not need card text. Ideally on the selection of a tab we display 
+          <!-- Main content area below tabs -->
+        </v-toolbar>
+
+        <!-- Might not need card text. Ideally on the selection of a tab we display 
       the corresponding component -->
-      <v-card-text id="text"> 
-        <v-tabs-items v-model="tabs">
-          <v-tab-item
-            v-for="content in ['one', 'two', 'three','four']"
-            :key="content"
-            :value="content"
-          >
-            <v-card id="main"
-            flat
-            
-           
+        <v-card-text id="text">
+          <v-tabs-items v-model="tabs">
+            <v-tab-item
+              v-for="content in ['one', 'two', 'three', 'four']"
+              :key="content"
+              :value="content"
             >
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card-text>
-    </v-card>
-  </v-app>
-</div>
+              <v-card>  </v-card>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card-text>
+      </v-card>
+      <div>
+      <add-exercise v-if="addExercise === true"/>
+      </div>
+    </v-app>
+  </div>
 </template>
 
 <script>
-export default {
-  data: () => ({
-    fab: false,
-    hidden: false,
-    tabs: null,
-  }),
+import addExercise from "../components/AddExercise.vue";
 
+export default {
+  components: {
+    addExercise,
+  },
+
+  data() {
+    return {
+      addExercise: false,
+      fab: false,
+      hidden: false,
+      tabs: null,
+    };
+  },
 
   computed: {
-    activeFab () {
+    activeFab() {
       switch (this.tabs) {
-        case 'one': return {}
-        case 'two': return {}
-        case 'three': return {}
-        default: return {}
+        case "one":
+          return {};
+        case "two":
+          return {};
+        case "three":
+          return {};
+        default:
+          return {};
       }
     },
   },
-}
+};
 </script>
 
 <style scoped>
-
-#main{
+#main {
   height: 90%;
 }
 
-#inspire{
-  height: 80vw;
-
+#inspire {
+  height: min-content;
+  
 }
-#text{
+#text {
   padding: 0;
 }
-
 </style>

@@ -56,7 +56,7 @@ const router = new Router({
       }
     },
     {
-      path: "/user",
+      path: "/user/:id",
       name: "user",
       component: userPage,
       meta: {
@@ -64,7 +64,7 @@ const router = new Router({
       }
     },
     {
-      path: "/trainer",
+      path: "/trainer/:id",
       name: "trainer",
       component:
        trainerPage,

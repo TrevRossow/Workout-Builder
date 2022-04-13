@@ -1,18 +1,18 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-main>
       <div id="head">
-        <header>
+        <header v-on:click="$router.push({name: 'home'})">
           <img src="..\public\20220411_155646_0000.png" alt="" />
           <h1>Elevated Fitness</h1>
         </header>
         <nav>
           <div class="navDiv">
             <button id="loginHome" v-on:click="signInOut();$router.push({name:'login'})"
-            v-if="(signedIn != true)">Login
+            v-if="(this.$store.state.signedIn === false || $store.state.token === '' )">Login
             <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" />
             </button>
-          <button id="loginHome" v-on:click="$router.push({name:'logout'})"
+          <button id="loginHome" v-on:click="signInOut();$router.push({name:'logout'})"
             v-bind:to="{ name: 'logout' }"
             v-if="($store.state.token != '')">Logout
             <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
@@ -58,18 +58,20 @@ export default {
   name: "App",
 
   data: () => ({
-    signedIn: false
+    
     //
   }),
   methods: {
     signInOut(){
-      this.signedIn = true;
+      this.$store.state.signedIn =! this.$store.state.signedIn;
     }
   }
 };
 </script>
 <style>
 
+#app{
+}
 img {
   height: 40px;
   padding-left: 10px;
@@ -83,6 +85,10 @@ header {
   justify-content: flex-start;
   align-items: center;
   grid-area: "header";
+  width: auto;
+}
+h1, img:hover {
+  cursor: pointer;
 }
 
 nav {
@@ -91,7 +97,7 @@ nav {
   align-content: center;
   justify-content: flex-end;
   
- 
+  
 }
 
 
@@ -108,7 +114,7 @@ nav {
   text-decoration: none;
   width: 100px; height: 30px; 
   border-radius: 5px; 
-  background-color: #657eca; 
+  background-color: #00AFEF; 
   box-shadow: 0 3px rgba(58,87,175,.75);
   margin: 15px
 }
@@ -186,6 +192,8 @@ button :hover {
 /* Media Queries */
 
 @media (max-width: 600px) {
+
+  
   .footer-distributed .footer-left,
   .footer-distributed .footer-right {
     text-align: center;

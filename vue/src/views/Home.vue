@@ -3,10 +3,11 @@
     <v-app class="vapp">
       <div class= "main">
     <v-carousel class="carousel">
-      <v-carousel-item 
+      <v-carousel-item id="caroimg"
       v-for="img in caroImages"
       :key="img.id"
       :src="img.src"
+    
       >
       </v-carousel-item>
     </v-carousel>
@@ -72,38 +73,51 @@ export default {
           src: "/Asset/Carousel/CaroAssets/photo-1627483298235-f3bac2567c1c.jpg",
           title: 'ladies stretching'
         },
+        {
+          id: 6,
+          src: "/Asset/Carousel/CaroAssets/workout-limitless-endurance-gym-colorful-smoke-1920x1080-929.jpg",
+          title: 'inspire'
+        },
       ],
     };
   },
 };
 </script>
 <style scoped>
-.home{
 
-  width: 100%
-
-
-
-}
 .main{
-  display: flex;
-  justify-content: center;
   padding: 20px;
-  height: 100%;
-  padding-bottom: 0px;
+
+
 }
+
 
 
 .articleDiv{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex-direction: row;
   padding: 1rem;
+  height: 100%;
 }
 
 article{
   box-shadow: 3px 3px 10px 5px gray;
+  margin: 1rem;
   padding: 10px;
-  width: 300px;
+  max-width: 80%;
+  min-width: 300px;
+  
 }
+
+@media (min-width: 1020px) {
+  article{
+ 
+      max-width: 30%;
+      min-width: 300px;
+  
+  }
+}
+
 </style>

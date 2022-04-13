@@ -55,30 +55,30 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
-      invalidCredentials: false
+      invalidCredentials: false,
     };
   },
   methods: {
     login() {
       authService
         .login(this.user)
-        .then(response => {
+        .then((response) => {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            console.log(response.data.user.authorities[0].name)
-            if(this.isTrainer(response.data.user.authorities[0].name)) {
-            this.$router.push({ name: 'trainer' });
-          } else if (this.isUser(response.data.user.authorities[0].name)){
-            this.$router.push({ name: 'user' });
-            }else{
-              this.$router.push({ name: 'login' });
+            console.log(response.data.user.authorities[0].name);
+            if (this.isTrainer(response.data.user.authorities[0].name)) {
+              this.$router.push({ name: "trainer" });
+            } else if (this.isUser(response.data.user.authorities[0].name)) {
+              this.$router.push({ name: "user" });
+            } else {
+              this.$router.push({ name: "login" });
             }
           }
         })
-        .catch(error => {
+        .catch((error) => {
           const response = error.response;
 
           if (response.status === 401) {
@@ -87,20 +87,17 @@ export default {
         });
     },
     isTrainer(authorities) {
-      if(authorities === "ROLE_TRAINER"){
-          return true;
-        } 
+      if (authorities === "ROLE_TRAINER") {
+        return true;
+      }
     },
     isUser(authorities) {
-      if(authorities === "ROLE_USER"){
-          return true;
-        } 
+      if (authorities === "ROLE_USER") {
+        return true;
+      }
     },
-    
-  }
+  },
 };
-
-
 </script>
 <style scoped>
 h1 {

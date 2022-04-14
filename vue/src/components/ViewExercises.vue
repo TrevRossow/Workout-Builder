@@ -16,19 +16,30 @@
 </template>
 
 <script>
+import exerciseService from '../services/ExerciseService';
 export default {
   name: "view-exercises",
   data() {
     return {
+      exercises:[],
         
       }
+    },
+
+    created(){
+      exerciseService.getExercises().then( response => {
+        this.exercises = response.data;
+      
+      })
+      
+
     },
      computed: {
         filteredExercises() {
           const exerciseFilter = this.$store.state.filter;
-          const exercises = this.$store.state.exercises;
+          const exercises = this.exercises;
           return exercises.filter((exercise) => {
-            return exercise.statusId == 2 && exerciseFilter == ""
+            return exerciseFilter == ""
               ? true
               : exerciseFilter == exercise.muscleGroup
           });

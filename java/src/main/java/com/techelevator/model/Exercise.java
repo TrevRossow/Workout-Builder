@@ -6,7 +6,7 @@ public class Exercise {
     private String name;
     private String description;
     private String muscleGroup;
-    private Integer repRange;
+    private String repRange;
     // Get clarification on type
     private String type;
     private int statusId;
@@ -16,7 +16,7 @@ public class Exercise {
     }
 
     public Exercise(Long id, String name, String description,
-                    String muscleGroup, Integer repRange, String type, int statusId ) {
+                    String muscleGroup, String repRange, String type, int statusId ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,11 +58,11 @@ public class Exercise {
         this.muscleGroup = muscleGroup;
     }
 
-    public Integer getRepRange() {
+    public String getRepRange() {
         return repRange;
     }
 
-    public void setRepRange(Integer repRange) {
+    public void setRepRange(String repRange) {
         this.repRange = repRange;
     }
 

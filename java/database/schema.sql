@@ -40,7 +40,7 @@ CREATE TABLE exercises (
     exercise_name VARCHAR  NOT NULL UNIQUE,
     exercise_description TEXT NOT NULL,
     muscle_group VARCHAR ,
-    rep_range int,
+    rep_range VARCHAR,
     exercise_type VARCHAR  NOT NULL,
     exercise_status_id int DEFAULT '1',
         CONSTRAINT fk_exercise_status_exercise_status FOREIGN KEY (exercise_status_id)

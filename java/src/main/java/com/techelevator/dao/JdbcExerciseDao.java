@@ -93,7 +93,7 @@ public class JdbcExerciseDao implements ExerciseDao {
                 "exercise_name, muscle_group, rep_range, exercise_type," +
                 "exercise_description, exercise_status_id) " +
                 "values (?, ?, ?, ?, ?, ?) RETURNING exercise_id";
-        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription());
+        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId());
         return this.getExerciseById(exerciseId);
     }
 
@@ -114,7 +114,7 @@ public class JdbcExerciseDao implements ExerciseDao {
         exercise.setName(rs.getString("exercise_name"));
         exercise.setDescription(rs.getString("exercise_description"));
         exercise.setMuscleGroup(rs.getString("muscle_group"));
-        exercise.setRepRange(rs.getInt("rep_range"));
+        exercise.setRepRange(rs.getString("rep_range"));
         exercise.setType(rs.getString("exercise_type"));
         exercise.setStatusId(rs.getInt("exercise_status_id"));
 

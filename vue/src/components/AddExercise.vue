@@ -118,8 +118,7 @@ export default {
       exerciseService
         .addExercise(this.exercise)
         .then((response) => {
-          console.log(response)
-          if (response.data.status == 200) {
+          if (response.status == 200) {
             this.$store.commit("ADD_EXERCISE", this.exercise);
             this.exercise = {};
           }

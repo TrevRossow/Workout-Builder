@@ -8,6 +8,7 @@ export default {
 
   addExercise(exercise) {
     return axios.post('/exercise', exercise)
-  }
+  },
 
+  
 }

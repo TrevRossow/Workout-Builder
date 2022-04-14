@@ -21,30 +21,90 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
 
+    workouts:[],
+
+    filter:"",
+
     exercises: [
     {
-        exercise_id: 1, 
-        exercise_name: "Bench Press",
-        exercise_description: "Lower the weight with control to lower portion of the chest and then press",
-        muscle_group: "Chest",
-        rep_range: 8,
-        exercise_type: "Strength"
+        id: 1, 
+        name: "Bench Press",
+        description: "Lower the weight with control to lower portion of the chest and then press",
+        muscleGroup: "Chest",
+        repRange: "8-12",
+        type: "Strength"
     },
     {
-      exercise_id: 2, 
-      exercise_name: "Bench Press",
-      exercise_description: "Lower the weight with control to lower portion of the chest and then press",
-      muscle_group: "Chest",
-      rep_range: 8,
-      exercise_type: "Strength"
+      id: 2, 
+      name: "Barbell Row",
+      description: "Lower the weight with control to and pull toward the navel",
+      muscleGroup: "Back",
+      repRange: "8-12",
+      type: "Strength"
   },
   {
-    exercise_id: 3, 
-    exercise_name: "Bench Press",
-    exercise_description: "Lower the weight with control to lower portion of the chest and then press",
-    muscle_group: "Chest",
-    rep_range: 8,
-    exercise_type: "Strength"
+    id: 3, 
+    name: "Lat Pull Down",
+    description: "Lower the weight with control pulling elbows to the side",
+    muscleGroup: "Back",
+    repRange: "8-12",
+    type: "Strength"
+},
+{
+  id: 4, 
+  name: "Lat Pull Down",
+  description: "Lower the weight with control pulling elbows to the side",
+  muscleGroup: "Back",
+  repRange: "8-12",
+  type: "Strength"
+},
+{
+  id: 5, 
+  name: "Lat Pull Down",
+  description: "Lower the weight with control pulling elbows to the side",
+  muscleGroup: "Back",
+  repRange: "8-12",
+  type: "Strength"
+},
+{
+  id: 6, 
+  name: "Bench Press",
+  description: "Lower the weight with control to lower portion of the chest and then press",
+  muscleGroup: "Chest",
+  repRange: "8-12",
+  type: "Strength"
+},
+{
+id: 7, 
+name: "Barbell Row",
+description: "Lower the weight with control to and pull toward the navel",
+muscleGroup: "Back",
+repRange: "8-12",
+type: "Strength"
+},
+{
+id: 8, 
+name: "Lat Pull Down",
+description: "Lower the weight with control pulling elbows to the side",
+muscleGroup: "Back",
+repRange: "8-12",
+type: "Strength"
+},
+{
+id: 9, 
+name: "Lat Pull Down",
+description: "Lower the weight with control pulling elbows to the side",
+muscleGroup: "Back",
+repRange: "8-12",
+type: "Strength"
+},
+{
+id: 10, 
+name: "Lat Pull Down",
+description: "Lower the weight with control pulling elbows to the side",
+muscleGroup: "Back",
+repRange: "8-12",
+type: "Strength"
 }
     ],
   
@@ -68,8 +128,13 @@ export default new Vuex.Store({
       axios.defaults.headers.common = {};
     },
 
+    UPDATE_FILTER(state, filter){
+      state.filter = filter
+
+    },
+
     ADD_EXERCISE(state, exercise){
-      state.exercises.push(exercise);
+      state.exercises.unshift(exercise);
     }
   }
 })

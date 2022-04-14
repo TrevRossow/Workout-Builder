@@ -6,11 +6,13 @@ import axios from 'axios'
 import vuetify from './plugins/vuetify'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {   faFacebookSquare, faTwitter, faLinkedin, faYoutubeSquare,  } from '@fortawesome/free-brands-svg-icons'
-import {  faShoppingCart, faKey, faMailBulk, faUser, faArrowRightToBracket, faArrowRightFromBracket, faStar, faBars } from '@fortawesome/free-solid-svg-icons'
+import {  faShoppingCart, faKey, faMailBulk, faUser, faArrowRightToBracket,
+   faArrowRightFromBracket, faStar, faBars, faPen, faDumbbell,faListNumeric} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faFacebookSquare, faTwitter, 
-  faShoppingCart, faKey, faMailBulk, faUser, faLinkedin, faYoutubeSquare, faArrowRightToBracket, faArrowRightFromBracket, faStar, faBars)
+  faShoppingCart, faKey, faMailBulk, faUser, faLinkedin, faYoutubeSquare,faListNumeric,
+   faArrowRightToBracket, faArrowRightFromBracket, faStar, faBars, faPen, faDumbbell)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

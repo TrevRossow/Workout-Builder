@@ -1,110 +1,129 @@
 <template>
   <div id="exercise" class="testbox">
-    <form class="form-signin">
-
+    <form class="form-signin" @submit.prevent="addExercise()">
       <h1 class="h3 mb-3 font-weight-normal">Create Exercise</h1>
-      <div class="alert" role="alert" v-if="invalidCredentials">
+      <div class="alert" role="alert" v-if="createError">
         Unable to create exercise.
       </div>
 
       <div
         class="alert alert-success"
         role="alert"
-        v-if="this.$route.query.registration"
+        v-if="this.$route.query.exercise"
       >
         Exercise successfully created.
       </div>
 
       <label id="icon" for="name">
-        <i><font-awesome-icon icon="fa-user" /></i>
+        <i><font-awesome-icon icon="fa-pen" /></i>
       </label>
       <input
         type="text"
         name="name"
         id="name"
-        placeholder="Exercise Name"
+        placeholder="-- Exercise Name --"
         v-model="exercise.name"
         required
-        autofocus
-      />
-
-
-      <label id="icon" for="name">
-        <i><font-awesome-icon icon="fa-user" /></i>
-      </label>
-      <select name="drop-down" id="" v-model="exercise.muscleGroup"
-        required>
+        autofocus />
+      <div>
+        <label id="icon" for="name">
+          <i><font-awesome-icon icon="fa-user" /></i>
+        </label>
+        <select name="drop-down" id="" v-model="exercise.muscleGroup" required>
+          <option value="" selected="selected" disabled="disabled">-- Muscle Group --</option>
           <option value="Chest">Chest</option>
           <option value="Back">Back</option>
           <option value="Biceps">Biceps</option>
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
-      </select>
-
-
-      <label id="icon" for="name">
-        <i><font-awesome-icon icon="fa-user" /></i>
-      </label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        placeholder="Rep Ranges"
-        v-model="exercise.repRange"
-        required
-        autofocus
-      />
-
-      <label id="icon" for="name">
-        <i><font-awesome-icon icon="fa-user" /></i>
-      </label>
-      <select name="drop-down" v-model="exercise.type" placeholder="Exercise Type"
-        required>
+        </select>
+      </div>
+      <div>
+        <label id="icon" for="name">
+          <i><font-awesome-icon icon="fa-list-numeric" /></i>
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="-- Rep Ranges --"
+          v-model="exercise.repRange"
+          required
+          autofocus
+        />
+      </div>
+      <div>
+        <label id="icon" for="name">
+          <i><font-awesome-icon icon="fa-dumbbell" /></i>
+        </label>
+        <select 
+          name="drop-down"
+          v-model="exercise.type"
+          placeholder="Exercise Type"
+          required>
+          <option value="" selected="selected" disabled="disabled">-- Exercise Type --</option>
           <option value="Strength">Strength</option>
           <option value="Strength">Cardio</option>
-      </select>
-
-      <label id="icon" for="name">
-        <i><font-awesome-icon icon="fa-user" /></i>
-      </label>
-      <textarea
-        name="name"
-        id="name"
-        placeholder="Description"
-        v-model="exercise.description"
-        required
-        autofocus
-        rows="4"
-        cols="50"
-      />
-     
+        </select>
+      </div>
+      <div>
+        <textarea
+          name="name"
+          id="name"
+          placeholder="Description"
+          v-model="exercise.description"
+          required
+          autofocus
+          rows="4"
+          cols="50"
+        />
+      </div>
       <div class="send">
         <button type="submit">Create</button>
       </div>
     </form>
-    
   </div>
 </template>
 
 <script>
-
-
+import exerciseService from "../services/ExerciseService.js";
 export default {
-  name: "login",
+  name: "add-exercise",
   components: {},
+
   data() {
     return {
       exercise: {
-            id:"",
-            name:"",
-            description:"",
-            muscleGroup:"",
-            repRange:"",
-            type:""
-            },
-      invalidCredentials: false,
+        id: "",
+        name: "",
+        description: "",
+        muscleGroup: "",
+        repRange: null,
+        type: "",
+      },
+
+      createError: false,
     };
+  },
+  methods: {
+    addExercise() {
+      exerciseService
+        .addExercise(this.exercise)
+        .then((response) => {
+          if (response.status == 200) {
+            this.$store.commit("ADD_EXERCISE", this.exercise);
+            this.exercise = {};
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
+    },
   },
 };
 </script>
@@ -116,15 +135,19 @@ h1 {
   text-align: center;
   padding-top: 10px;
   margin-bottom: 10px;
+  max-width: 100%;
 }
 
 .testbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 20px auto;
-  width: 50%;
   border-radius: 8px/7px;
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
+  max-width: 60vw;
 }
 
 .alert {
@@ -172,25 +195,24 @@ hr {
 
 form {
   margin: 0 30px;
-
+  max-width: 100%;
 }
 
-input[type="text"],
-input[type="password"] {
-  width: 200px;
+input[type="text"] {
+  width: 70%;
   height: 39px;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   margin-left: -5px;
-  margin-top: 13px;
+  margin-top: 20px;
   padding-left: 10px;
+  max-width: 100%;
 }
 
 select {
-
-  width: 200px;
+  width: 70%;
   height: 39px;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;
@@ -199,20 +221,19 @@ select {
   margin-left: -5px;
   margin-top: 13px;
   padding-left: 10px;
+  max-width: 100%;
 }
-textarea{
+textarea {
+  justify-self: start;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
-  margin-left: -5px;
   margin-top: 13px;
   padding-left: 10px;
   max-height: 200px;
+  max-width: 100%;
 }
-
-
-
 
 input {
   margin-bottom: 15px;
@@ -223,16 +244,12 @@ input {
   width: 40px;
   background-color: #3a57af;
   padding: 8px 8px 8px 12px;
-  margin-left: 15px;
+  margin-left: 1rem;
   margin-right: 10px;
   color: white;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
   border: solid 0px #cbc9c9;
-}
-
-.gender {
-  margin-left: 30px;
-  margin-bottom: 10px;
+  position: relative;
 }
 
 .send {
@@ -241,7 +258,6 @@ input {
   justify-content: center;
   text-align: center;
   margin: 90px;
-  
 }
 
 button {
@@ -256,7 +272,6 @@ button {
   box-shadow: 0 3px rgba(58, 87, 175, 0.75);
   align-self: center;
   margin-bottom: 10px;
-
 }
 
 button :hover {
@@ -264,4 +279,6 @@ button :hover {
   background-color: black;
   border: #4c4c4c;
 }
+
+
 </style>

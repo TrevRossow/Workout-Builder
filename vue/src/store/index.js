@@ -66,6 +66,10 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+    },
+
+    ADD_EXERCISE(state, exercise){
+      state.exercises.push(exercise);
     }
   }
 })

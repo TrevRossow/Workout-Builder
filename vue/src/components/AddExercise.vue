@@ -103,6 +103,7 @@ export default {
         muscleGroup: "",
         repRange: "",
         type: "",
+        statusId: 1,
       },
 
       createError: false,
@@ -110,6 +111,10 @@ export default {
   },
   methods: {
     addExercise() {
+      if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
+        this.exercise.statusId = 2;
+      } else {this.exercise.statusId = 1;
+      }
       this.$store.commit("ADD_EXERCISE", this.exercise);
       exerciseService
         .addExercise(this.exercise)

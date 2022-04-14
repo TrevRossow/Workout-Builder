@@ -28,9 +28,9 @@ export default {
           const exerciseFilter = this.$store.state.filter;
           const exercises = this.$store.state.exercises;
           return exercises.filter((exercise) => {
-            return exerciseFilter == ""
+            return exercise.statusId == 2 && exerciseFilter == ""
               ? true
-              : exerciseFilter == exercise.muscleGroup;
+              : exerciseFilter == exercise.muscleGroup
           });
         },
   },

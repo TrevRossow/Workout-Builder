@@ -28,11 +28,12 @@ export default new Vuex.Store({
     exercises: [
     {
         id: 1, 
-        name: "Bench Press",
+        name: "Incline Bench Press",
         description: "Lower the weight with control to lower portion of the chest and then press",
         muscleGroup: "Chest",
         repRange: "8-12",
-        type: "Strength"
+        type: "Strength",
+        statusId: 2
     },
     {
       id: 2, 
@@ -40,7 +41,8 @@ export default new Vuex.Store({
       description: "Lower the weight with control to and pull toward the navel",
       muscleGroup: "Back",
       repRange: "8-12",
-      type: "Strength"
+      type: "Strength",
+      statusId: 2
   },
   {
     id: 3, 
@@ -48,7 +50,8 @@ export default new Vuex.Store({
     description: "Lower the weight with control pulling elbows to the side",
     muscleGroup: "Back",
     repRange: "8-12",
-    type: "Strength"
+    type: "Strength",
+    statusId: 2
 },
 {
   id: 4, 
@@ -56,7 +59,8 @@ export default new Vuex.Store({
   description: "Lower the weight with control pulling elbows to the side",
   muscleGroup: "Back",
   repRange: "8-12",
-  type: "Strength"
+  type: "Strength",
+  statusId: 2
 },
 {
   id: 5, 
@@ -64,7 +68,8 @@ export default new Vuex.Store({
   description: "Lower the weight with control pulling elbows to the side",
   muscleGroup: "Back",
   repRange: "8-12",
-  type: "Strength"
+  type: "Strength",
+  statusId: 2
 },
 {
   id: 6, 
@@ -72,7 +77,8 @@ export default new Vuex.Store({
   description: "Lower the weight with control to lower portion of the chest and then press",
   muscleGroup: "Chest",
   repRange: "8-12",
-  type: "Strength"
+  type: "Strength",
+  statusId: 2
 },
 {
 id: 7, 
@@ -80,7 +86,8 @@ name: "Barbell Row",
 description: "Lower the weight with control to and pull toward the navel",
 muscleGroup: "Back",
 repRange: "8-12",
-type: "Strength"
+type: "Strength",
+statusId: 2
 },
 {
 id: 8, 
@@ -88,7 +95,8 @@ name: "Lat Pull Down",
 description: "Lower the weight with control pulling elbows to the side",
 muscleGroup: "Back",
 repRange: "8-12",
-type: "Strength"
+type: "Strength",
+statusId: 2
 },
 {
 id: 9, 
@@ -96,7 +104,8 @@ name: "Lat Pull Down",
 description: "Lower the weight with control pulling elbows to the side",
 muscleGroup: "Back",
 repRange: "8-12",
-type: "Strength"
+type: "Strength",
+statusId: 2
 },
 {
 id: 10, 
@@ -104,7 +113,8 @@ name: "Lat Pull Down",
 description: "Lower the weight with control pulling elbows to the side",
 muscleGroup: "Back",
 repRange: "8-12",
-type: "Strength"
+type: "Strength",
+statusId: 2
 }
     ],
   

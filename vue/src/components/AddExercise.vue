@@ -29,7 +29,7 @@
         <label id="icon" for="name">
           <i><font-awesome-icon icon="fa-user" /></i>
         </label>
-        <select name="drop-down" id="" v-model="exercise.muscleGroup" required>
+        <select name="drop-down" id="muscle-group" v-model="exercise.muscleGroup" required>
           <option value="" selected="selected" disabled="disabled">-- Muscle Group --</option>
           <option value="Chest">Chest</option>
           <option value="Back">Back</option>
@@ -43,15 +43,17 @@
         <label id="icon" for="name">
           <i><font-awesome-icon icon="fa-list-numeric" /></i>
         </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="-- Rep Ranges --"
+         <select 
+          name="drop-down"
           v-model="exercise.repRange"
-          required
-          autofocus
-        />
+          placeholder="Exercise Type"
+          required>
+          <option value="" selected="selected" >-- Rep Ranges --</option>
+          <option value="1 - 5">1 - 5</option>
+          <option value="5 - 8">5 - 8</option>
+          <option value="8 - 12">8 - 12</option>
+          <option value="12+">12+</option>
+        </select>
       </div>
       <div>
         <label id="icon" for="name">
@@ -62,7 +64,7 @@
           v-model="exercise.type"
           placeholder="Exercise Type"
           required>
-          <option value="" selected="selected" disabled="disabled">-- Exercise Type --</option>
+          <option value="" selected="selected" >-- Exercise Type --</option>
           <option value="Strength">Strength</option>
           <option value="Strength">Cardio</option>
         </select>
@@ -99,7 +101,7 @@ export default {
         name: "",
         description: "",
         muscleGroup: "",
-        repRange: null,
+        repRange: "",
         type: "",
       },
 
@@ -108,6 +110,7 @@ export default {
   },
   methods: {
     addExercise() {
+      this.$store.commit("ADD_EXERCISE", this.exercise);
       exerciseService
         .addExercise(this.exercise)
         .then((response) => {
@@ -211,6 +214,10 @@ input[type="text"] {
   max-width: 100%;
 }
 
+#muscle-group{
+  margin-top: 10px;
+}
+
 select {
   width: 70%;
   height: 39px;
@@ -219,10 +226,12 @@ select {
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   margin-left: -5px;
-  margin-top: 13px;
+  margin-top: 20px;
   padding-left: 10px;
   max-width: 100%;
 }
+
+
 textarea {
   justify-self: start;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;

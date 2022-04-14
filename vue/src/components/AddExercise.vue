@@ -115,11 +115,11 @@ export default {
         this.exercise.statusId = 2;
       } else {this.exercise.statusId = 1;
       }
-      this.$store.commit("ADD_EXERCISE", this.exercise);
       exerciseService
         .addExercise(this.exercise)
         .then((response) => {
-          if (response.status == 200) {
+          console.log(response)
+          if (response.data.status == 200) {
             this.$store.commit("ADD_EXERCISE", this.exercise);
             this.exercise = {};
           }

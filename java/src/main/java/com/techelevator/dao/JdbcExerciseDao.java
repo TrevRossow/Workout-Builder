@@ -5,11 +5,12 @@ import com.techelevator.model.ExerciseNotFoundException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class JdbcExerciseDao implements ExerciseDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -90,8 +91,8 @@ public class JdbcExerciseDao implements ExerciseDao {
 
         String insertExercise = "INSERT INTO exercises (" +
                 "exercise_name, muscle_group, rep_range, exercise_type," +
-                "exercise_description) " +
-                "values (?, ?, ?, ?, ?) RETURNING exercise_id";
+                "exercise_description, exercise_status_id) " +
+                "values (?, ?, ?, ?, ?, ?) RETURNING exercise_id";
         Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription());
         return this.getExerciseById(exerciseId);
     }
@@ -115,6 +116,8 @@ public class JdbcExerciseDao implements ExerciseDao {
         exercise.setMuscleGroup(rs.getString("muscle_group"));
         exercise.setRepRange(rs.getInt("rep_range"));
         exercise.setType(rs.getString("exercise_type"));
+        exercise.setStatusId(rs.getInt("exercise_status_id"));
+
         return exercise;
     }
 }

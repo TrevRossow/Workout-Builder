@@ -3,16 +3,18 @@ package com.techelevator.controller;
 import com.techelevator.dao.ExerciseDao;
 import com.techelevator.model.Exercise;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @PreAuthorize("isAuthenticated()")
 public class ExerciseController {
 
-    private ExerciseDao exerciseDao;
+private ExerciseDao exerciseDao;
 
     public ExerciseController(ExerciseDao exerciseDao){
         this.exerciseDao = exerciseDao;

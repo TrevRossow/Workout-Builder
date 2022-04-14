@@ -9,19 +9,21 @@ public class Exercise {
     private Integer repRange;
     // Get clarification on type
     private String type;
+    private int statusId;
 
     public Exercise() {
 
     }
 
     public Exercise(Long id, String name, String description,
-                    String muscleGroup, Integer repRange, String type) {
+                    String muscleGroup, Integer repRange, String type, int statusId ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.muscleGroup = muscleGroup;
         this.repRange = repRange;
         this.type = type;
+        this.statusId = statusId;
     }
 
     public Long getId() {
@@ -72,6 +74,14 @@ public class Exercise {
         this.type = type;
     }
 
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
+    }
+
     @Override
     public String toString() {
         return "Exercise{" +
@@ -81,6 +91,7 @@ public class Exercise {
                 ", muscleGroup=" + muscleGroup +
                 ", repRange=" + repRange +
                 ", type=" + type +
+                ", statusId=" + statusId +
                 "}";
     }
 }

@@ -30,6 +30,11 @@ CREATE TABLE trainer_user (
 	trainer_id int NOT NULL CONSTRAINT fk_trainers REFERENCES trainers(trainer_id),
 	user_id int NOT NULL CONSTRAINT fk_users REFERENCES users(user_id)
 );
+CREATE TABLE exercise_status(
+	exercise_status_id serial NOT NULL,
+	exercise_status_description VARCHAR (20) NOT NULL,
+	CONSTRAINT pk_exercise_status PRIMARY KEY(exercise_status_id)
+);
 CREATE TABLE exercises (
 	exercise_id SERIAL PRIMARY KEY NOT NULL,
 	exercise_name VARCHAR (50) NOT NULL UNIQUE,
@@ -51,11 +56,7 @@ CREATE TABLE workouts (
 	completed bool
 
 );
-CREATE TABLE exercise_status(
-	exercise_status_id serial NOT NULL,
-	exercise_status_description VARCHAR (20) NOT NULL,
-	CONSTRAINT pk_exercise_status PRIMARY KEY(exercise_status_id)
-);
+
 
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Pending');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Approved');
@@ -102,7 +103,3 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_TRAINER');
 COMMIT TRANSACTION;
 
-ROLLBACK;
-
-SELECT * 
-FROM exercises

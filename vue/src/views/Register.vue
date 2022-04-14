@@ -6,15 +6,6 @@
         {{ registrationErrorMsg }}
       </div>  
   
-<!-- <label id="icon" for="name">
-  <i><font-awesome-icon icon="fa fa-mail-bulk"/></i>
-  </label>
-  <input type="text" 
-  name="name" id="name" 
-  placeholder="Email" 
-  required/>
- -->
-
   <label id="icon" for="name">
   <i><font-awesome-icon icon="fa-user"/></i>
   </label>
@@ -44,12 +35,6 @@
   v-model="user.confirmPassword"
   required/>
 
-  <!-- <div class="gender">
-    <input type="radio" value="None" id="male" name="gender" checked/>
-    <label for="male" class="radio" chec>Male</label>
-    <input type="radio" value="None" id="female" name="gender" />
-    <label for="female" class="radio">Female</label>
-   </div>  -->
 <div class="send">
 <button class=" btn-lg btn-primary btn-block" type="submit"> Register</button>
 <router-link :to="{ name: 'login' }">Have an account?</router-link>
@@ -64,8 +49,6 @@ import authService from '../services/AuthService';
 
 export default {
   name: 'register',
-
-  
   data() {
     return {
       user: {
@@ -252,15 +235,11 @@ button {
   box-shadow: 0 3px rgba(58,87,175,.75);
   align-self: center;
   margin-bottom: 10px;
-
 }
 
 button :hover {
   top: 3px;
   background-color: black;
   border: #4c4c4c;
- 
 }
-
-
 </style>

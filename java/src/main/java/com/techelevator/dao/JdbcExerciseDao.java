@@ -85,15 +85,15 @@ public class JdbcExerciseDao implements ExerciseDao {
     }
 
     @Override
-    public Long create(String name, String muscleGroup, Integer repRange, String type, String description) {
-        boolean exerciseCreated = false;
+    public Exercise create(Exercise exercise) {
+
 
         String insertExercise = "INSERT INTO exercises (" +
                 "exercise_name, muscle_group, rep_range, exercise_type," +
                 "exercise_description) " +
                 "values (?, ?, ?, ?, ?) RETURNING exercise_id";
-        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, name, muscleGroup, repRange, type, description);
-        return exerciseId;
+        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription());
+        return this.getExerciseById(exerciseId);
     }
 
     @Override

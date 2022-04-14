@@ -16,7 +16,7 @@ public interface ExerciseDao {
 
     List<Exercise> findByType(String type);
 
-    Long create(String name, String muscleGroup, Integer repRange, String type, String description);
+    Exercise create(Exercise exercise);
 
     Long getIdByExerciseName(String name);
 }

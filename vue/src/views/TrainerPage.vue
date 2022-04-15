@@ -10,7 +10,7 @@
             <v-icon v-on:click="updateFilter()"> mdi-magnify</v-icon>
           </v-btn>
            <select name="drop-down" id="filter" v-model="filter" required>
-          <option value="" selected="selected" disabled="disabled">-- Muscle Group --</option>
+          <option value="" selected="selected" disabled="disabled">-- Filter --</option>
           <option value="Chest">Chest</option>
           <option value="Back">Back</option>
           <option value="Biceps">Biceps</option>
@@ -120,7 +120,7 @@ export default {
 #filter{
   background-color: white;
   min-width: 80px;
-  width: 15%;
+  width: max-content;
 }
 
 option{

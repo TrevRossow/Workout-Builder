@@ -155,6 +155,7 @@ h1 {
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   max-width: 60vw;
+
 }
 
 .alert {
@@ -237,15 +238,15 @@ select {
 
 
 textarea {
-  justify-self: start;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   margin-top: 13px;
+  margin-left: 10px;
   padding-left: 10px;
   max-height: 200px;
-  max-width: 100%;
+  max-width: 90%;
 }
 
 input {
@@ -291,6 +292,14 @@ button :hover {
   top: 3px;
   background-color: black;
   border: #4c4c4c;
+}
+
+@media (max-width: 340px) {
+  .testbox {
+  max-width: 70vw;
+}
+  
+  
 }
 
 

@@ -53,14 +53,18 @@ export default {
   display: flex;
   max-width: 100%;
   flex-wrap: wrap;
+  min-width: 320px;
 }
 .exerciseDiv {
   margin: 20px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 8px/7px;
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
-  width: 200px;
+  max-width: 275px;
+  
+
+  
 }
 </style>

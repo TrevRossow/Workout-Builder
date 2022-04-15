@@ -117,6 +117,39 @@ type: "Strength",
 statusId: 2
 }
     ],
+    exerciseImages: [
+      {
+        id:"001",
+        name:"Back",
+        src: "/public/Workout Images/Back.jpg"
+      },
+      {
+        id:"002",
+        name: "Biceps",
+        src:"/public/Workout Images/Biceps.jpg"
+      },
+      {
+        id:"003",
+        name:"Chest",
+        src: "public/Workout Images/Chest.jpg"
+      },
+      {
+        id: "004",
+        name: "Legs",
+        src: "/public/Workout Images/Legs.jpg"
+      },
+      {
+        id: "005",
+        name: "Shoulders",
+        src: "/public/Workout Images/Shoulders.jpg"
+      },
+      {
+        id: "006",
+        name: "Tricep",
+        src: "/public/Workout Images/Tricep.jpg"
+      }
+
+    ], 
   
     
   },

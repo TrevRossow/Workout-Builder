@@ -15,10 +15,12 @@
       </div>
       <img class="img" :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`" />
       </div>
-      
-     
       <p id="desc">{{ exercise.description }}</p>
-  <button class="add">Add To Workout</button>
+      <div class="btnDiv">
+        <button class="add">Add To Workout</button>
+         <button class="edit">Edit Exercise</button>
+          <button class="delete">Delete Exercise</button>
+        </div>
     </div>
   </div>
 </template>
@@ -114,7 +116,22 @@ img{
   max-width: 275px;
   min-width: 275px;
 }
-.add {
+
+.btnDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.edit{
+  background-color: rgb(161, 161, 38);
+}
+
+.delete{
+  background-color: red;
+}
+button {
+
   font-size: 14px;
   font-weight: 600;
   color: white;
@@ -126,6 +143,7 @@ img{
   box-shadow: 0 3px rgba(58, 87, 175, 0.75);
   padding: 5px;
   margin: 15px;
+  
 }
 
 .add:hover {

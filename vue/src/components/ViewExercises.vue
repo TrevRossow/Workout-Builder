@@ -9,8 +9,8 @@
     <h2>{{ exercise.name }}</h2>
     <div vr id="imgDiv">
       <div>
-      <h3 class="group">{{ exercise.muscleGroup }} </h3>
-      <h5 class="type">{{ exercise.type }}</h5> 
+      <h4 class="group">{{ exercise.muscleGroup }} </h4>
+      <h5 class="type" v-show="exercise.type != 'Cardio'">{{ exercise.type }}</h5> 
       <h4 class="reps">{{ exercise.repRange }}</h4>
       </div>
       <img class="img" :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`" />
@@ -18,8 +18,8 @@
       <p id="desc">{{ exercise.description }}</p>
       <div class="btnDiv">
         <button class="add">Add To Workout</button>
-         <button class="edit">Edit Exercise</button>
-          <button class="delete">Delete Exercise</button>
+         <button class="edit" v-if="isTrainer">Edit Exercise</button>
+          <button class="delete" v-if="is">Delete Exercise</button>
         </div>
     </div>
   </div>

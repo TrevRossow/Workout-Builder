@@ -19,4 +19,8 @@ public interface ExerciseDao {
     Exercise create(Exercise exercise);
 
     Long getIdByExerciseName(String name);
+
+    boolean deleteExercise(Long id);
+
+    boolean updateExercise(Long id, Exercise changedExercise);
 }

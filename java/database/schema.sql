@@ -1,16 +1,26 @@
 BEGIN TRANSACTION;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS exercise_approval_queue CASCADE;
 DROP SEQUENCE IF EXISTS seq_user_id CASCADE;
 DROP TABLE IF EXISTS trainers CASCADE;
 DROP TABLE IF EXISTS trainer_user CASCADE;
 DROP TABLE IF EXISTS exercises CASCADE;
 DROP TABLE IF EXISTS workouts CASCADE;
 DROP TABLE IF EXISTS exercise_status CASCADE;
+
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
   NO MAXVALUE
   NO MINVALUE
   CACHE 1;
+ 
+CREATE TABLE exercise_approval_queue(
+	queue_id serial NOT NULL,
+	queue_desc VARCHAR NOT NULL,
+	CONSTRAINT pk_exercise_approval_queue PRIMARY KEY (queue_id)
+	
+);
+  
 CREATE TABLE users (
     user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
     username varchar(50) UNIQUE NOT NULL,
@@ -18,6 +28,8 @@ CREATE TABLE users (
     role varchar(50) NOT NULL,
     CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
+
+
 CREATE TABLE trainers (
     trainer_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
     username varchar(50) UNIQUE NOT NULL,
@@ -43,9 +55,10 @@ CREATE TABLE exercises (
     rep_range VARCHAR,
     exercise_type VARCHAR  NOT NULL,
     exercise_status_id int DEFAULT '1',
-        CONSTRAINT fk_exercise_status_exercise_status FOREIGN KEY (exercise_status_id)
-        REFERENCES exercise_status (exercise_status_id)
-
+	exercise_approval_queue INT,
+    CONSTRAINT fk_exercise_status_exercise_status FOREIGN KEY (exercise_status_id) REFERENCES exercise_status (exercise_status_id),
+	CONSTRAINT fk_exercise_approval_queue FOREIGN KEY (exercise_approval_queue) REFERENCES exercise_approval_queue (queue_id)
+	
 );
 CREATE TABLE workouts (
     workout_id SERIAL NOT NULL PRIMARY KEY,
@@ -54,6 +67,7 @@ CREATE TABLE workouts (
     user_id int,
     completed bool
 );
+
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Pending');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Approved');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Rejected');
@@ -98,8 +112,23 @@ VALUES
     ('Flutter Kicks', 'Laying on the back, lift your straightened legs from the ground at a 45 degree angle. As your Left foot travels downward and nearly touches the floor, your Right foot should seek to reach a 90 degree angle, or as close to one as possible. Bring your R foot down until it nearly touches the floor, and bring your L foot upwards.  Maintain leg rigidity throughout the exercise', 'Abs', '12+', 'Strength', '2'),
     ('Cable Woodchoppers', 'Set cable pulley slightly lower than chest height. Keep body facing forward with hips stable. Grab the pulley handle, fully extend your arms and bring your arms forward and across your body. Hold for 1 second at the end of the movement and slowly return to starting position.', 'Abs', '12+', 'Strength', '2'),
     ('Russian Twist', ' Get in a a position if you were to do a crunch, Ideally, the torso is kept straight with the back kept off the ground at a 45 degree angle with arms held together away from the body in a straight fashion. Next, the arms should be swung from one side to another in a twisting motion, with each swing to a side counting as one repetition.', 'Abs', '12+', 'Strength', '2'),
-    ('Hollow Hold', 'Get on a mat and lie on your back. Contract your abs, stretch your raise and legs and raise them (your head and shoulders are also be raised). Make sure your lower back remains in contact with the mat.', 'Abs', '2 min', 'Strength', '2');
+    ('Hollow Hold', 'Get on a mat and lie on your back. Contract your abs, stretch your raise and legs and raise them (your head and shoulders are also be raised). Make sure your lower back remains in contact with the mat.', 'Abs', '2 min', 'Strength', '2'),
+		
+    ('Burpees', 'Begin in a standing position. Drop into a squat with your hands on the floor and then kick your feet back until you’re in a push-up position. Quickly return your feet to the start, then explode up, aiming to catch 6-12 inches of air while you bring your hands over your head. Land softly and immediately repeat for reps.', 'Total Body', '15', 'Strength', '2'),
+    ('Jump lunges', 'Start in a lunge position with your knees touching or almost touching the floor. Jump up explosively and switch legs so that your rear leg is in the front and front leg is in the rear, then repeat as fast as you can.', 'Total Body', '15', 'Strength', '2'),
+    ('Wall Balls', 'Find a wall at least nine feet high and a large medicine ball that weighs 14 pounds or more. Standing just a couple feet away from the wall, hang onto the ball at the height of your head. Squat down below parallel and as you return to the top, toss the ball at a target nine feet (or higher). Try and catch the ball on the way down to the squat position to increase your efficiency and speed.', 'Total Body', '15', 'Strength', '2'),
+    ('Overhead Kettlebell Swing', 'Start with the kettlebell about 8-12 inches in front of you on the ground. Swing the kettlebell between your legs while keeping it high and tight. Violently thrust your hips to propel the bell forward and above your head, your arms perpendicular to the floor.', 'Total Body', '15', 'Strength', '2');
+	
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_TRAINER');
+
+INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Request');
+INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
+
+
 COMMIT TRANSACTION;
+
+select * from exercise_approval_queue
+
+Rollback;

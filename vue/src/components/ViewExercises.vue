@@ -4,45 +4,72 @@
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
-      :key="exercise.id">
-      <h2>{{ exercise.name }}</h2>
-      <h3>{{ exercise.muscleGroup }}</h3>
-      <h4>{{ exercise.repRange }}</h4>
-      <h5>{{ exercise.type }}</h5>
-      <p>{{ exercise.description }}</p>
-      <button class="add">Add To Workout</button>
-    
+      :key="exercise.id"
+    >
+    <h2>{{ exercise.name }}</h2>
+    <div vr id="imgDiv">
+      <div>
+      <h3 class="group">{{ exercise.muscleGroup }} </h3>
+      <h5 class="type">{{ exercise.type }}</h5> 
+      <h4 class="reps">{{ exercise.repRange }}</h4>
+      </div>
+      <img class="img" :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`" />
+      </div>
+      
+     
+      <p id="desc">{{ exercise.description }}</p>
+  <button class="add">Add To Workout</button>
     </div>
   </div>
 </template>
 
 <script>
-import exerciseService from '../services/ExerciseService';
+import exerciseService from "../services/ExerciseService";
 export default {
   name: "view-exercises",
   data() {
     return {
-      exercises:[],
-      }
+      exercises: [],
+    };
+  },
+
+  created() {
+    exerciseService.getExercises().then((response) => {
+      this.exercises = response.data;
+    });
+
+  },
+
+  
+
+  computed: {
+    filteredExercises() {
+      const exerciseFilter = this.$store.state.filter;
+      const exercises = this.exercises;
+      return exercises.filter((exercise) => {
+        return exercise.statusId === 2 && exerciseFilter == ""
+          ? true
+          : exerciseFilter == exercise.muscleGroup;
+      });
+    },
+    
+
+ 
+   
     },
 
-    created(){
-      exerciseService.getExercises().then( response => {
-        this.exercises = response.data;
-      
-      })
-    },
 
-     computed: {
-        filteredExercises() {
-          const exerciseFilter = this.$store.state.filter;
-          const exercises = this.exercises;
-          return exercises.filter((exercise) => {
-            return exercise.statusId === 2 && exerciseFilter == "" 
-              ? true
-              : exerciseFilter == exercise.muscleGroup
-          });
-        },
+  methods: {
+    filteredPic(exercise) {
+      const exerciseImgs = this.$store.state.exerciseImages;
+      exerciseImgs.forEach(image => {
+        if(image.name == exercise.muscleGroup){
+          return image.src
+        }
+        
+      });
+    },
+    
   },
 };
 </script>
@@ -54,7 +81,30 @@ export default {
   flex-wrap: wrap;
   min-width: 320px;
 }
+
+
+
+#imgDiv{
+
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+}
+
+
+img{
+  height: 80px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  margin-right: 40px;
+
+}
+
+
+
 .exerciseDiv {
+  display: inline-block;
   margin: 20px;
   padding: 15px;
   border-radius: 8px/7px;
@@ -64,24 +114,22 @@ export default {
   max-width: 275px;
   min-width: 275px;
 }
-  .add {
+.add {
   font-size: 14px;
   font-weight: 600;
   color: white;
   text-decoration: none;
-  width: 120px; height: 30px; 
-  border-radius: 5px; 
-  background-color: #00AFEF; 
-  box-shadow: 0 3px rgba(58,87,175,.75);
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #00afef;
+  box-shadow: 0 3px rgba(58, 87, 175, 0.75);
   padding: 5px;
   margin: 15px;
-  
 }
 
 .add:hover {
   top: 3px;
   border: #4c4c4c;
- 
 }
-  
 </style>

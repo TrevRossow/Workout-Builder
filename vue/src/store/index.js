@@ -121,32 +121,32 @@ statusId: 2
       {
         id:"001",
         name:"Back",
-        src: "/public/Workout Images/Back.jpg"
+        src: "../WorkoutImages/Back.jpg"
       },
       {
         id:"002",
         name: "Biceps",
-        src:"/public/Workout Images/Biceps.jpg"
+        src:"../WorkoutImages/Biceps.jpg"
       },
       {
         id:"003",
         name:"Chest",
-        src: "public/Workout Images/Chest.jpg"
+        src: "../WorkoutImages/Chest.jpg"
       },
       {
         id: "004",
         name: "Legs",
-        src: "/public/Workout Images/Legs.jpg"
+        src: "../WorkoutImages/Legs.jpg"
       },
       {
         id: "005",
         name: "Shoulders",
-        src: "/public/Workout Images/Shoulders.jpg"
+        src: "../WorkoutImages/Shoulders.jpg"
       },
       {
         id: "006",
         name: "Tricep",
-        src: "/public/Workout Images/Tricep.jpg"
+        src: "../WorkoutImages/Tricep.jpg"
       }
 
     ], 

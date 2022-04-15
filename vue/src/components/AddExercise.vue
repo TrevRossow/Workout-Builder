@@ -37,6 +37,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
+          <option value="Legs">Total Body</option>
         </select>
       </div>
       <div>

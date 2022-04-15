@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+
 Vue.use(Vuex)
 
 /*
@@ -20,6 +21,10 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+
+    showEdit:false,
+    
+    selectedExercise:{},
 
     workouts:[],
 
@@ -178,6 +183,29 @@ statusId: 2
 
     ADD_EXERCISE(state, exercise){
       state.exercises.unshift(exercise);
+    },
+
+    UPDATE_EXERCISE(state, updatedExercise){
+      state.exercises.forEach(exercise => {
+        if (exercise.id === updatedExercise.id) {
+          exercise = updatedExercise
+        }
+      });
+      
+    },
+
+    DELETE_EXERCISE(state, id) {
+      let exercisesToKeep = [];
+      state.exercises.forEach(exercise => {
+        if (exercise.id !== id) {
+          exercisesToKeep.push(exercise);
+        }
+      });
+      state.exercises = exercisesToKeep;
+    },
+
+    SELECT_EXERCISE(state, exercise){
+      state.selectedExercise = exercise;
     }
   }
 })

@@ -17,6 +17,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
+          <option value="Legs">Total Body</option>
         </select>
 
 
@@ -51,6 +52,7 @@
       <div>
       <add-exercise v-if="addExercise === true"/>
       <viewExercises v-if="viewExercises === true"/>
+
       </div>
     </v-app>
   </div>
@@ -61,9 +63,11 @@ import addExercise from "../components/AddExercise.vue";
 import viewExercises from "../components/ViewExercises.vue";
 
 export default {
+  name: "trainer-page",
   components: {
     addExercise,
-    viewExercises
+    viewExercises,
+
 
   },
 

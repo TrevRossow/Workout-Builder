@@ -22,5 +22,14 @@ export default {
     return axios.post('/exercise', exercise)
   },
 
+  updateExercise(exercise){
+    return axios.put(`/exercise/${exercise.id}`, exercise)
+  },
+
+  deleteExercise(exercise){
+    return axios.delete(`/exercise/${exercise.id}`)
+  }
+
+
   
 }

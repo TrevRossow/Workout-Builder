@@ -1,11 +1,10 @@
 <template>
-    <div id="exercise" class="testbox">
+    <div id="exercise" class="testbox" >
     <form class="form-signin" @submit.prevent="updateExercise()">
       <h1 class="h3 mb-3 font-weight-normal">Update Exercise</h1>
-      <div class="alert" role="alert" v-if="createError">
+      <div class="alert" role="alert" v-if="createError === true">
         Unable to edit exercise.
       </div>
-
       <div
         class="alert alert-success"
         role="alert"
@@ -37,6 +36,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
+          <option value="Legs">Total Body</option>
         </select>
       </div>
       <div>
@@ -89,52 +89,61 @@
 </template>
 
 <script>
-import ExerciseService from "../services/ExerciseService.js";
+
+import exerciseService from "../services/ExerciseService.js"
+
 export default {
   name: "update-exercise",
-  props: ["name", "description", "muscleGroup", "repRange", "type", "statusId"],
+  createError:false,
   data() {
     return {
-      exercise_name: "",
-      exercise_description: "",
-      exercise_muscleGroup: "",
-      exercise_repRange: "",
-      exercise_type: "",
-      exercise_statusId: 1,
-    };
-  },
-  methods: {
-    updateExercise() {
-      // eslint-disable-next-line no-unused-vars
-      const exercise = {
-        id: this.exercise.id,
-        name: "",
-        description: "",
-        muscleGroup: "",
-        repRange: "",
-        type: "",
-        statusId: 1,
-      };
+      createError:false,
+
+      exercise: {
+      id:null,
+      name: "",
+      description: "",
+      muscleGroup: "",
+      repRange: "",
+      type: "",
+      statusId: 1,
+      }
     }
   },
-  created() {
-    ExerciseService
-      .get(this.exercise.id)
-      .then(response => {
-        this.$store.commit("UPDATE_EXERCISE", response.data);
-        this.exercise_name = response.data.name;
-        this.exercise_description= response.data.description;
-        this.exercise_muscleGroup = response.data.muscleGroup;
-        this.exercise_repRange= response.data.repRange;
-        this.exercise_type = response.data.type;
-        this.exercise_statusId = response.data.statusId;
-      })
-      .catch(error => {
-        if (error.response.status == 404) {
-          this.$router.push({name: 'NotFound'});
-        }
-      });
-  }
+
+  created(){
+    this.exercise = this.$store.state.selectedExercise
+  },
+
+  methods:{
+    updateExercise(){
+       this.$store.commit("UPDATE_EXERCISE", this.exercise);
+      if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
+        this.exercise.statusId = 2;
+      } else {this.exercise.statusId = 1;
+      }
+      exerciseService
+        .updateExercise(this.exercise)
+        .then((response) => {
+          console.log(response)
+          if (response.status == 200) {
+            this.$store.commit("UPDATE_EXERCISE", this.exercise);
+            this.exercise = {};
+            this.$store.state.showEdit = false;
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
+      }
+
+    }
+  
+  
 };
 </script>
 

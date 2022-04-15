@@ -1,58 +1,74 @@
 <template>
   <div class="main">
+    <update-exercise v-if="$store.state.showEdit === true" />
     <div
+      v-show="$store.state.showEdit != true"
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
       :key="exercise.id"
     >
-    <h2>{{ exercise.name }}</h2>
-    <div vr id="imgDiv">
-      <div>
-      <h4 class="group">{{ exercise.muscleGroup }} </h4>
-      <h5 class="type" v-show="exercise.type != 'Cardio'">{{ exercise.type }}</h5> 
-      <h4 class="reps">{{ exercise.repRange }}</h4>
-      </div>
-      <img class="img" :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`" />
+      <h2>{{ exercise.name }}</h2>
+      <div vr id="imgDiv">
+        <div>
+          <h4 class="group">{{ exercise.muscleGroup }}</h4>
+          <h5 class="type" v-show="exercise.type != 'Cardio'">
+            {{ exercise.type }}
+          </h5>
+          <h4 class="reps">{{ exercise.repRange }}</h4>
+        </div>
+        <img
+          class="img"
+          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+        />
       </div>
       <p id="desc">{{ exercise.description }}</p>
       <div class="btnDiv">
         <button class="add">Add To Workout</button>
-<<<<<<< HEAD
-         <button class="edit" v-if="isTrainer">Edit Exercise</button>
-          <button class="delete" v-if="is">Delete Exercise</button>
-=======
-        <i><font-awesome-icon icon="fa-user" v-on:click="toggleEditButton()" /></i>
-         <button class="edit" type="submit" v-on:click="toggleEditButton()">Edit Exercise</button>
-          <button class="delete">Delete Exercise</button>
->>>>>>> b1d0ae278fe59b3ace1e0b18f1f760dceb94d3d8
-        </div>
+        <button
+          class="edit"
+          v-if="isAuthorized"
+          v-on:click="
+            toggleEditButton();
+            targetExercise(exercise);
+          "
+        >
+          Edit Exercise
+        </button>
+        <button
+          class="delete"
+          v-if="isAuthorized"
+          v-on:click="deleteExercise(exercise)"
+        >
+          Delete Exercise
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import UpdateExercise from '../components/UpdateExercise.vue';
+import UpdateExercise from "../components/UpdateExercise.vue";
 import exerciseService from "../services/ExerciseService";
 export default {
   name: "view-exercises",
-  component: {UpdateExercise},
+
   data() {
     return {
-      editButton: false,
+      showEdit: false,
+
+      targetedExercise: {},
+
       exercises: [],
     };
   },
-
-  created() {
-    exerciseService.getExercises().then((response) => {
-      this.exercises = response.data;
-    });
-
+  components: {
+    UpdateExercise,
   },
 
-  
+  created() {
+    this.getExercises();
+  },
 
   computed: {
     filteredExercises() {
@@ -64,26 +80,60 @@ export default {
           : exerciseFilter == exercise.muscleGroup;
       });
     },
-  
-    },
 
+    isAuthorized() {
+      if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
 
   methods: {
-    filteredPic(exercise) {
-      const exerciseImgs = this.$store.state.exerciseImages;
-      exerciseImgs.forEach(image => {
-        if(image.name == exercise.muscleGroup){
-          return image.src
-        }
-        
+    getExercises() {
+      exerciseService.getExercises().then((response) => {
+        this.exercises = response.data;
       });
     },
 
-    toggleEditButton(){
-      this.editButton = true;
-    }
+    filteredPic(exercise) {
+      const exerciseImgs = this.$store.state.exerciseImages;
+      exerciseImgs.forEach((image) => {
+        if (image.name == exercise.muscleGroup) {
+          return image.src;
+        }
+      });
+    },
+
+    toggleEditButton() {
+      this.$store.state.showEdit = !this.$store.state.showEdit;
+    },
+
+    targetExercise(exercise) {
+      this.targetedExercise = exercise;
+      this.$store.commit("SELECT_EXERCISE", this.targetedExercise);
+    },
+
+    deleteExercise(exercise) {
+      exerciseService
+        .deleteExercise(exercise)
+        .then((response) => {
+          console.log(response);
+          if (response.status == 200) {
+            this.$store.commit("DELETE_EXERCISE", exercise.id);
+            this.getExercises();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
+    },
   },
-    
 };
 </script>
 
@@ -95,26 +145,18 @@ export default {
   min-width: 320px;
 }
 
-
-
-#imgDiv{
-
+#imgDiv {
   display: flex;
   justify-content: space-between;
   align-content: center;
-
 }
 
-
-img{
+img {
   height: 80px;
   margin-bottom: 10px;
   border-radius: 5px;
   margin-right: 40px;
-
 }
-
-
 
 .exerciseDiv {
   display: inline-block;
@@ -128,21 +170,20 @@ img{
   min-width: 275px;
 }
 
-.btnDiv{
+.btnDiv {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.edit{
+.edit {
   background-color: rgb(161, 161, 38);
 }
 
-.delete{
+.delete {
   background-color: red;
 }
 button {
-
   font-size: 14px;
   font-weight: 600;
   color: white;
@@ -154,7 +195,6 @@ button {
   box-shadow: 0 3px rgba(58, 87, 175, 0.75);
   padding: 5px;
   margin: 15px;
-  
 }
 
 .add:hover {

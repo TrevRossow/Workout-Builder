@@ -18,7 +18,8 @@
       <p id="desc">{{ exercise.description }}</p>
       <div class="btnDiv">
         <button class="add">Add To Workout</button>
-         <button class="edit">Edit Exercise</button>
+        <i><font-awesome-icon icon="fa-user" v-on:click="toggleEditButton()" /></i>
+         <button class="edit" type="submit" v-on:click="toggleEditButton()">Edit Exercise</button>
           <button class="delete">Delete Exercise</button>
         </div>
     </div>
@@ -26,11 +27,15 @@
 </template>
 
 <script>
+
+import UpdateExercise from '../components/UpdateExercise.vue';
 import exerciseService from "../services/ExerciseService";
 export default {
   name: "view-exercises",
+  component: {UpdateExercise},
   data() {
     return {
+      editButton: false,
       exercises: [],
     };
   },
@@ -54,10 +59,7 @@ export default {
           : exerciseFilter == exercise.muscleGroup;
       });
     },
-    
-
- 
-   
+  
     },
 
 
@@ -71,8 +73,12 @@ export default {
         
       });
     },
-    
+
+    toggleEditButton(){
+      this.editButton = true;
+    }
   },
+    
 };
 </script>
 

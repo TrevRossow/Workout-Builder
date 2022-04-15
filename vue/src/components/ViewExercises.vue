@@ -4,13 +4,14 @@
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
-      :key="exercise.id"
-    >
+      :key="exercise.id">
       <h2>{{ exercise.name }}</h2>
       <h3>{{ exercise.muscleGroup }}</h3>
       <h4>{{ exercise.repRange }}</h4>
       <h5>{{ exercise.type }}</h5>
       <p>{{ exercise.description }}</p>
+      <button class="add">Add To Workout</button>
+    
     </div>
   </div>
 </template>
@@ -22,7 +23,6 @@ export default {
   data() {
     return {
       exercises:[],
-        
       }
     },
 
@@ -31,15 +31,14 @@ export default {
         this.exercises = response.data;
       
       })
-      
-
     },
+
      computed: {
         filteredExercises() {
           const exerciseFilter = this.$store.state.filter;
           const exercises = this.exercises;
           return exercises.filter((exercise) => {
-            return exerciseFilter == ""
+            return exercise.statusId === 2 && exerciseFilter == "" 
               ? true
               : exerciseFilter == exercise.muscleGroup
           });
@@ -63,8 +62,26 @@ export default {
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   max-width: 275px;
-  
-
+  min-width: 275px;
+}
+  .add {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  width: 120px; height: 30px; 
+  border-radius: 5px; 
+  background-color: #00AFEF; 
+  box-shadow: 0 3px rgba(58,87,175,.75);
+  padding: 5px;
+  margin: 15px;
   
 }
+
+.add:hover {
+  top: 3px;
+  border: #4c4c4c;
+ 
+}
+  
 </style>

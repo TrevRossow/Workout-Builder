@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,16 @@ private ExerciseDao exerciseDao;
     @PostMapping("/exercise")
     public void createExercise(@RequestBody Exercise exercise){
         this.exerciseDao.create(exercise);
+    }
+
+    @PutMapping("/exercise/{id}")
+    public boolean updateExercise(@Valid @PathVariable Long id, @RequestBody Exercise changedExercise) {
+        return this.exerciseDao.updateExercise(id, changedExercise);
+    }
+
+    @DeleteMapping("exercise/{id}")
+    public void deleteExercise(@Valid @PathVariable Long id) {
+        this.exerciseDao.deleteExercise(id);
     }
 
 }

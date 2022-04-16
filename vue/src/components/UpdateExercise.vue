@@ -83,6 +83,7 @@
       </div>
       <div class="send">
         <button type="submit">Save</button>
+        <button type="submit" v-on:click="hideForm()">Cancel</button>
       </div>
     </form>
   </div>
@@ -116,6 +117,9 @@ export default {
   },
 
   methods:{
+    hideForm(){
+       this.$store.state.showEdit = false;
+    },
     updateExercise(){
        this.$store.commit("UPDATE_EXERCISE", this.exercise);
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
@@ -128,8 +132,8 @@ export default {
           console.log(response)
           if (response.status == 200) {
             this.$store.commit("UPDATE_EXERCISE", this.exercise);
-            this.exercise = {};
-            this.$store.state.showEdit = false;
+            this.exercise = {}
+            this.hideForm();
           }
         })
         .catch((error) => {

@@ -87,7 +87,7 @@ export default {
 #app{
 }
 img {
-  height: 40px;
+  height: 60px;
   padding-left: 10px;
 }
 

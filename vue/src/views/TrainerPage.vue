@@ -28,6 +28,7 @@
               <v-tab href="#two"> Workouts </v-tab>
               <v-tab v-on:click="toggleViewExercises()"> Exercises </v-tab>
               <v-tab v-on:click="toggleAddExercise()"> Add Exercise </v-tab>
+              <v-tab v-on:click="toggleViewSubmittedExercises()"> Approve Exercise </v-tab>
               <v-tabs-slider color="pink"></v-tabs-slider>
             </v-tabs>
           </template>
@@ -51,7 +52,8 @@
       </v-card>
       <div>
       <add-exercise v-if="addExercise === true"/>
-      <viewExercises v-if="viewExercises === true"/>
+      <view-exercises v-if="viewExercises === true"/>
+      <view-submitted-Exercises v-if="viewSubmittedExercises === true"/>
 
       </div>
     </v-app>
@@ -61,12 +63,14 @@
 <script>
 import addExercise from "../components/AddExercise.vue";
 import viewExercises from "../components/ViewExercises.vue";
+import viewSubmittedExercises from "../components/ViewSubmittedExercises.vue";
 
 export default {
   name: "trainer-page",
   components: {
     addExercise,
     viewExercises,
+    viewSubmittedExercises
 
 
   },
@@ -77,6 +81,7 @@ export default {
       viewExercises:false,
       viewWorkouts:false,
       viewSummary:false,
+      viewSubmittedExercises:false,
       fab: false,
       hidden: false,
       tabs: null,
@@ -103,10 +108,17 @@ export default {
     toggleAddExercise(){
       this.addExercise = true;
       this.viewExercises = false;
+      this.viewSubmittedExercises = false;
     },
     toggleViewExercises(){
       this.viewExercises = true;
       this.addExercise = false;
+      this.viewSubmittedExercises = false;
+    },
+    toggleViewSubmittedExercises(){
+      this.viewExercises = false;
+      this.addExercise = false;
+      this.viewSubmittedExercises = true;
     },
     updateFilter(){
       this.$store.commit("UPDATE_FILTER", this.filter)

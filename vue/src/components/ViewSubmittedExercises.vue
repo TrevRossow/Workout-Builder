@@ -1,8 +1,6 @@
 <template>
   <div class="main">
-    <update-exercise v-if="$store.state.showEdit === true" />
     <div
-      v-show="$store.state.showEdit != true"
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
@@ -23,37 +21,25 @@
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
-      
-        <div class="btnDiv">
-          <button class="add">Add To Workout</button>
-          <button
-            class="edit"
-            v-if="isAuthorized"
-            v-on:click="
-              toggleEditButton();
-              targetExercise(exercise);
-            "
-          >
-            Edit Exercise
-          </button>
-          <button
-            class="delete"
-            v-if="isAuthorized"
-            v-on:click="deleteExercise(exercise)"
-          >
-            Delete Exercise
-          </button>
-        </div>
-      
+      <div class="btnDiv">
+        <button class="add"      
+        v-if="isAuthorized" v-on:click="approve(exercise)">Approve</button>
+ 
+        <button
+          class="delete"
+          v-if="isAuthorized"
+          v-on:click="reject(exercise)">
+          Reject
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import UpdateExercise from "../components/UpdateExercise.vue";
 import exerciseService from "../services/ExerciseService";
 export default {
-  name: "view-exercises",
+  name: "view-submitted-exercises",
 
   data() {
     return {
@@ -65,7 +51,6 @@ export default {
     };
   },
   components: {
-    UpdateExercise,
   },
 
   created() {
@@ -77,7 +62,7 @@ export default {
       const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
-        return exercise.statusId === 2 && exerciseFilter == ""
+        return exercise.statusId === 1 && exerciseFilter == ""
           ? true
           : exerciseFilter == exercise.muscleGroup;
       });
@@ -98,26 +83,31 @@ export default {
         this.exercises = response.data;
       });
     },
+    
+    approve(exercise) {
+      if (this.isAuthorized) {
+        exercise.statusId = 2;
+      } else {exercise.statusId = 1;
+      }
+      exerciseService
+        .updateExercise(exercise)
+        .then((response) => {
+          if (response.status == 200) {
+            this.$store.commit("UPDATE_EXERCISE", exercise);
+            this.exercise = {};
+            this.getExercises();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
 
-    filteredPic(exercise) {
-      const exerciseImgs = this.$store.state.exerciseImages;
-      exerciseImgs.forEach((image) => {
-        if (image.name == exercise.muscleGroup) {
-          return image.src;
-        }
-      });
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
     },
 
-    toggleEditButton() {
-      this.$store.state.showEdit = !this.$store.state.showEdit;
-    },
-
-    targetExercise(exercise) {
-      this.targetedExercise = exercise;
-      this.$store.commit("SELECT_EXERCISE", this.targetedExercise);
-    },
-
-    deleteExercise(exercise) {
+    reject(exercise) {
       exerciseService
         .deleteExercise(exercise)
         .then((response) => {
@@ -177,9 +167,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
-
 
 .edit {
   background-color: rgb(161, 161, 38);

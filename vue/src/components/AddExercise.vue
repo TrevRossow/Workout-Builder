@@ -7,11 +7,10 @@
       </div>
 
       <div
-        class="alert alert-success"
-        role="alert"
-        v-if="this.$route.query.exercise"
+        class="success"
+        v-if="createSuccess"
       >
-        Exercise successfully created.
+        Exercise Submitted.
       </div>
 
       <label id="icon" for="name">
@@ -108,6 +107,7 @@ export default {
       },
 
       createError: false,
+      createSuccess:false,
     };
   },
   methods: {
@@ -120,6 +120,7 @@ export default {
         .addExercise(this.exercise)
         .then((response) => {
           if (response.status == 200) {
+            this.createSuccess = true;
             this.$store.commit("ADD_EXERCISE", this.exercise);
             this.exercise = {};
           }
@@ -127,7 +128,7 @@ export default {
         .catch((error) => {
           const response = error.response;
 
-          if (response.status === 401) {
+          if (response.status != 200) {
             this.createError = true;
           }
         });
@@ -158,6 +159,19 @@ h1 {
   max-width: 60vw;
 
 }
+
+.success{
+  box-shadow: 1px 2px 5px black;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #3a57af;
+  color: #ebebeb;
+  border-radius: 5px;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 
 .alert {
   box-shadow: 1px 2px 5px black;

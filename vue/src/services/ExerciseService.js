@@ -9,7 +9,7 @@ export default {
   },
 
   getExerciseById(ID) {
-    return axios.get(`/exercise/${ID}`)
+    return axios.get(`/exercise/view/${ID}`)
   },
   getExercisesByMuscleGroup(muscleGroup) {
     return axios.get(`/exercise/group/${muscleGroup}`)

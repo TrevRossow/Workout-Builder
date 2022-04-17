@@ -1,41 +1,33 @@
 <template>
   <div class="main">
-    <h1></h1>
-    
     <div
       class="exerciseDiv"
       v-for="workout in $store.state.workouts"
-      :key="workout.id">
-      <h2>{{workout.name}}</h2>
-      <div vr id="imgDiv">
-        <div>
-          <h4 class="group"> Trainer: {{workout.trainer}}</h4>
-          <h5 class="type" > User Id: {{workout.userId}} </h5>
-          <h4 class="reps" v-for="id in workout.exercises" :key="id">{{id}}</h4>
-          <h4></h4>
-        </div>
-      </div> 
-        <div
-      class="exerciseDiv"
-      v-for="exercise in filteredExercises"
-      v-bind:exercise="exercise"
-      :key="exercise.id"
+      :key="workout.id"
     >
-      <h2>{{ exercise.name }}</h2>
+      <h2>{{ workout.name }}</h2>
       <div vr id="imgDiv">
         <div>
-          <h4 class="group">{{ exercise.muscleGroup }}</h4>
-          <h5 class="type" v-show="exercise.type != 'Cardio'">
-            {{ exercise.type }}
-          </h5>
-          <h4 class="reps">{{ exercise.repRange }}</h4>
+          <h4 class="group">Trainer: {{ workout.trainer }}</h4>
+          <h5 class="type">User Id: {{ workout.userId }}</h5>
+          <div v-for="exercise in workout.exercises" :key="exercise.id">
+            <h4 class="reps">{{ exercise.name }}</h4>
+            <div vr id="imgDiv">
+              <div>
+                <h4 class="group">{{ exercise.muscleGroup }}</h4>
+                <h5 class="type" v-show="exercise.type != 'Cardio'">
+                  {{ exercise.type }}
+                </h5>
+                <h4 class="reps">{{ exercise.repRange }}</h4>
+              </div>
+              <img
+                class="img"
+                :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+              />
+            </div>
+          </div>
         </div>
-        <img
-          class="img"
-          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
-        />
-        </div>
-      </div> 
+      </div>
     </div>
   </div>
 </template>
@@ -44,7 +36,6 @@
 import exerciseService from "../services/ExerciseService";
 export default {
   name: "view-workout",
-  props:['id'],
 
   data() {
     return {
@@ -55,13 +46,11 @@ export default {
       exercises: [],
     };
   },
-  components: {
-  },
+  components: {},
 
-  created(){
-    this.getExercisesById()
+  created() {
+    this.getExercisesById();
   },
-
 
   computed: {
     filteredExercises() {
@@ -89,8 +78,8 @@ export default {
         this.exercises = response.data;
       });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

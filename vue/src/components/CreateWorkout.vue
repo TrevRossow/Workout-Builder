@@ -23,7 +23,7 @@
       <div class="focusDiv">
         <label id="icon" for="chest">
           Chest
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input
             id="chest"
             type="checkbox"
@@ -33,12 +33,12 @@
         </label>
         <label id="icon" for="back">
           Back
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input id="back" type="checkbox" value="Back" v-model="checkBoxes" />
         </label>
         <label id="icon" for="back">
           Shoulders
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input
             id="shoulders"
             type="checkbox"
@@ -48,7 +48,7 @@
         </label>
         <label id="icon" for="biceps">
           Biceps
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input
             id="biceps"
             type="checkbox"
@@ -58,7 +58,7 @@
         </label>
         <label id="icon" for="triceps">
           Triceps
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input
             id="triceps"
             type="checkbox"
@@ -68,12 +68,12 @@
         </label>
         <label id="icon" for="legs">
           Legs
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input id="legs" type="checkbox" value="Legs" v-model="checkBoxes" />
         </label>
         <label id="icon" for="cardio">
           Cardio
-          <i><font-awesome-icon icon="fa-user" /></i>
+
           <input
             id="cardio"
             type="checkbox"
@@ -83,7 +83,7 @@
         </label>
         <label id="icon" for="random">
           Random
-          <i><font-awesome-icon icon="fa-dumbbell" /></i>
+
           <input
             id="random"
             type="checkbox"
@@ -136,7 +136,7 @@ export default {
 
 
       workout:{
-        workoutId: "",
+        workoutId: 1,
         name: "",
         exercises: [],
         focus: [],
@@ -150,10 +150,13 @@ export default {
     };
   },
   computed: {},
+
   methods: {
     generateWorkout(focusArr) {
 
-      for (let i = 0; i < 20; i++) {
+        let ids = [];
+
+      for (let i = 0; i < 10; i++) {
 
         let exerciseFocus = focusArr[Math.floor(Math.random() * focusArr.length)];
 
@@ -161,19 +164,20 @@ export default {
         let exercises = response.data;
 
         let exercise = exercises[[Math.floor(Math.random() * exercises.length)]]
-
-        console.log(exercise);
   
-        this.workout.exercises.push(exercise.id);
+        ids.push(exercise);
+
+        this.workout.exercises = ids;
 
     });
      
       } 
+        
       console.log(this.workout.exercises);
        this.$store.commit('ADD_WORKOUT', this.workout)
        
+    
     }
-   
 
   },
 };

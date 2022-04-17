@@ -31,30 +31,30 @@ export default new Vuex.Store({
     workouts:[
 
       {
-        workoutId: "1",
+        workoutId: 1,
         name: "Test1",
         exercises: [1,2,3,4],
         focus: [],
         trainer: "Jim",
-        userId: "",
+        userId: "1",
         completed: false,
       },
       {
-        workoutId: "2",
+        workoutId: 2,
         name: "Test2",
-        exercises: [1,2,3,5],
+        exercises: [2,2,3,5],
         focus: [],
         trainer: "Jim",
-        userId: "",
+        userId: "1",
         completed: false,
       },
       {
-        workoutId: "3",
+        workoutId: 3,
         name: "Test3",
         exercises: [2,3,5,7],
         focus: [],
         trainer: "Jeff",
-        userId: "",
+        userId: "1",
         completed: false,
       }
     

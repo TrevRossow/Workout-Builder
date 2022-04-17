@@ -34,7 +34,7 @@ private ExerciseDao exerciseDao;
         return allExercises;
     }
 
-    @GetMapping("/exercise/{id}")
+    @GetMapping("/exercise/view/{id}")
     public Exercise getExerciseById(@PathVariable Long id){
         return exerciseDao.getExerciseById(id);
     }

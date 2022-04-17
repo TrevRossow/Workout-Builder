@@ -26,102 +26,46 @@ export default new Vuex.Store({
     
     selectedExercise:{},
 
-    workouts:[],
+ 
+
+    workouts:[
+
+      {
+        workoutId: "1",
+        name: "Test1",
+        exercises: [1,2,3,4],
+        focus: [],
+        trainer: "Jim",
+        userId: "",
+        completed: false,
+      },
+      {
+        workoutId: "2",
+        name: "Test2",
+        exercises: [1,2,3,5],
+        focus: [],
+        trainer: "Jim",
+        userId: "",
+        completed: false,
+      },
+      {
+        workoutId: "3",
+        name: "Test3",
+        exercises: [2,3,5,7],
+        focus: [],
+        trainer: "Jeff",
+        userId: "",
+        completed: false,
+      }
+    
+
+
+    ],
 
     filter:"",
 
-    exercises: [
-    {
-        id: 1, 
-        name: "Incline Bench Press",
-        description: "Lower the weight with control to lower portion of the chest and then press",
-        muscleGroup: "Chest",
-        repRange: "8-12",
-        type: "Strength",
-        statusId: 2
-    },
-    {
-      id: 2, 
-      name: "Barbell Row",
-      description: "Lower the weight with control to and pull toward the navel",
-      muscleGroup: "Back",
-      repRange: "8-12",
-      type: "Strength",
-      statusId: 2
-  },
-  {
-    id: 3, 
-    name: "Lat Pull Down",
-    description: "Lower the weight with control pulling elbows to the side",
-    muscleGroup: "Back",
-    repRange: "8-12",
-    type: "Strength",
-    statusId: 2
-},
-{
-  id: 4, 
-  name: "Lat Pull Down",
-  description: "Lower the weight with control pulling elbows to the side",
-  muscleGroup: "Back",
-  repRange: "8-12",
-  type: "Strength",
-  statusId: 2
-},
-{
-  id: 5, 
-  name: "Lat Pull Down",
-  description: "Lower the weight with control pulling elbows to the side",
-  muscleGroup: "Back",
-  repRange: "8-12",
-  type: "Strength",
-  statusId: 2
-},
-{
-  id: 6, 
-  name: "Bench Press",
-  description: "Lower the weight with control to lower portion of the chest and then press",
-  muscleGroup: "Chest",
-  repRange: "8-12",
-  type: "Strength",
-  statusId: 2
-},
-{
-id: 7, 
-name: "Barbell Row",
-description: "Lower the weight with control to and pull toward the navel",
-muscleGroup: "Back",
-repRange: "8-12",
-type: "Strength",
-statusId: 2
-},
-{
-id: 8, 
-name: "Lat Pull Down",
-description: "Lower the weight with control pulling elbows to the side",
-muscleGroup: "Back",
-repRange: "8-12",
-type: "Strength",
-statusId: 2
-},
-{
-id: 9, 
-name: "Lat Pull Down",
-description: "Lower the weight with control pulling elbows to the side",
-muscleGroup: "Back",
-repRange: "8-12",
-type: "Strength",
-statusId: 2
-},
-{
-id: 10, 
-name: "Lat Pull Down",
-description: "Lower the weight with control pulling elbows to the side",
-muscleGroup: "Back",
-repRange: "8-12",
-type: "Strength",
-statusId: 2
-}
-    ],
+    exercises: [],
+  
     exerciseImages: [
       {
         id:"001",
@@ -206,6 +150,10 @@ statusId: 2
 
     SELECT_EXERCISE(state, exercise){
       state.selectedExercise = exercise;
-    }
+    },
+
+    ADD_WORKOUT(state, workout){
+      state.workouts.unshift(workout);
+    },
   }
 })

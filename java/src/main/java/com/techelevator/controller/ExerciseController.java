@@ -39,9 +39,9 @@ private ExerciseDao exerciseDao;
         return exerciseDao.getExerciseById(id);
     }
 
-    @GetMapping("/exercise/{muscleGroup}")
-    public List<Exercise> getExerciseByMuscleGroup(@PathVariable String Group){
-        List<Exercise> exerciseGroup = exerciseDao.findByMuscleGroup(Group);
+    @GetMapping("/exercise/group/{muscleGroup}")
+    public List<Exercise> getExerciseByMuscleGroup(@PathVariable String muscleGroup){
+        List<Exercise> exerciseGroup = exerciseDao.findByMuscleGroup(muscleGroup);
 
         return  exerciseGroup;
     }

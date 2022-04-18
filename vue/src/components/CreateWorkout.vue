@@ -206,6 +206,7 @@ export default {
         }
       });
       this.workout.exercises = newArray;
+      this.createSuccess = true;
       this.$store.commit("ADD_WORKOUT", this.workout);
     },
   },

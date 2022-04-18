@@ -14,6 +14,7 @@ export default {
   getExercisesByMuscleGroup(muscleGroup) {
     return axios.get(`/exercise/group/${muscleGroup}`)
   },
+  
   getExercisesBytype(type) {
     return axios.get(`/exercise/${type}`)
   },

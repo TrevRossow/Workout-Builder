@@ -19,7 +19,7 @@
         </div>
         <img
           class="img"
-          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+          :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
@@ -154,7 +154,7 @@ export default {
 }
 
 img {
-  height: 80px;
+  height: 100px;
   margin-bottom: 10px;
   border-radius: 5px;
   margin-right: 40px;

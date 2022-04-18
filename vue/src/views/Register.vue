@@ -17,8 +17,9 @@
   required
   autofocus/>
 
+  <h2>Password must be 8 - 16 characters, and contain at least one special character, and one number</h2>
   <label id="icon" for="name">
-    <i> <font-awesome-icon icon="fa fa-key"/></i>
+  <i> <font-awesome-icon icon="fa fa-key"/></i>
   </label>
   <input type="password" 
   name="name" id="name" 
@@ -59,6 +60,7 @@ export default {
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
+      passwordComparison: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
     };
   },
   methods: {
@@ -66,7 +68,17 @@ export default {
       if (this.user.password != this.user.confirmPassword) {
         this.registrationErrors = true;
         this.registrationErrorMsg = 'Passwords do not match.';
-      } else {
+      } else if (this.user.password.length <= 8 ) {
+        this.registrationErrors = true;
+        this.registrationErrorMsg = 'Password must be at least 8 characters'
+      } else if (this.user.password.length >= 16) {
+        this.registrationErrorMsg = true;
+        this.registrationErrorMsg = 'Password must be less than 16 characters'
+      } else if ( !this.user.password.match(this.passwordComparison)){
+        this.registrationErrorMsg = true;
+        this.registrationErrorMsg = 'Password must contain at least one number, and one special character.'
+      }
+       else {
         authService
           .register(this.user)
           .then((response) => {
@@ -81,7 +93,7 @@ export default {
             const response = error.response;
             this.registrationErrors = true;
             if (response.status === 400) {
-              this.registrationErrorMsg = 'Validation Errors';
+              this.registrationErrorMsg = 'This username is already in use!';
             }
           });
       }
@@ -103,7 +115,14 @@ h1 {
   padding-top: 10px;
   margin-bottom: 10px;
 }
+h2 {
+  font-size: 12px;
+  font-weight: 400;
+  color: #4c4c4c;
+  text-align: center;
+  padding-top: 10px;
 
+}
 
 .testbox {
   margin: 20px auto;

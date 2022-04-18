@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <add-workout v-if="$store.state.showWorkout === true" />
     <div
       class="exerciseDiv"
       v-for="workout in $store.state.workouts"
@@ -22,7 +23,7 @@
               </div>
               <img
                 class="img"
-                :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+                :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
               />
             </div>
           </div>
@@ -34,6 +35,7 @@
 
 <script>
 import exerciseService from "../services/ExerciseService";
+import addWorkout from "../components/AddWorkout.vue";
 export default {
   name: "view-workout",
 
@@ -44,9 +46,15 @@ export default {
       targetedExercise: {},
 
       exercises: [],
+
+      showWorkout:false,
     };
+
+    
   },
-  components: {},
+  components: {
+    addWorkout
+  },
 
   created() {
     this.getExercisesById();

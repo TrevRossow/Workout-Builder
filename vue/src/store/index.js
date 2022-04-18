@@ -20,54 +20,22 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
+
     user: currentUser || {},
 
     showEdit:false,
+
+    showAddWorkout:false,
     
     selectedExercise:{},
 
- 
+    selectedWorkout:{},
 
     workouts:[],
 
     filter:"",
 
     exercises: [],
-  
-    exerciseImages: [
-      {
-        id:"001",
-        name:"Back",
-        src: "../WorkoutImages/Back.jpg"
-      },
-      {
-        id:"002",
-        name: "Biceps",
-        src:"../WorkoutImages/Biceps.jpg"
-      },
-      {
-        id:"003",
-        name:"Chest",
-        src: "../WorkoutImages/Chest.jpg"
-      },
-      {
-        id: "004",
-        name: "Legs",
-        src: "../WorkoutImages/Legs.jpg"
-      },
-      {
-        id: "005",
-        name: "Shoulders",
-        src: "../WorkoutImages/Shoulders.jpg"
-      },
-      {
-        id: "006",
-        name: "Tricep",
-        src: "../WorkoutImages/Tricep.jpg"
-      }
-
-    ], 
-  
     
   },
   mutations: {
@@ -90,7 +58,6 @@ export default new Vuex.Store({
 
     UPDATE_FILTER(state, filter){
       state.filter = filter
-
     },
 
     ADD_EXERCISE(state, exercise){
@@ -102,8 +69,9 @@ export default new Vuex.Store({
         if (exercise.id === updatedExercise.id) {
           exercise = updatedExercise
         }
+
       });
-      
+
     },
 
     DELETE_EXERCISE(state, id) {
@@ -120,8 +88,22 @@ export default new Vuex.Store({
       state.selectedExercise = exercise;
     },
 
+    SELECT_WORKOUT(state, workout){
+      state.selectedWorkout = workout;
+    },
+    
     ADD_WORKOUT(state, workout){
       state.workouts.unshift(workout);
     },
+
+    ADD_TO_WORKOUT(state, updatedWorkout){
+      state.workouts.forEach(workout => {
+        if (workout.id === updatedWorkout.id) {
+          workout = updatedWorkout
+        }
+
+      });
+
+    }
   }
 })

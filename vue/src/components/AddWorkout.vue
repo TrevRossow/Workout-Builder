@@ -1,7 +1,7 @@
 <template>
     <div id="exercise" class="testbox" >
-    <form class="form-signin" @submit.prevent="updateExercise()">
-      <h1 class="h3 mb-3 font-weight-normal">Update Exercise</h1>
+    <form class="form-signin" @submit.prevent="addToWorkout()">
+      <h1 class="h3 mb-3 font-weight-normal">Update Workout</h1>
       <div class="alert" role="alert" v-if="createError === true">
         Unable to edit exercise.
       </div>
@@ -16,72 +16,24 @@
       <label id="icon" for="name">
         <i><font-awesome-icon icon="fa-pen" /></i>
       </label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        placeholder="-- Exercise Name --"
-        v-model="exercise.name"
-        required
-        autofocus />
-      <div>
-        <label id="icon" for="name">
-          <i><font-awesome-icon icon="fa-user" /></i>
-        </label>
-        <select name="drop-down" id="muscle-group" v-model="exercise.muscleGroup" required>
-          <option value="" selected="selected" disabled="disabled">-- Muscle Group --</option>
-          <option value="Chest">Chest</option>
-          <option value="Back">Back</option>
-          <option value="Biceps">Biceps</option>
-          <option value="Triceps">Triceps</option>
-          <option value="Shoulders">Shoulders</option>
-          <option value="Legs">Legs</option>
-          <option value="Legs">Total Body</option>
-        </select>
-      </div>
-      <div>
-        <label id="icon" for="name">
-          <i><font-awesome-icon icon="fa-list-numeric" /></i>
-        </label>
-         <select 
+      <select 
+        v-model="name"
           name="drop-down"
-          v-model="exercise.repRange"
           placeholder="Exercise Type"
           required>
-          <option value="" selected="selected" >-- Rep Ranges --</option>
-          <option value="1 - 5">1 - 5</option>
-          <option value="5 - 8">5 - 8</option>
-          <option value="8 - 12">8 - 12</option>
-          <option value="12+">12+</option>
+          <option value="" selected="selected" >-- Workout Names --</option>
+           <option
+            v-for="workout in this.$store.state.workouts"
+            v-bind:workout="workout"
+            :key="workout.id"
+          >
+            {{ workout.name }}
+          </option>
+         
         </select>
-      </div>
-      <div>
-        <label id="icon" for="name">
-          <i><font-awesome-icon icon="fa-dumbbell" /></i>
-        </label>
-        <select 
-          name="drop-down"
-          v-model="exercise.type"
-          placeholder="Exercise Type"
-          required>
-          <option value="" selected="selected" >-- Exercise Type --</option>
-          <option value="Strength">Strength</option>
-          <option value="Strength">Cardio</option>
-        </select>
-      </div>
-      <div>
-        <textarea
-          name="name"
-          id="name"
-          placeholder="Description"
-          v-model="exercise.description"
-          required
-          autofocus
-          rows="4"
-          cols="50"
-        />
-      </div>
+
       <div class="send">
+        <button v-on:click="selectWorkout(workout)">Update</button>
         <button type="submit">Save</button>
         <button v-on:click="hideForm()">Cancel</button>
       </div>
@@ -91,60 +43,53 @@
 
 <script>
 
-import exerciseService from "../services/ExerciseService.js"
 
 export default {
-  name: "update-exercise",
+  name: "add-workout",
   createError:false,
   data() {
     return {
       createError:false,
 
-      exercise: {
-      id:null,
-      name: "",
-      description: "",
-      muscleGroup: "",
-      repRange: "",
-      type: "",
-      statusId: 1,
-      }
+        name:{},
+
+      workout: {
+        workoutId: 1,
+        name: "",
+        exercises: [],
+        focus: [],
+        trainer: this.trainer,
+        userId: this.$store.state.user.id,
+        completed: false,
+      },
+
+      exercise:{}
+
     }
   },
+  
 
   created(){
     this.exercise = this.$store.state.selectedExercise
+    
+    
   },
 
   methods:{
     hideForm(){
-            this.$store.state.showEdit = false;
+       this.$store.state.showAddWorkout = false;
     },
-    updateExercise(){
-       this.$store.commit("UPDATE_EXERCISE", this.exercise);
-      if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
-        this.exercise.statusId = 2;
-      } else {this.exercise.statusId = 1;
-      }
-      exerciseService
-        .updateExercise(this.exercise)
-        .then((response) => {
-          console.log(response)
-          if (response.status == 200) {
-            this.$store.commit("UPDATE_EXERCISE", this.exercise);
-            this.exercise = {}
-            this.hideForm();
-          }
-        })
-        .catch((error) => {
-          const response = error.response;
 
-          if (response.status === 401) {
-            this.createError = true;
-          }
-        });
-      }
+    addToWorkout(){
+        this.workout.exercises.unshift(this.exercise)
+        this.$store.commit('ADD_TO_WORKOUT', this.workout)
+    },
 
+    selectWorkout(workout){
+        this.$store.commit('SELECT_WORKOUT', workout)
+       
+    }
+   
     }
   
   

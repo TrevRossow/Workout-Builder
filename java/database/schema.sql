@@ -52,8 +52,13 @@ CREATE TABLE exercise_status(
 );
 CREATE TABLE exercises (
     exercise_id SERIAL PRIMARY KEY NOT NULL,
+<<<<<<< HEAD
     exercise_name VARCHAR  NOT NULL UNIQUE,
     exercise_description VARCHAR NOT NULL,
+=======
+    exercise_name VARCHAR  NOT NULL UNIQUE,w
+    exercise_description TEXT NOT NULL,
+>>>>>>> 379126c3aa27723b781f8890612b11a364af61fc
     muscle_group VARCHAR ,
 	rep_range VARCHAR,
     exercise_type VARCHAR  NOT NULL,

@@ -22,22 +22,28 @@
       />
       <div class="focusDiv">
         <label id="icon" for="chest">
-          Chest
           <input
             id="chest"
             type="checkbox"
             value="Chest"
             v-if="checkRandom === false"
-            v-model="checkBoxes"/>
+            v-model="checkBoxes"
+          />
+          Chest
         </label>
 
         <label id="icon" for="back">
+          <input
+            id="back"
+            type="checkbox"
+            v-if="checkRandom === false"
+            value="Back"
+            v-model="checkBoxes"
+          />
           Back
-          <input id="back" type="checkbox" v-if="checkRandom === false" value="Back" v-model="checkBoxes" />
         </label>
 
         <label id="icon" for="back">
-          Shoulders
           <input
             id="shoulders"
             type="checkbox"
@@ -45,10 +51,10 @@
             v-model="checkBoxes"
             v-if="checkRandom === false"
           />
+          Shoulders
         </label>
 
         <label id="icon" for="biceps">
-          Biceps
           <input
             id="biceps"
             type="checkbox"
@@ -56,10 +62,10 @@
             v-model="checkBoxes"
             v-if="checkRandom === false"
           />
+          Biceps
         </label>
 
         <label id="icon" for="triceps">
-          Triceps
           <input
             id="triceps"
             type="checkbox"
@@ -67,19 +73,31 @@
             v-model="checkBoxes"
             v-if="checkRandom === false"
           />
+          Triceps
         </label>
         <label id="icon" for="legs">
+          <input
+            id="legs"
+            type="checkbox"
+            v-if="checkRandom === false"
+            value="Legs"
+            v-model="checkBoxes"
+          />
           Legs
-          <input id="legs" type="checkbox" v-if="checkRandom === false" value="Legs" v-model="checkBoxes" />
         </label>
 
         <label id="icon" for="abs">
+          <input
+            id="legs"
+            type="checkbox"
+            v-if="checkRandom === false"
+            value="abs"
+            v-model="checkBoxes"
+          />
           Abs
-          <input id="legs" type="checkbox" v-if="checkRandom === false" value="abs" v-model="checkBoxes" />
         </label>
 
         <label id="icon" for="cardio">
-          Cardio
           <input
             id="cardio"
             type="checkbox"
@@ -87,21 +105,23 @@
             v-model="checkBoxes"
             v-if="checkRandom === false"
           />
+          Cardio
         </label>
 
-        <label id="icon" for="random" >
-          Random
+        <label id="icon" for="random">
+
           <input
             id="random"
             type="checkbox"
             value="Random"
             v-model="checkBoxes"
           />
+          Random
         </label>
       </div>
       <div>
         <label id="icon" for="name">
-          <i><font-awesome-icon icon="fa-list-numeric" /></i>
+          <i><font-awesome-icon icon="fa-user" id="user-icon" /></i>
         </label>
         <select
           name="drop-down"
@@ -111,7 +131,7 @@
           v-on:click="generateWorkout(checkBoxes)"
         >
           >
-          <option value="" selected="selected">-- Trainer --</option>
+          <option value="" disabled selected>-- Trainer --</option>
           <option
             v-for="trainer in this.trainers"
             v-bind:trainer="trainer"
@@ -160,25 +180,32 @@ export default {
     };
   },
   computed: {
-      checkRandom(){
-          if(this.checkBoxes.includes("Random")){
-              return true
-          }else return false
-      }
+    checkRandom() {
+      if (this.checkBoxes.includes("Random")) {
+        return true;
+      } else return false;
+    },
   },
 
   methods: {
     generateWorkout(focusArr) {
       let ids = [];
 
-      if(focusArr.includes("Random")){
-          focusArr = ["Chest", "Back", "Biceps","Triceps", "Abs", "Legs", "Cardio"]
-      }else if(focusArr.length === 0){
-          this.createError = true;
+      if (focusArr.includes("Random")) {
+        focusArr = [
+          "Chest",
+          "Back",
+          "Biceps",
+          "Triceps",
+          "Abs",
+          "Legs",
+          "Cardio",
+        ];
+      } else if (focusArr.length === 0) {
+        this.createError = true;
       }
 
-      for (let i = 0; i < 10; i++) {
-
+      for (let i = 0; i < 20; i++) {
         let exerciseFocus =
           focusArr[Math.floor(Math.random() * focusArr.length)];
 
@@ -207,6 +234,7 @@ export default {
         }
       });
       this.workout.exercises = newArray;
+      this.createSuccess = true;
       this.$store.commit("ADD_WORKOUT", this.workout);
     },
   },
@@ -303,6 +331,10 @@ form {
   max-width: 100%;
 }
 
+input[type="checkbox"] {
+  margin-left: 5px;
+}
+
 input[type="text"] {
   width: 50%;
   height: 39px;
@@ -350,14 +382,18 @@ input {
 }
 
 #icon {
-  width: max-content;
+  width: 120px;
   background-color: #3a57af;
+  border-radius: 5px;
   padding: 8px 8px 8px 12px;
   margin: 1rem;
   color: white;
-  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
-  border: solid 0px #cbc9c9;
+  box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
+  border: solid 1px #cbc9c9;
   position: relative;
+}
+#user-icon {
+  margin-right: 4px;
 }
 
 .send {

@@ -1,8 +1,9 @@
 <template>
   <div class="main">
     <update-exercise v-if="$store.state.showEdit === true" />
+    <add-workout v-if="$store.state.showAddWorkout === true" />
     <div
-      v-show="$store.state.showEdit != true"
+      v-show="$store.state.showEdit != true &&  $store.state.showAddWorkout != true"
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
@@ -19,21 +20,22 @@
         </div>
         <img
           class="img"
-          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+          :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
       
         <div class="btnDiv">
-          <button class="add">Add To Workout</button>
+          <button class="add" 
+          v-on:click="toggleAddWorkout();
+           targetExercise(exercise)">Add To Workout</button>
           <button
             class="edit"
             v-if="isAuthorized"
             v-on:click="
               toggleEditButton();
               targetExercise(exercise);
-            "
-          >
+            ">
             Edit Exercise
           </button>
           <button
@@ -52,6 +54,7 @@
 <script>
 import UpdateExercise from "../components/UpdateExercise.vue";
 import exerciseService from "../services/ExerciseService";
+import addWorkout from "../components/AddWorkout.vue";
 export default {
   name: "view-exercises",
 
@@ -66,6 +69,7 @@ export default {
   },
   components: {
     UpdateExercise,
+    addWorkout
   },
 
   created() {
@@ -109,7 +113,15 @@ export default {
     },
 
     toggleEditButton() {
-      this.$store.state.showEdit = !this.$store.state.showEdit;
+      this.$store.state.showEdit = true
+       this.$store.state.showAddWorkout = false;
+    
+      
+    },
+
+    toggleAddWorkout() {
+      this.$store.state.showAddWorkout = true
+      this.$store.state.showEdit = false;
     },
 
     targetExercise(exercise) {
@@ -154,7 +166,7 @@ export default {
 }
 
 img {
-  height: 80px;
+  height: 100px;
   margin-bottom: 10px;
   border-radius: 5px;
   margin-right: 40px;

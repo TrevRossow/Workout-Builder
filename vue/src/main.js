@@ -9,10 +9,11 @@ import {   faFacebookSquare, faTwitter, faLinkedin, faYoutubeSquare,  } from '@f
 import {  faShoppingCart, faKey, faMailBulk, faUser, faArrowRightToBracket,
    faArrowRightFromBracket, faStar, faBars, faPen, faDumbbell,faListNumeric} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faDashboard } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faFacebookSquare, faTwitter, 
   faShoppingCart, faKey, faMailBulk, faUser, faLinkedin, faYoutubeSquare,faListNumeric,
-   faArrowRightToBracket, faArrowRightFromBracket, faStar, faBars, faPen, faDumbbell)
+   faArrowRightToBracket, faArrowRightFromBracket, faStar, faBars, faPen, faDumbbell, faDashboard)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

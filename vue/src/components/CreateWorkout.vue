@@ -65,8 +65,7 @@
             type="checkbox"
             value="Triceps"
             v-model="checkBoxes"
-            v-if="checkRandom === false"
-          />
+            v-if="checkRandom === false"/>
         </label>
         <label id="icon" for="legs">
           Legs
@@ -177,7 +176,7 @@ export default {
           this.createError = true;
       }
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 20; i++) {
 
         let exerciseFocus =
           focusArr[Math.floor(Math.random() * focusArr.length)];

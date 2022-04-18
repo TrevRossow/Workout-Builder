@@ -49,7 +49,7 @@ CREATE TABLE exercise_status(
 );
 CREATE TABLE exercises (
     exercise_id SERIAL PRIMARY KEY NOT NULL,
-    exercise_name VARCHAR  NOT NULL UNIQUE,
+    exercise_name VARCHAR  NOT NULL UNIQUE,w
     exercise_description TEXT NOT NULL,
     muscle_group VARCHAR ,
     rep_range VARCHAR,

@@ -15,7 +15,7 @@
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>
-          <h4 class="reps">{{ exercise.repRange }}</h4>
+          <h4 class="reps" >{{ exercise.repRange }}</h4>
         </div>
         <img
           class="img"

@@ -112,6 +112,7 @@ h1 {
 
 .testbox {
   margin: 20px auto;
+  max-width: 100%;
   width: 340px;
   height: 465px;
   border-radius: 8px/7px;
@@ -210,10 +211,7 @@ input {
   border: solid 0px #cbc9c9;
 }
 
-.gender {
-  margin-left: 30px;
-  margin-bottom: 10px;
-}
+
 
 .send {
   display: flex;

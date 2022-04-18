@@ -25,6 +25,7 @@
           <template v-slot:extension>
             <v-tabs v-model="tabs" align-with-title>
               <v-tab> Summary </v-tab>
+               <v-tab v-on:click="toggleCreateWorkout()"> Create Workout</v-tab>
               <v-tab v-on:click="toggleViewWorkout()"> Workouts </v-tab>
               <v-tab v-on:click="toggleViewExercises()"> Exercises </v-tab>
               <v-tab v-on:click="toggleAddExercise()"> Add Exercise </v-tab>
@@ -51,6 +52,7 @@
         </v-card-text>
       </v-card>
       <div>
+      <create-workout v-if="createWorkout === true"/>
       <add-exercise v-if="addExercise === true"/>
       <view-exercises v-if="viewExercises === true"/>
       <view-submitted-Exercises v-if="viewSubmittedExercises === true"/>
@@ -66,13 +68,15 @@ import addExercise from "../components/AddExercise.vue";
 import viewExercises from "../components/ViewExercises.vue";
 import viewSubmittedExercises from "../components/ViewSubmittedExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
+import createWorkout from "../components/CreateWorkout.vue";
 export default {
   name: "trainer-page",
   components: {
     addExercise,
     viewExercises,
     viewSubmittedExercises,
-    viewWorkout
+    viewWorkout,
+    createWorkout
 
 
   },
@@ -84,12 +88,16 @@ export default {
       viewWorkout:false,
       viewSummary:false,
       viewSubmittedExercises:false,
+      created:false,
       fab: false,
       hidden: false,
       tabs: null,
       filter:""
       
     };
+  },
+   created(){
+    this.updateFilter(this.filter)
   },
 
   computed: {
@@ -112,21 +120,32 @@ export default {
       this.viewExercises = false;
       this.viewSubmittedExercises = false;
       this.viewWorkout = false;
+      this.createWorkout = false;
     },
     toggleViewExercises(){
       this.viewExercises = true;
       this.addExercise = false;
       this.viewSubmittedExercises = false;
       this.viewWorkout = false;
+      this.createWorkout = false;
     },
     toggleViewSubmittedExercises(){
       this.viewExercises = false;
       this.addExercise = false;
       this.viewSubmittedExercises = true;
       this.viewWorkout = false;
+      this.createWorkout = false;
     },
     toggleViewWorkout(){
       this.viewWorkout = true;
+      this.viewExercises = false;
+      this.addExercise = false;
+      this.viewSubmittedExercises = false;
+      this.createWorkout = false;
+    },
+     toggleCreateWorkout(){
+      this.createWorkout = true;
+      this.viewWorkout = false;
       this.viewExercises = false;
       this.addExercise = false;
       this.viewSubmittedExercises = false;

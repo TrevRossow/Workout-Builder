@@ -1,6 +1,6 @@
 <template>
   <div id="exercise" class="testbox">
-    <form class="form-signin" @submit.prevent="generateWorkout(checkBoxes)">
+    <form class="form-signin" @submit.prevent="pushWorkout()">
       <h1 class="h3 mb-3 font-weight-normal">Create Workout</h1>
       <div class="alert" role="alert" v-if="createError">
         Unable to Generate Workout.
@@ -23,67 +23,74 @@
       <div class="focusDiv">
         <label id="icon" for="chest">
           Chest
-
           <input
             id="chest"
             type="checkbox"
             value="Chest"
-            v-model="checkBoxes"
-          />
+            v-if="checkRandom === false"
+            v-model="checkBoxes"/>
         </label>
+
         <label id="icon" for="back">
           Back
-
-          <input id="back" type="checkbox" value="Back" v-model="checkBoxes" />
+          <input id="back" type="checkbox" v-if="checkRandom === false" value="Back" v-model="checkBoxes" />
         </label>
+
         <label id="icon" for="back">
           Shoulders
-
           <input
             id="shoulders"
             type="checkbox"
             value="Shoulders"
             v-model="checkBoxes"
+            v-if="checkRandom === false"
           />
         </label>
+
         <label id="icon" for="biceps">
           Biceps
-
           <input
             id="biceps"
             type="checkbox"
             value="Biceps"
             v-model="checkBoxes"
+            v-if="checkRandom === false"
           />
         </label>
+
         <label id="icon" for="triceps">
           Triceps
-
           <input
             id="triceps"
             type="checkbox"
             value="Triceps"
             v-model="checkBoxes"
+            v-if="checkRandom === false"
           />
         </label>
         <label id="icon" for="legs">
           Legs
-
-          <input id="legs" type="checkbox" value="Legs" v-model="checkBoxes" />
+          <input id="legs" type="checkbox" v-if="checkRandom === false" value="Legs" v-model="checkBoxes" />
         </label>
+
+        <label id="icon" for="abs">
+          Abs
+          <input id="legs" type="checkbox" v-if="checkRandom === false" value="abs" v-model="checkBoxes" />
+        </label>
+
         <label id="icon" for="cardio">
           Cardio
-
           <input
             id="cardio"
             type="checkbox"
             value="Cardio"
             v-model="checkBoxes"
+            v-if="checkRandom === false"
           />
         </label>
-        <label id="icon" for="random">
-          Random
 
+        <label id="icon" for="random" >
+          Random
           <input
             id="random"
             type="checkbox"
@@ -101,7 +108,9 @@
           placeholder="Exercise Type"
           required
           v-model="workout.trainer"
+          v-on:click="generateWorkout(checkBoxes)"
         >
+          >
           <option value="" selected="selected">-- Trainer --</option>
           <option
             v-for="trainer in this.trainers"
@@ -128,14 +137,15 @@ export default {
 
   data() {
     return {
-      trainers: ["Christoper B", "Jay Cutler", "Zyzz"],
+      trainers: ["Christoper B", "Jay Cutler", "Zyzz", "None"],
 
       trainer: {},
 
       checkBoxes: [],
 
+      tempArr: [],
 
-      workout:{
+      workout: {
         workoutId: 1,
         name: "",
         exercises: [],
@@ -149,36 +159,56 @@ export default {
       createSuccess: false,
     };
   },
-  computed: {},
+  computed: {
+      checkRandom(){
+          if(this.checkBoxes.includes("Random")){
+              return true
+          }else return false
+      }
+  },
 
   methods: {
     generateWorkout(focusArr) {
+      let ids = [];
 
-        let ids = [];
+      if(focusArr.includes("Random")){
+          focusArr = ["Chest", "Back", "Biceps","Triceps", "Abs", "Legs", "Cardio"]
+      }else if(focusArr.length === 0){
+          this.createError = true;
+      }
 
       for (let i = 0; i < 10; i++) {
 
-        let exerciseFocus = focusArr[Math.floor(Math.random() * focusArr.length)];
+        let exerciseFocus =
+          focusArr[Math.floor(Math.random() * focusArr.length)];
 
-        ExerciseService.getExercisesByMuscleGroup(exerciseFocus).then((response) => {
-        let exercises = response.data;
+        ExerciseService.getExercisesByMuscleGroup(exerciseFocus).then(
+          (response) => {
+            let exercises = response.data;
 
-        let exercise = exercises[[Math.floor(Math.random() * exercises.length)]]
-  
-        ids.push(exercise);
+            let exercise =
+              exercises[[Math.floor(Math.random() * exercises.length)]];
 
-        this.workout.exercises = ids;
+            ids.push(exercise);
 
-    });
-     
-      } 
-        
-      console.log(this.workout.exercises);
-       this.$store.commit('ADD_WORKOUT', this.workout)
-       
-    
-    }
+            this.tempArr = ids;
+          }
+        );
+      }
+    },
 
+    pushWorkout() {
+      const map = {};
+      const newArray = [];
+      this.tempArr.forEach((element) => {
+        if (!map[JSON.stringify(element)]) {
+          map[JSON.stringify(element)] = true;
+          newArray.push(element);
+        }
+      });
+      this.workout.exercises = newArray;
+      this.$store.commit("ADD_WORKOUT", this.workout);
+    },
   },
 };
 </script>

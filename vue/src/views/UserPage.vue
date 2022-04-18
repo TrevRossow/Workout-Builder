@@ -88,6 +88,7 @@ export default {
     };
   },
   created(){
+    this.updateFilter(this.filter)
     
   },
 
@@ -108,7 +109,7 @@ export default {
   methods:{
 
       toggleCreateWorkout(){
-        this.createWorkout = true;
+      this.createWorkout = true;
       this.viewWorkout = false;
       this.viewExercises = false;
       this.addExercise = false;

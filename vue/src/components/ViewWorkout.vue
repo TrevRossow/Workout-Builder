@@ -23,7 +23,7 @@
               </div>
               <img
                 class="img"
-                :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+                :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
               />
             </div>
           </div>

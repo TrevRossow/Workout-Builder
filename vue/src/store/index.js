@@ -29,6 +29,8 @@ export default new Vuex.Store({
     
     selectedExercise:{},
 
+    selectedWorkout:{},
+
     workouts:[],
 
     filter:"",
@@ -86,8 +88,22 @@ export default new Vuex.Store({
       state.selectedExercise = exercise;
     },
 
+    SELECT_WORKOUT(state, workout){
+      state.selectedWorkout = workout;
+    },
+    
     ADD_WORKOUT(state, workout){
       state.workouts.unshift(workout);
     },
+
+    ADD_TO_WORKOUT(state, updatedWorkout){
+      state.workouts.forEach(workout => {
+        if (workout.id === updatedWorkout.id) {
+          workout = updatedWorkout
+        }
+
+      });
+
+    }
   }
 })

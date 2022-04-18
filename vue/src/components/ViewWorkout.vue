@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <add-workout v-if="$store.state.showAddWorkout === true" />
+    <add-workout v-if="$store.state.showWorkout === true" />
     <div
       class="exerciseDiv"
       v-for="workout in $store.state.workouts"

@@ -1,7 +1,7 @@
 <template>
     <div id="exercise" class="testbox" >
-    <form class="form-signin">
-      <h1 class="h3 mb-3 font-weight-normal">Update Exercise</h1>
+    <form class="form-signin" @submit.prevent="addToWorkout()">
+      <h1 class="h3 mb-3 font-weight-normal">Update Workout</h1>
       <div class="alert" role="alert" v-if="createError === true">
         Unable to edit exercise.
       </div>
@@ -16,15 +16,24 @@
       <label id="icon" for="name">
         <i><font-awesome-icon icon="fa-pen" /></i>
       </label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        placeholder="-- Exercise Name --"
-        v-model="exercise.name"
-        required
-        autofocus />
+      <select 
+        v-model="name"
+          name="drop-down"
+          placeholder="Exercise Type"
+          required>
+          <option value="" selected="selected" >-- Workout Names --</option>
+           <option
+            v-for="workout in this.$store.state.workouts"
+            v-bind:workout="workout"
+            :key="workout.id"
+          >
+            {{ workout.name }}
+          </option>
+         
+        </select>
+
       <div class="send">
+        <button v-on:click="selectWorkout(workout)">Update</button>
         <button type="submit">Save</button>
         <button v-on:click="hideForm()">Cancel</button>
       </div>
@@ -42,6 +51,8 @@ export default {
     return {
       createError:false,
 
+        name:{},
+
       workout: {
         workoutId: 1,
         name: "",
@@ -52,17 +63,32 @@ export default {
         completed: false,
       },
 
+      exercise:{}
+
     }
   },
+  
 
   created(){
     this.exercise = this.$store.state.selectedExercise
+    
+    
   },
 
   methods:{
     hideForm(){
        this.$store.state.showAddWorkout = false;
     },
+
+    addToWorkout(){
+        this.workout.exercises.unshift(this.exercise)
+        this.$store.commit('ADD_TO_WORKOUT', this.workout)
+    },
+
+    selectWorkout(workout){
+        this.$store.commit('SELECT_WORKOUT', workout)
+       
+    }
    
     }
   

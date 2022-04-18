@@ -77,17 +77,17 @@ export default {
     viewSubmittedExercises,
     viewWorkout,
     createWorkout
-
-
   },
 
   data() {
+    
     return {
       addExercise: false,
       viewExercises:false,
       viewWorkout:false,
       viewSummary:false,
       viewSubmittedExercises:false,
+      createWorkout:false,
       created:false,
       fab: false,
       hidden: false,
@@ -95,10 +95,13 @@ export default {
       filter:""
       
     };
+    
   },
    created(){
     this.updateFilter(this.filter)
   },
+
+  
 
   computed: {
     activeFab() {

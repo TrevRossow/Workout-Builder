@@ -83,7 +83,7 @@
       </div>
       <div class="send">
         <button type="submit">Save</button>
-        <button type="submit" v-on:click="hideForm()">Cancel</button>
+        <button v-on:click="hideForm()">Cancel</button>
       </div>
     </form>
   </div>
@@ -118,7 +118,7 @@ export default {
 
   methods:{
     hideForm(){
-       this.$store.state.showEdit = false;
+            this.$store.state.showEdit = false;
     },
     updateExercise(){
        this.$store.commit("UPDATE_EXERCISE", this.exercise);

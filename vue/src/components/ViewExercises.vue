@@ -26,7 +26,9 @@
       <p id="desc">{{ exercise.description }}</p>
       
         <div class="btnDiv">
-          <button class="add" v-on:click="toggleAddWorkout()" >Add To Workout</button>
+          <button class="add" 
+          v-on:click="toggleAddWorkout();
+           targetExercise(exercise)">Add To Workout</button>
           <button
             class="edit"
             v-if="isAuthorized"

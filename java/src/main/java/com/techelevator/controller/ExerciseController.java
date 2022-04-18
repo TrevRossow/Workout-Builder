@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.ExerciseDao;
+import com.techelevator.dao.ExerciseStatusDao;
 import com.techelevator.model.Exercise;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
@@ -15,46 +16,48 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class ExerciseController {
 
-private ExerciseDao exerciseDao;
+    private ExerciseDao exerciseDao;
+    private ExerciseStatusDao exerciseStatusDao;
 
-    public ExerciseController(ExerciseDao exerciseDao){
+    public ExerciseController(ExerciseDao exerciseDao, ExerciseStatusDao exerciseStatusDao) {
         this.exerciseDao = exerciseDao;
-
+        this.exerciseStatusDao = exerciseStatusDao;
     }
+
     @GetMapping("/exercise/{name}")
-    public Exercise getExerciseByName(@PathVariable String name){
+    public Exercise getExerciseByName(@PathVariable String name) {
 
         return exerciseDao.findByExerciseName(name);
     }
 
     @GetMapping("/exercise/all")
-    public List<Exercise> getAllExercises(){
+    public List<Exercise> getAllExercises() {
         List<Exercise> allExercises = exerciseDao.getAll();
 
         return allExercises;
     }
 
     @GetMapping("/exercise/view/{id}")
-    public Exercise getExerciseById(@PathVariable Long id){
+    public Exercise getExerciseById(@PathVariable Long id) {
         return exerciseDao.getExerciseById(id);
     }
 
     @GetMapping("/exercise/group/{muscleGroup}")
-    public List<Exercise> getExerciseByMuscleGroup(@PathVariable String muscleGroup){
+    public List<Exercise> getExerciseByMuscleGroup(@PathVariable String muscleGroup) {
         List<Exercise> exerciseGroup = exerciseDao.findByMuscleGroup(muscleGroup);
 
-        return  exerciseGroup;
+        return exerciseGroup;
     }
 
     @GetMapping("/exercise/{type}")
-    public List<Exercise> getExerciseByType(@PathVariable String type){
+    public List<Exercise> getExerciseByType(@PathVariable String type) {
         List<Exercise> exerciseType = exerciseDao.findByType(type);
 
         return exerciseType;
     }
 
     @PostMapping("/exercise")
-    public void createExercise(@RequestBody Exercise exercise){
+    public void createExercise(@RequestBody Exercise exercise) {
         this.exerciseDao.create(exercise);
     }
 
@@ -66,6 +69,12 @@ private ExerciseDao exerciseDao;
     @DeleteMapping("exercise/{id}")
     public void deleteExercise(@Valid @PathVariable Long id) {
         this.exerciseDao.deleteExercise(id);
+    }
+
+    // Incorporating exercise status in this controller
+    @GetMapping("exerciseStatus/{id}")
+    public String getStatusById(@PathVariable Long status_id) {
+        return this.exerciseStatusDao.getStatusById(status_id);
     }
 
 }

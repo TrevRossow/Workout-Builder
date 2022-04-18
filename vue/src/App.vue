@@ -3,7 +3,7 @@
     <v-main>
       <div id="head">
         <header v-on:click="$router.push({name: 'home'})">
-          <img src="..\public\20220411_155646_0000.png" alt="" />
+          <img src="../public/EFLogo.png" alt="" />
           <h1>Elevated Fitness</h1>
         </header>
         <nav>
@@ -14,8 +14,8 @@
             </button>
 
             <button id="dashboardBtn" class="btn" v-on:click="getUser()"
-            v-if="($store.state.token != '')"> Menu
-            <font-awesome-icon icon="fa-bars"/>
+            v-if="($store.state.token != '')"> Dashboard
+            <font-awesome-icon icon="fa-dashboard"/>
             </button>
 
           <button id="loginHome" class="btn" v-on:click="$router.push({name:'logout'})"
@@ -87,7 +87,7 @@ export default {
 #app{
 }
 img {
-  height: 60px;
+  height: 100px;
   padding-left: 10px;
 }
 
@@ -108,13 +108,11 @@ h1, img:hover {
 nav {
   grid-area: "nav";
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: flex-end;
   
   
 }
-
-
 
 #head {
   display: grid;

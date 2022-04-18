@@ -29,7 +29,10 @@ export default new Vuex.Store({
     
     selectedExercise:{},
 
-    selectedWorkout:{},
+    selectedWorkout:{
+      workoutId:null,
+      exercises:[],
+    },
 
     workouts:[],
 
@@ -96,13 +99,9 @@ export default new Vuex.Store({
       state.workouts.unshift(workout);
     },
 
-    ADD_TO_WORKOUT(state, updatedWorkout){
-      state.workouts.forEach(workout => {
-        if (workout.id === updatedWorkout.id) {
-          workout = updatedWorkout
-        }
-
-      });
+    ADD_TO_WORKOUT(state, selectedExercise){
+  
+    state.selectedWorkout.exercises.unshift(selectedExercise);
 
     }
   }

@@ -23,4 +23,5 @@ public interface ExerciseDao {
     boolean deleteExercise(Long id);
 
     boolean updateExercise(Long id, Exercise changedExercise);
+
 }

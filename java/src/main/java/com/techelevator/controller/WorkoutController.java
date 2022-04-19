@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class WorkoutController {
     }
 
     @GetMapping("/workout/{date}")
-    public Workout getDateCompleted(@PathVariable LocalDate date){
+    public Workout getDateCompleted(@PathVariable Date date){
         return workoutDao.getDateCompleted(date);
     }
 

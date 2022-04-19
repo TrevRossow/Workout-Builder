@@ -96,11 +96,10 @@ public class JdbcWorkoutDao implements WorkoutDao {
         workout.setTrainerId(rs.getLong("trainer_id"));
         workout.setUserId(rs.getLong("user_id"));
         workout.setCompleted(rs.getBoolean("completed"));
-        workout.setDateCompleted(rs.getDate("workout_date"));
-       /* Date workout_date = rs.getDate("workout_date");
+        java.sql.Date workout_date = rs.getDate("workout_date");
         if(workout_date != null) {
             workout.setDateCompleted(workout_date.toLocalDate());
-        }*/
+        }
         return workout;
     }
 }

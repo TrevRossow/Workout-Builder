@@ -9,12 +9,12 @@ public class Workout {
     private Long userId;
     private Long trainerId;
     private boolean isCompleted;
-    private Date dateCompleted;
+    private LocalDate dateCompleted;
 
 
     public Workout() {}
 
-    public Workout(Long id, Long userId, Long trainerId, boolean isCompleted, Date dateCompleted){
+    public Workout(Long id, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
         this.id = id;
         this.userId = userId;
         this.trainerId = trainerId;
@@ -23,11 +23,11 @@ public class Workout {
 
     }
 
-    public Date getDateCompleted() {
+    public LocalDate getDateCompleted() {
         return dateCompleted;
     }
 
-    public void setDateCompleted(Date dateCompleted) {
+    public void setDateCompleted(LocalDate dateCompleted) {
         this.dateCompleted = dateCompleted;
     }
 

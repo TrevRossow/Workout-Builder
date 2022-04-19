@@ -172,8 +172,12 @@ export default {
         trainerId: null,
         userId: this.$store.state.user.id,
         completed: false,
-        dateCompleted: Date("Apr/19/2022")
+        dateCompleted: null,
       },
+
+      
+
+
 
       createError: false,
       createSuccess: false,

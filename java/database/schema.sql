@@ -28,7 +28,8 @@ CREATE TABLE users (
     user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
     username varchar(50) UNIQUE NOT NULL,
     password_hash varchar(200) NOT NULL,
-    role varchar(50) NOT NULL,
+	user_date timestamp,
+	role varchar(50) NOT NULL,
     CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -52,13 +53,8 @@ CREATE TABLE exercise_status(
 );
 CREATE TABLE exercises (
     exercise_id SERIAL PRIMARY KEY NOT NULL,
-<<<<<<< HEAD
     exercise_name VARCHAR  NOT NULL UNIQUE,
     exercise_description VARCHAR NOT NULL,
-=======
-    exercise_name VARCHAR  NOT NULL UNIQUE,w
-    exercise_description TEXT NOT NULL,
->>>>>>> 379126c3aa27723b781f8890612b11a364af61fc
     muscle_group VARCHAR ,
 	rep_range VARCHAR,
     exercise_type VARCHAR  NOT NULL,
@@ -74,13 +70,13 @@ CREATE TABLE workouts (
     trainer_id int REFERENCES trainers (trainer_id),
     user_id int,
     completed bool,
+	workout_date timestamp,
 	CONSTRAINT pk_workouts PRIMARY KEY(workout_id)
 );
 
 CREATE TABLE workout_exercise (
 	workout_id INT NOT NULL, 
 	exercise_id INT NOT NULL,
-    --CONSTRAINT pk_workout_exercise PRIMARY KEY (workout_id, exercise_id),
 	CONSTRAINT fk_workout_exercise_workouts FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     CONSTRAINT fk_workout_exercise_exercises FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
 	);
@@ -89,7 +85,7 @@ CREATE TABLE workout_exercise (
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Pending');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Approved');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Rejected');
-INSERT INTO exercises (exercise_name,exercise_description,muscle_group,rep_range,exercise_type,exercise_status_id, time_range)
+INSERT INTO exercises (exercise_name,exercise_description,muscle_group,rep_range,exercise_type,exercise_status_id, time_range) -- exercise_approval queue and timestamp is not currently included
 VALUES
 ('Stair Climbing', 'Find some stairs and climb up and down. Great for inside or outside!', 'Cardio', '10 min', 'Cardio', '2', '5'),
     ('Elliptical Trainer', 'An elliptical trainer or cross-trainer is a stationary exercise machine used to stair climb, walk, or run without causing excessive pressure to the joints, hence decreasing the risk of impact injuries.', 'Cardio', '5 min', 'Cardio', '2', '5'),
@@ -149,6 +145,9 @@ INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
 COMMIT TRANSACTION;
 
-select * from exercises
+select * 
+from exercises 
+left JOIN workout_exercise ON exercises.exercise_id = workout_exercise.exercise_id 
+ORDER by exercises.exercise_id ASC
 
 Rollback;

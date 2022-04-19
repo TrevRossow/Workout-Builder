@@ -76,10 +76,11 @@ CREATE TABLE user_exercises(
 CREATE TABLE workouts (
     workout_id SERIAL NOT NULL,
     trainer_id int REFERENCES trainers (trainer_id),
-    user_id int,
+    user_id int REFERENCES users (user_id),
     completed bool,
 	workout_date timestamp,
 	CONSTRAINT pk_workouts PRIMARY KEY(workout_id)
+	
 );
 
 CREATE TABLE workout_exercise (

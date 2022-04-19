@@ -90,12 +90,8 @@ export default {
       }); 
        
        this.$store.commit('SELECT_WORKOUT', workoutToAppend)
-       
     }
-   
     }
-  
-  
 };
 </script>
 

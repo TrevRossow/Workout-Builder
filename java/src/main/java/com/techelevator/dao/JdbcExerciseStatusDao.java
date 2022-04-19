@@ -17,13 +17,13 @@ public class JdbcExerciseStatusDao implements ExerciseStatusDao {
     }
 
     @Override
-    public String getStatusById(Long status_id) {
+    public String getStatus() {
 
         try {
-            return jdbcTemplate.queryForObject("SELECT exercise_status_description FROM exercise_status WHERE exercise_status_id = ?", String.class, status_id);
+            return jdbcTemplate.queryForObject("SELECT exercise_status_description FROM exercise_status ", String.class);
         }
         catch (EmptyResultDataAccessException e) {
-            throw new ExerciseNotFoundException("Status not found for ID" + status_id);
+            throw new ExerciseNotFoundException("Status not found for ID");
         }
     }
 

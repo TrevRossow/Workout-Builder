@@ -89,10 +89,10 @@ public class JdbcExerciseDao implements ExerciseDao {
     public Exercise create(Exercise exercise) {
 
         String insertExercise = "INSERT INTO exercises (" +
-                " user_id, exercise_name, muscle_group, rep_range, exercise_type," +
+                " exercise_name, user_id, muscle_group, rep_range, exercise_type," +
                 "exercise_description, exercise_status_id, time_range) " +
                 "values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING exercise_id";
-        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId(), exercise.getTimeRange());
+        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getUserId(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId(), exercise.getTimeRange());
         return this.getExerciseById(exerciseId);
     }
 
@@ -115,17 +115,17 @@ public class JdbcExerciseDao implements ExerciseDao {
 
     @Override
     public boolean updateExercise(Long id, Exercise changedExercise) {
-        String sql = "UPDATE exercises SET user_id = ?, exercise_name = ?, exercise_description = ?, muscle_group = ?, " +
+        String sql = "UPDATE exercises SET exercise_name = ?, user_id = ? exercise_description = ?, muscle_group = ?, " +
                 " rep_range = ?, exercise_type = ?, exercise_status_id = ?, time_range = ? " +
                 "WHERE exercise_id = ?";
-        return jdbcTemplate.update(sql, changedExercise.getName(), changedExercise.getDescription(), changedExercise.getMuscleGroup(),
+        return jdbcTemplate.update(sql, changedExercise.getName(), changedExercise.getUserId(), changedExercise.getDescription(), changedExercise.getMuscleGroup(),
                 changedExercise.getRepRange(), changedExercise.getType(), changedExercise.getStatusId(), changedExercise.getTimeRange(), id) == 1;
     }
 
     private Exercise mapRowToExercise(SqlRowSet rs) {
         Exercise exercise = new Exercise();
         exercise.setId(rs.getLong("exercise_id"));
-        exercise.setUser_id(rs.getLong("user_id"));
+        exercise.setUserId(rs.getLong("user_id"));
         exercise.setName(rs.getString("exercise_name"));
         exercise.setDescription(rs.getString("exercise_description"));
         exercise.setMuscleGroup(rs.getString("muscle_group"));

@@ -121,6 +121,7 @@ export default {
       exercise: {
       id:null,
       name: "",
+      userId: null,
       description: "",
       muscleGroup: "",
       repRange: "",
@@ -150,6 +151,7 @@ export default {
         this.exercise.statusId = 2;
       } else {this.exercise.statusId = 1;
       }
+      this.exercise.userId = this.$store.state.user.id,
       exerciseService
         .updateExercise(this.exercise)
         .then((response) => {

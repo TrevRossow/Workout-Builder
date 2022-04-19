@@ -3,7 +3,7 @@ package com.techelevator.model;
 public class Exercise {
 
     private Long id;
-    private Long user_id;
+    private Long userId;
     private String name;
     private String description;
     private String muscleGroup;
@@ -17,10 +17,10 @@ public class Exercise {
 
     }
 
-    public Exercise(Long id, Long user_id, String name, String description,
+    public Exercise(Long id, Long userId, String name, String description,
                     String muscleGroup, String repRange, String type, int statusId, int timeRange ) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = userId;
         this.name = name;
         this.description = description;
         this.muscleGroup = muscleGroup;
@@ -38,12 +38,12 @@ public class Exercise {
         this.id = id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
     public String getName() {
         return name;
@@ -106,6 +106,7 @@ public class Exercise {
         return "Exercise{" +
                 "id=" + id +
                 ", name=" + name +
+                ", userId=" + userId +
                 ", description=" + description +
                 ", muscleGroup=" + muscleGroup +
                 ", repRange=" + repRange +

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class JdbcWorkoutDao implements WorkoutDao{
+public class JdbcWorkoutDao implements WorkoutDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -22,7 +22,7 @@ public class JdbcWorkoutDao implements WorkoutDao{
     }
 
     @Override
-    public List<Workout> getAll(){
+    public List<Workout> getAll() {
         List<Workout> workouts = new ArrayList<>();
 
         String sql = " SELECT * FROM workouts";
@@ -36,10 +36,21 @@ public class JdbcWorkoutDao implements WorkoutDao{
     }
 
    @Override
-    public Workout getWorkoutById(long workoutId){
+    public Workout getWorkoutByUserId(long userId){
+        String sql = "SELECT * FROM workouts WHERE user_id = ? ";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToWorkout(results);
+        } else {
+            throw new WorkoutNotFoundException("Workout not found.");
+        }
+    }
+    @Override
+    public Workout getWorkoutById(long workoutId) {
         String sql = "SELECT * FROM workouts WHERE workout_id = ? ";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, workoutId);
         if (results.next()) {
             return mapRowToWorkout(results);
         } else {
@@ -85,7 +96,7 @@ public class JdbcWorkoutDao implements WorkoutDao{
         workout.setTrainerId(rs.getLong("trainer_id"));
         workout.setUserId(rs.getLong("user_id"));
         workout.setCompleted(rs.getBoolean("completed"));
-        workout.setDateCompleted(Objects.requireNonNull(rs.getDate("workout_date")).toLocalDate());
+        workout.setDateCompleted(rs.getDate("workout_date"));
        /* Date workout_date = rs.getDate("workout_date");
         if(workout_date != null) {
             workout.setDateCompleted(workout_date.toLocalDate());

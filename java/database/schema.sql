@@ -34,19 +34,6 @@ CREATE TABLE users (
     CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-
-CREATE TABLE trainers (
-    trainer_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
-    username varchar(50) UNIQUE NOT NULL,
-    password_hash varchar(200) NOT NULL,
-    role varchar(50) NOT NULL,
-    CONSTRAINT PK_trainer PRIMARY KEY (trainer_id)
-);
-CREATE TABLE trainer_user (
-    trainer_user_id SERIAL NOT NULL,
-    trainer_id int NOT NULL CONSTRAINT fk_trainers REFERENCES trainers(trainer_id),
-    user_id int NOT NULL CONSTRAINT fk_users REFERENCES users(user_id)
-);
 CREATE TABLE exercise_status(
     exercise_status_id serial NOT NULL,
     exercise_status_description VARCHAR (20) NOT NULL,
@@ -75,7 +62,7 @@ CREATE TABLE user_exercises(
 );
 CREATE TABLE workouts (
     workout_id SERIAL NOT NULL,
-    trainer_id int REFERENCES trainers (trainer_id),
+    trainer_id int ,
     user_id int REFERENCES users (user_id),
     completed bool,
 	workout_date timestamp,

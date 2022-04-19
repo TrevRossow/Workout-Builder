@@ -17,8 +17,8 @@
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>
-          <h6>Reps:</h6>
-          <h4 class="reps">{{ exercise.repRange }}</h4>
+          <h6 v-show="exercise.type != 'Cardio'">Reps:</h6>
+          <h4 class="reps" v-show="exercise.type != 'Cardio'">{{ exercise.repRange }}</h4>
           <h6>Time:</h6>
           <h4 class="time">{{ exercise.timeRange }} Mins </h4>
         </div>
@@ -164,7 +164,9 @@ img {
   border-radius: 5px;
   margin-right: 40px;
 }
-
+p{
+  margin-top: 10px ;
+}
 .exerciseDiv {
   display: inline-block;
   margin: 20px;

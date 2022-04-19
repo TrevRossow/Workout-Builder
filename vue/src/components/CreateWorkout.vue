@@ -128,7 +128,7 @@
           placeholder="Exercise Type"
           required
           v-model="workout.trainer"
-          v-on:click="generateWorkout(checkBoxes)"
+    
         >
           >
           <option value="" disabled selected>-- Trainer --</option>
@@ -150,6 +150,7 @@
 
 <script>
 import ExerciseService from "../services/ExerciseService";
+import workoutService from "../services/WorkoutService";
 
 export default {
   name: "create-workout",
@@ -168,11 +169,10 @@ export default {
       workout: {
         workoutId: 1,
         name: "",
-        exercises: [],
-        focus: [],
-        trainer: this.trainer,
+        trainerId: null,
         userId: this.$store.state.user.id,
         completed: false,
+        dateCompleted: Date("Apr/19/2022")
       },
 
       createError: false,
@@ -225,7 +225,7 @@ export default {
     },
 
     pushWorkout() {
-      const map = {};
+     /*  const map = {};
       const newArray = [];
       this.tempArr.forEach((element) => {
         if (!map[JSON.stringify(element)]) {
@@ -233,9 +233,24 @@ export default {
           newArray.push(element);
         }
       });
-      this.workout.exercises = newArray;
-      this.createSuccess = true;
-      this.$store.commit("ADD_WORKOUT", this.workout);
+      this.workout.exercises = newArray; */
+
+        workoutService
+        .addWorkout(this.workout)
+        .then((response) => {
+          if (response.status == 200) {
+            this.createSuccess = true;
+            this.$store.commit("ADD_WORKOUT", this.exercise);
+            this.workout = {};
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status != 200) {
+            this.createError = true;
+          }
+        });
     },
   },
 };

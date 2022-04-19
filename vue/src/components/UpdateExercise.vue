@@ -36,6 +36,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
+          <option value="Cardio">Cardio</option>
           <option value="Legs">Total Body</option>
         </select>
       </div>
@@ -49,6 +50,7 @@
           placeholder="Exercise Type"
           required>
           <option value="" selected="selected" >-- Rep Ranges --</option>
+          <option value="Cardio">Cardio</option>
           <option value="1 - 5">1 - 5</option>
           <option value="5 - 8">5 - 8</option>
           <option value="8 - 12">8 - 12</option>
@@ -69,6 +71,7 @@
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
+          <option value="4">5</option>
         </select>
       </div>
       <div>

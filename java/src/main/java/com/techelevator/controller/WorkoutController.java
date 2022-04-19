@@ -28,6 +28,11 @@ public class WorkoutController {
         return workoutDao.getWorkoutById(id);
     }
 
+    @GetMapping("/workout/user/{id}")
+    public Workout getWorkoutByUserId(@PathVariable Long id ){
+        return workoutDao.getWorkoutByUserId(id);
+    }
+
     @GetMapping("/workout/{date}")
     public Workout getDateCompleted(@PathVariable LocalDate date){
         return workoutDao.getDateCompleted(date);

@@ -9,7 +9,9 @@
       <h2>{{ exercise.name }}</h2>
       <div vr id="imgDiv">
         <div>
+          <h6>{{exercise.userId}}</h6>
           <h4 class="group">{{ exercise.muscleGroup }}</h4>
+
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>

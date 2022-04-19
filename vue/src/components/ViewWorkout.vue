@@ -39,8 +39,8 @@
           </div>
         </div>
         <div class="btnDiv">
-         <button type="submit">Complete</button>
-        <button class="delete" v-on:click="hideForm()">Delete</button>
+         <button type="submit" v-on:click="completeWorkout()">Complete</button>
+        <button class="delete" v-on:click="deleteWorkout()">Delete</button>
         </div>
       </div>
       
@@ -135,7 +135,7 @@ export default {
   justify-content: space-between;
   justify-content: center;
   align-content: center;
-  width: 100%;
+
 }
 
 #head {
@@ -156,6 +156,7 @@ img {
 
 .exerciseDiv {
   display: inline-block;
+  justify-content: center;
   margin: 20px;
   padding: 15px;
   border-radius: 8px/7px;

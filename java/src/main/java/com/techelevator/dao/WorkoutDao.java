@@ -10,7 +10,9 @@ public interface WorkoutDao {
 
     List<Workout> getAll();
 
-    Workout getWorkoutById(long workoutId);
+    Workout getWorkoutByUserId(long userId);
+
+    Workout getWorkoutById(long userId);
 
     Workout getDateCompleted(LocalDate dateCompleted);
 

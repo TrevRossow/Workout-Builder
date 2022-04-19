@@ -115,7 +115,7 @@ public class JdbcExerciseDao implements ExerciseDao {
 
     @Override
     public boolean updateExercise(Long id, Exercise changedExercise) {
-        String sql = "UPDATE exercises SET exercise_name = ?, user_id = ? exercise_description = ?, muscle_group = ?, " +
+        String sql = "UPDATE exercises SET exercise_name = ?, user_id = ?, exercise_description = ?, muscle_group = ?, " +
                 " rep_range = ?, exercise_type = ?, exercise_status_id = ?, time_range = ? " +
                 "WHERE exercise_id = ?";
         return jdbcTemplate.update(sql, changedExercise.getName(), changedExercise.getUserId(), changedExercise.getDescription(), changedExercise.getMuscleGroup(),

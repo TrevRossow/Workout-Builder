@@ -1,6 +1,7 @@
 package com.techelevator.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Workout {
 
@@ -8,12 +9,12 @@ public class Workout {
     private Long userId;
     private Long trainerId;
     private boolean isCompleted;
-    private LocalDate dateCompleted;
+    private Date dateCompleted;
 
 
     public Workout() {}
 
-    public Workout(Long id, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
+    public Workout(Long id, Long userId, Long trainerId, boolean isCompleted, Date dateCompleted){
         this.id = id;
         this.userId = userId;
         this.trainerId = trainerId;
@@ -22,11 +23,11 @@ public class Workout {
 
     }
 
-    public LocalDate getDateCompleted() {
+    public Date getDateCompleted() {
         return dateCompleted;
     }
 
-    public void setDateCompleted(LocalDate dateCompleted) {
+    public void setDateCompleted(Date dateCompleted) {
         this.dateCompleted = dateCompleted;
     }
 
@@ -66,7 +67,7 @@ public class Workout {
     public String toString() {
         return "Workout{" +
                 "id = " + id +
-                ", user Id = " + userId +
+                ", userId = " + userId +
                 ", trainer Id = " + trainerId +
                 ", Completed = " + isCompleted +
                 ", date completed = " + dateCompleted +

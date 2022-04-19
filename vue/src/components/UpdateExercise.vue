@@ -56,6 +56,22 @@
         </select>
       </div>
       <div>
+           <label id="icon" for="name">
+          <i><font-awesome-icon icon="fa-clock" /></i>
+        </label>
+        <select 
+          name="drop-down"
+          v-model="exercise.timeRange"
+          placeholder="Exercise Type"
+          required>
+          <option value="" selected="selected" >-- Time --</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div>
         <label id="icon" for="name">
           <i><font-awesome-icon icon="fa-dumbbell" /></i>
         </label>
@@ -100,6 +116,8 @@ export default {
     return {
       createError:false,
 
+      timeRange:"",
+
       exercise: {
       id:null,
       name: "",
@@ -108,12 +126,18 @@ export default {
       repRange: "",
       type: "",
       statusId: 1,
+      timeRange: 0,
       }
     }
   },
 
   created(){
     this.exercise = this.$store.state.selectedExercise
+  },
+
+  computed:{
+
+    
   },
 
   methods:{

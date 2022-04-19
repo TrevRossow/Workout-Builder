@@ -16,7 +16,10 @@
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>
+          <h6>Reps:</h6>
           <h4 class="reps">{{ exercise.repRange }}</h4>
+          <h6>Time:</h6>
+          <h4 class="time">{{ exercise.timeRange }} Mins </h4>
         </div>
         <img
           class="img"
@@ -99,24 +102,13 @@ export default {
   methods: {
     getExercises() {
       exerciseService.getExercises().then((response) => {
-        this.exercises = response.data;
-      });
-    },
-
-    filteredPic(exercise) {
-      const exerciseImgs = this.$store.state.exerciseImages;
-      exerciseImgs.forEach((image) => {
-        if (image.name == exercise.muscleGroup) {
-          return image.src;
-        }
+        this.exercises = response.data;        
       });
     },
 
     toggleEditButton() {
       this.$store.state.showEdit = true
        this.$store.state.showAddWorkout = false;
-    
-      
     },
 
     toggleAddWorkout() {
@@ -189,7 +181,6 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 

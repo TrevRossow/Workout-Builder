@@ -145,9 +145,12 @@ INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
 COMMIT TRANSACTION;
 
+<<<<<<< HEAD
 select * 
 from exercises 
 left JOIN workout_exercise ON exercises.exercise_id = workout_exercise.exercise_id 
 ORDER by exercises.exercise_id ASC
 
 Rollback;
+=======
+>>>>>>> 19d5ab5418ff33e4c7ffd14999e0dbd35ceef47f

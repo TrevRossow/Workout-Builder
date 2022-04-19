@@ -18,13 +18,13 @@
       </label>
       <select 
         v-model="name"
+          v-on:click="selectWorkout(name)"
           name="drop-down"
           placeholder="Exercise Type"
           required>
           <option value="" selected="selected" >-- Workout Names --</option>
            <option
             v-for="workout in this.$store.state.workouts"
-            v-bind:workout="workout"
             :key="workout.id"
           >
             {{ workout.name }}
@@ -33,7 +33,6 @@
         </select>
 
       <div class="send">
-        <button v-on:click="selectWorkout(workout)">Update</button>
         <button type="submit">Save</button>
         <button v-on:click="hideForm()">Cancel</button>
       </div>
@@ -58,7 +57,7 @@ export default {
         name: "",
         exercises: [],
         focus: [],
-        trainer: this.trainer,
+        trainer: "",
         userId: this.$store.state.user.id,
         completed: false,
       },
@@ -68,12 +67,10 @@ export default {
     }
   },
   
-
   created(){
     this.exercise = this.$store.state.selectedExercise
-    
-    
   },
+
 
   methods:{
     hideForm(){
@@ -81,12 +78,18 @@ export default {
     },
 
     addToWorkout(){
-        this.workout.exercises.unshift(this.exercise)
-        this.$store.commit('ADD_TO_WORKOUT', this.workout)
+      let updateWorkout = this.$store.state.selectedWorkout[0].exercises.unshift(this.exercise)
+        this.$store.commit('UPDATE_WORKOUT' , updateWorkout)
+        this.hideForm();
     },
 
-    selectWorkout(workout){
-        this.$store.commit('SELECT_WORKOUT', workout)
+    selectWorkout(name){
+    
+      let workoutToAppend = this.$store.state.workouts.filter((workout) => {
+        return workout.name === name
+      }); 
+       
+       this.$store.commit('SELECT_WORKOUT', workoutToAppend)
        
     }
    

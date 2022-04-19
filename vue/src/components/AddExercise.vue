@@ -56,6 +56,22 @@
         </select>
       </div>
       <div>
+           <label id="icon" for="name">
+          <i><font-awesome-icon icon="fa-clock" /></i>
+        </label>
+        <select 
+          name="drop-down"
+          v-model="exercise.timeRange"
+          placeholder="Time Range"
+          required>
+          <option value="" selected="selected" >-- Time --</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div>
         <label id="icon" for="name">
           <i><font-awesome-icon icon="fa-dumbbell" /></i>
         </label>

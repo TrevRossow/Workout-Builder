@@ -72,7 +72,7 @@ public class ExerciseController {
     }
 
     // Incorporating exercise status in this controller
-    @GetMapping("exerciseStatus/{id}")
+    @GetMapping("exercise/status/{id}")
     public String getStatusById(@PathVariable Long status_id) {
         return this.exerciseStatusDao.getStatusById(status_id);
     }

@@ -14,7 +14,7 @@
           <h5 class="type">User Id: {{ workout.userId }}</h5>
           <br>
           <v-carousel class="carousel" height="200px" 
-          hide-delimiter-background   show-arrows-on-hover >
+          hide-delimiter-background  hide-delimiters show-arrows-on-hover >
           <v-carousel-item id="carocards"
            v-for="exercise in workout.exercises" :key="exercise.id">
             <h4 class="reps">{{ exercise.name }}</h4>
@@ -36,9 +36,7 @@
             </div>
              </v-carousel-item>
             </v-carousel>
-            
           </div>
-          
         </div>
         <div class="btnDiv">
          <button type="submit">Complete</button>
@@ -101,6 +99,24 @@ export default {
         this.exercises = response.data;
       });
     },
+     /* deleteWorkout(workout) {
+      workoutService
+        .deleteExercise(workout)
+        .then((response) => {
+          console.log(response);
+          if (response.status == 200) {
+            this.$store.commit("DELETE_WORKOUT", workout.workoutId);
+            this.getExercises();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
+    }, */
   },
 };
 </script>

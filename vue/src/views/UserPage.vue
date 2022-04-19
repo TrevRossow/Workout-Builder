@@ -17,6 +17,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
+          <option value="Total Body">Legs</option>
         </select>
 
 
@@ -24,10 +25,11 @@
           <template v-slot:extension>
             <v-tabs v-model="tabs" align-with-title>
               <v-tab> Summary </v-tab>
-              <v-tab v-on:click="toggleCreateWorkout()"> Create Workout</v-tab>
-              <v-tab v-on:click="toggleViewWorkout()"> Workouts </v-tab>
-              <v-tab v-on:click="toggleViewExercises()"> Exercises </v-tab>
-              <v-tab v-on:click="toggleAddExercise()"> Add Exercise </v-tab>
+              <v-tab> Create Workout</v-tab>
+              <v-tab> Workouts </v-tab>
+              <v-tab> Exercises </v-tab>
+              <v-tab> Add Exercise </v-tab>
+              <v-tab> Submitted Exercise </v-tab>
               <v-tabs-slider color="pink"></v-tabs-slider>
             </v-tabs>
           </template>
@@ -50,10 +52,12 @@
         </v-card-text>
       </v-card>
       <div>
-      <create-workout v-if="createWorkout === true"/>
-      <view-workout v-if="viewWorkout === true"/>
-      <add-exercise v-if="addExercise === true"/>
-      <viewExercises v-if="viewExercises === true"/>
+      <view-summary v-if="this.tabs === 0"/>
+      <create-workout v-if="this.tabs === 1"/>
+      <view-workout v-if="this.tabs === 2"/>
+      <viewExercises v-if="this.tabs === 3"/>
+      <add-exercise v-if="this.tabs === 4"/>
+      <user-exercises v-if="this.tabs === 5"/>
       </div>
     </v-app>
   </div>
@@ -64,22 +68,22 @@ import addExercise from "../components/AddExercise.vue";
 import viewExercises from "../components/ViewExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
 import createWorkout from "../components/CreateWorkout.vue";
+import UserExercises from '../components/UserExercises.vue';
+import ViewSummary from '../components/ViewSummary.vue';
 export default {
   components: {
     addExercise,
     viewExercises,
     viewWorkout,
-    createWorkout
+    createWorkout,
+    UserExercises,
+    ViewSummary
 
   },
 
   data() {
     return {
-      addExercise: false,
-      viewExercises:false,
-      viewWorkout:false,
-      createWorkout:false,
-      viewSummary:false,
+
       fab: false,
       hidden: false,
       tabs: null,
@@ -89,51 +93,10 @@ export default {
   },
   created(){
     this.updateFilter(this.filter)
-    
-  },
 
-  computed: {
-    activeFab() {
-      switch (this.tabs) {
-        case "one":
-          return true;
-        case "two":
-          return {};
-        case "three":
-          return {};
-        default:
-          return {};
-      }
-    },
   },
   methods:{
 
-      toggleCreateWorkout(){
-      this.createWorkout = true;
-      this.viewWorkout = false;
-      this.viewExercises = false;
-      this.addExercise = false;
-      this.viewSubmittedExercises = false;
-    },
-        toggleViewWorkout(){
-                this.createWorkout = false;
-      this.viewWorkout = true;
-      this.viewExercises = false;
-      this.addExercise = false;
-      this.viewSubmittedExercises = false;
-    },
-    toggleAddExercise(){
-      this.createWorkout = false;
-      this.addExercise = true;
-      this.viewExercises = false;
-      this.viewWorkout = false;
-    },
-    toggleViewExercises(){
-      this.createWorkout = false;
-      this.viewExercises = true;
-      this.addExercise = false;
-      this.viewWorkout = false;
-    },
     updateFilter(){
       this.$store.commit("UPDATE_FILTER", this.filter)
       this.filter = "";

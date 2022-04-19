@@ -17,7 +17,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
-          <option value="Legs">Total Body</option>
+          <option value="Total Body">Total Body</option>
         </select>
 
 
@@ -25,11 +25,11 @@
           <template v-slot:extension>
             <v-tabs v-model="tabs" align-with-title>
               <v-tab> Summary </v-tab>
-               <v-tab v-on:click="toggleCreateWorkout()"> Create Workout</v-tab>
-              <v-tab v-on:click="toggleViewWorkout()"> Workouts </v-tab>
-              <v-tab v-on:click="toggleViewExercises()"> Exercises </v-tab>
-              <v-tab v-on:click="toggleAddExercise()"> Add Exercise </v-tab>
-              <v-tab v-on:click="toggleViewSubmittedExercises()"> Approve Exercise </v-tab>
+              <v-tab > Create Workout</v-tab>
+              <v-tab > Workouts </v-tab>
+              <v-tab > Exercises </v-tab>
+              <v-tab > Add Exercise </v-tab>
+              <v-tab > Approve Exercise </v-tab>
               <v-tabs-slider color="pink"></v-tabs-slider>
             </v-tabs>
           </template>
@@ -52,12 +52,12 @@
         </v-card-text>
       </v-card>
       <div>
-      <create-workout v-if="createWorkout === true"/>
-      <add-exercise v-if="addExercise === true"/>
-      <view-exercises v-if="viewExercises === true"/>
-      <view-submitted-Exercises v-if="viewSubmittedExercises === true"/>
-      <view-workout v-if="viewWorkout === true"/>
-
+      <view-summary v-if="this.tabs === 0"/>
+      <create-workout v-if="this.tabs === 1"/>
+      <view-workout v-if="this.tabs === 2"/>
+      <view-exercises v-if="this.tabs === 3"/>
+      <add-exercise v-if="this.tabs === 4"/>
+      <view-submitted-Exercises v-if="this.tabs === 5"/>
       </div>
     </v-app>
   </div>
@@ -69,6 +69,7 @@ import viewExercises from "../components/ViewExercises.vue";
 import viewSubmittedExercises from "../components/ViewSubmittedExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
 import createWorkout from "../components/CreateWorkout.vue";
+import ViewSummary from "../components/ViewSummary.vue";
 export default {
   name: "trainer-page",
   components: {
@@ -76,18 +77,13 @@ export default {
     viewExercises,
     viewSubmittedExercises,
     viewWorkout,
-    createWorkout
+    createWorkout,
+    ViewSummary
   },
 
   data() {
     
     return {
-      addExercise: false,
-      viewExercises:false,
-      viewWorkout:false,
-      viewSummary:false,
-      viewSubmittedExercises:false,
-      createWorkout:false,
       created:false,
       fab: false,
       hidden: false,
@@ -101,58 +97,8 @@ export default {
     this.updateFilter(this.filter)
   },
 
-  
-
-  computed: {
-    activeFab() {
-      switch (this.tabs) {
-        case "one":
-          return true;
-        case "two":
-          return {};
-        case "three":
-          return {};
-        default:
-          return {};
-      }
-    },
-  },
   methods:{
-    toggleAddExercise(){
-      this.addExercise = true;
-      this.viewExercises = false;
-      this.viewSubmittedExercises = false;
-      this.viewWorkout = false;
-      this.createWorkout = false;
-    },
-    toggleViewExercises(){
-      this.viewExercises = true;
-      this.addExercise = false;
-      this.viewSubmittedExercises = false;
-      this.viewWorkout = false;
-      this.createWorkout = false;
-    },
-    toggleViewSubmittedExercises(){
-      this.viewExercises = false;
-      this.addExercise = false;
-      this.viewSubmittedExercises = true;
-      this.viewWorkout = false;
-      this.createWorkout = false;
-    },
-    toggleViewWorkout(){
-      this.viewWorkout = true;
-      this.viewExercises = false;
-      this.addExercise = false;
-      this.viewSubmittedExercises = false;
-      this.createWorkout = false;
-    },
-     toggleCreateWorkout(){
-      this.createWorkout = true;
-      this.viewWorkout = false;
-      this.viewExercises = false;
-      this.addExercise = false;
-      this.viewSubmittedExercises = false;
-    },
+   
     updateFilter(){
       this.$store.commit("UPDATE_FILTER", this.filter)
       this.filter = "";

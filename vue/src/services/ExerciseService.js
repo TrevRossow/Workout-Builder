@@ -29,6 +29,10 @@ export default {
 
   deleteExercise(exercise){
     return axios.delete(`/exercise/${exercise.id}`)
+  },
+
+  getStatus(exercise){
+    return axios.get(`/exercise/status/${exercise.id}`)
   }
 
 

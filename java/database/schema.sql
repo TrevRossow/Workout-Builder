@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS exercises CASCADE;
 DROP TABLE IF EXISTS workouts CASCADE;
 DROP TABLE IF EXISTS exercise_status CASCADE;
 DROP TABLE IF EXISTS workout_exercise CASCADE;
+DROP TABLE IF EXISTS user_exercises CASCADE;
 
 
 CREATE SEQUENCE seq_user_id
@@ -28,7 +29,7 @@ CREATE TABLE users (
     user_id int DEFAULT nextval('seq_user_id'::regclass) NOT NULL,
     username varchar(50) UNIQUE NOT NULL,
     password_hash varchar(200) NOT NULL,
-	user_date timestamp,
+	join_date timestamp,
 	role varchar(50) NOT NULL,
     CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
@@ -60,10 +61,17 @@ CREATE TABLE exercises (
     exercise_type VARCHAR  NOT NULL,
     exercise_status_id int DEFAULT '1',
 	exercise_approval_queue INT,
-	time_range INT, 
-    CONSTRAINT fk_exercise_status_exercise_status FOREIGN KEY (exercise_status_id) REFERENCES exercise_status (exercise_status_id),
-	CONSTRAINT fk_exercise_approval_queue FOREIGN KEY (exercise_approval_queue) REFERENCES exercise_approval_queue (queue_id)
-	
+	time_range INT,
+	user_id INT,
+    CONSTRAINT fk_exercise_status FOREIGN KEY (exercise_status_id) REFERENCES exercise_status (exercise_status_id),
+	CONSTRAINT fk_exercise_approval_queue FOREIGN KEY (exercise_approval_queue) REFERENCES exercise_approval_queue (queue_id),
+	CONSTRAINT fk_users FOREIGN KEY (user_id)REFERENCES users(user_id)
+);
+
+CREATE TABLE user_exercises(
+	user_id int NOT NULL CONSTRAINT fk_users REFERENCES users(user_id),
+	exercise_id int NOT NULL CONSTRAINT fk_exercises REFERENCES exercises(exercise_id)
+
 );
 CREATE TABLE workouts (
     workout_id SERIAL NOT NULL,
@@ -79,13 +87,14 @@ CREATE TABLE workout_exercise (
 	exercise_id INT NOT NULL,
 	CONSTRAINT fk_workout_exercise_workouts FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     CONSTRAINT fk_workout_exercise_exercises FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
-	);
+);
 
 
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Pending');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Approved');
 INSERT INTO exercise_status (exercise_status_description) VALUES ('Rejected');
-INSERT INTO exercises (exercise_name,exercise_description,muscle_group,rep_range,exercise_type,exercise_status_id, time_range) -- exercise_approval queue and timestamp is not currently included
+
+INSERT INTO exercises (exercise_name,exercise_description,muscle_group,rep_range,exercise_type,exercise_status_id, time_range) -- exercise_approval queue is not currently included
 VALUES
 ('Stair Climbing', 'Find some stairs and climb up and down. Great for inside or outside!', 'Cardio', '10 min', 'Cardio', '2', '5'),
     ('Elliptical Trainer', 'An elliptical trainer or cross-trainer is a stationary exercise machine used to stair climb, walk, or run without causing excessive pressure to the joints, hence decreasing the risk of impact injuries.', 'Cardio', '5 min', 'Cardio', '2', '5'),
@@ -132,9 +141,6 @@ VALUES
     ('Cable Face Pulls', 'Start by standing in front of a cable machine, cable in hand at shoulder height. Bring your elbows to a slight bend pull it towards your face in an upward motion.', 'Shoulders', '8 - 12', 'Strength', '2', '5');
 
 
-
-
-
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_TRAINER');
@@ -145,12 +151,9 @@ INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
 COMMIT TRANSACTION;
 
-<<<<<<< HEAD
 select * 
 from exercises 
 left JOIN workout_exercise ON exercises.exercise_id = workout_exercise.exercise_id 
 ORDER by exercises.exercise_id ASC
 
 Rollback;
-=======
->>>>>>> 19d5ab5418ff33e4c7ffd14999e0dbd35ceef47f

@@ -52,11 +52,12 @@
         </v-card-text>
       </v-card>
       <div>
+      <view-summary v-if="this.tabs === 0"/>
       <create-workout v-if="this.tabs === 1"/>
       <view-workout v-if="this.tabs === 2"/>
-      <viewExercises v-if="this.tabs === 3 "/>
+      <viewExercises v-if="this.tabs === 3"/>
       <add-exercise v-if="this.tabs === 4"/>
-      <user-exercises v-if="this.tabs === 5 "/>
+      <user-exercises v-if="this.tabs === 5"/>
       </div>
     </v-app>
   </div>
@@ -68,13 +69,15 @@ import viewExercises from "../components/ViewExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
 import createWorkout from "../components/CreateWorkout.vue";
 import UserExercises from '../components/UserExercises.vue';
+import ViewSummary from '../components/ViewSummary.vue';
 export default {
   components: {
     addExercise,
     viewExercises,
     viewWorkout,
     createWorkout,
-    UserExercises
+    UserExercises,
+    ViewSummary
 
   },
 

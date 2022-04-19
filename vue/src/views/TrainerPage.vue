@@ -52,6 +52,7 @@
         </v-card-text>
       </v-card>
       <div>
+      <view-summary v-if="this.tabs === 0"/>
       <create-workout v-if="this.tabs === 1"/>
       <view-workout v-if="this.tabs === 2"/>
       <view-exercises v-if="this.tabs === 3"/>
@@ -68,6 +69,7 @@ import viewExercises from "../components/ViewExercises.vue";
 import viewSubmittedExercises from "../components/ViewSubmittedExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
 import createWorkout from "../components/CreateWorkout.vue";
+import ViewSummary from "../components/ViewSummary.vue";
 export default {
   name: "trainer-page",
   components: {
@@ -75,7 +77,8 @@ export default {
     viewExercises,
     viewSubmittedExercises,
     viewWorkout,
-    createWorkout
+    createWorkout,
+    ViewSummary
   },
 
   data() {

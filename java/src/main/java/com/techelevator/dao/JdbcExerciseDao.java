@@ -88,11 +88,10 @@ public class JdbcExerciseDao implements ExerciseDao {
     @Override
     public Exercise create(Exercise exercise) {
 
-
         String insertExercise = "INSERT INTO exercises (" +
-                "exercise_name, muscle_group, rep_range, exercise_type," +
+                " user_id, exercise_name, muscle_group, rep_range, exercise_type," +
                 "exercise_description, exercise_status_id, time_range) " +
-                "values (?, ?, ?, ?, ?, ?, ?) RETURNING exercise_id";
+                "values (?, ?, ?, ?, ?, ?, ?, ?) RETURNING exercise_id";
         Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId(), exercise.getTimeRange());
         return this.getExerciseById(exerciseId);
     }
@@ -116,7 +115,7 @@ public class JdbcExerciseDao implements ExerciseDao {
 
     @Override
     public boolean updateExercise(Long id, Exercise changedExercise) {
-        String sql = "UPDATE exercises SET exercise_name = ?, exercise_description = ?, muscle_group = ?, " +
+        String sql = "UPDATE exercises SET user_id = ?, exercise_name = ?, exercise_description = ?, muscle_group = ?, " +
                 " rep_range = ?, exercise_type = ?, exercise_status_id = ?, time_range = ? " +
                 "WHERE exercise_id = ?";
         return jdbcTemplate.update(sql, changedExercise.getName(), changedExercise.getDescription(), changedExercise.getMuscleGroup(),
@@ -126,6 +125,7 @@ public class JdbcExerciseDao implements ExerciseDao {
     private Exercise mapRowToExercise(SqlRowSet rs) {
         Exercise exercise = new Exercise();
         exercise.setId(rs.getLong("exercise_id"));
+        exercise.setUser_id(rs.getLong("user_id"));
         exercise.setName(rs.getString("exercise_name"));
         exercise.setDescription(rs.getString("exercise_description"));
         exercise.setMuscleGroup(rs.getString("muscle_group"));

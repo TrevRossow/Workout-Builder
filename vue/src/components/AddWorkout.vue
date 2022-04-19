@@ -69,7 +69,6 @@ export default {
   
   created(){
     this.exercise = this.$store.state.selectedExercise
-
   },
 
 
@@ -79,16 +78,18 @@ export default {
     },
 
     addToWorkout(){
-        this.$store.commit('ADD_TO_WORKOUT')
+      let updateWorkout = this.$store.state.selectedWorkout[0].exercises.unshift(this.exercise)
+        this.$store.commit('UPDATE_WORKOUT' , updateWorkout)
+        this.hideForm();
     },
 
     selectWorkout(name){
     
-      let workout1 = this.$store.state.workouts.filter((workout) => {
+      let workoutToAppend = this.$store.state.workouts.filter((workout) => {
         return workout.name === name
       }); 
-      
-        this.$store.commit('SELECT_WORKOUT', workout1)
+       
+       this.$store.commit('SELECT_WORKOUT', workoutToAppend)
        
     }
    

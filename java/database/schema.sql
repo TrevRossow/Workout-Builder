@@ -52,13 +52,8 @@ CREATE TABLE exercise_status(
 );
 CREATE TABLE exercises (
     exercise_id SERIAL PRIMARY KEY NOT NULL,
-<<<<<<< HEAD
     exercise_name VARCHAR  NOT NULL UNIQUE,
     exercise_description VARCHAR NOT NULL,
-=======
-    exercise_name VARCHAR  NOT NULL UNIQUE,w
-    exercise_description TEXT NOT NULL,
->>>>>>> 379126c3aa27723b781f8890612b11a364af61fc
     muscle_group VARCHAR ,
 	rep_range VARCHAR,
     exercise_type VARCHAR  NOT NULL,
@@ -80,7 +75,6 @@ CREATE TABLE workouts (
 CREATE TABLE workout_exercise (
 	workout_id INT NOT NULL, 
 	exercise_id INT NOT NULL,
-    --CONSTRAINT pk_workout_exercise PRIMARY KEY (workout_id, exercise_id),
 	CONSTRAINT fk_workout_exercise_workouts FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     CONSTRAINT fk_workout_exercise_exercises FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
 	);
@@ -149,6 +143,3 @@ INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
 COMMIT TRANSACTION;
 
-select * from exercises
-
-Rollback;

@@ -5,32 +5,49 @@
       class="exerciseDiv"
       v-for="workout in $store.state.workouts"
       :key="workout.id"
-    >
+    ><div id="head">
       <h2>{{ workout.name }}</h2>
-      <div vr id="imgDiv">
-        <div>
+      </div>
+      <div id="imgDiv">
+        <div id="maininfo" >
           <h4 class="group">Trainer: {{ workout.trainer }}</h4>
           <h5 class="type">User Id: {{ workout.userId }}</h5>
-          <div v-for="exercise in workout.exercises" :key="exercise.id">
+          <br>
+          <v-carousel class="carousel" height="200px" 
+          hide-delimiter-background   show-arrows-on-hover >
+          <v-carousel-item id="carocards"
+           v-for="exercise in workout.exercises" :key="exercise.id">
             <h4 class="reps">{{ exercise.name }}</h4>
             <div vr id="imgDiv">
-              <div>
+              <div id="info">
                 <h4 class="group">{{ exercise.muscleGroup }}</h4>
                 <h5 class="type" v-show="exercise.type != 'Cardio'">
                   {{ exercise.type }}
                 </h5>
+                <h6>Reps:</h6>
                 <h4 class="reps">{{ exercise.repRange }}</h4>
+                <h6>Time:</h6>
+                <h4 class="time">{{ exercise.timeRange }} Mins</h4>
               </div>
               <img
                 class="img"
                 :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
               />
             </div>
+             </v-carousel-item>
+            </v-carousel>
+            
           </div>
+          
+        </div>
+        <div class="btnDiv">
+         <button type="submit">Complete</button>
+        <button class="delete" v-on:click="hideForm()">Delete</button>
         </div>
       </div>
+      
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -47,13 +64,11 @@ export default {
 
       exercises: [],
 
-      showWorkout:false,
+      showWorkout: false,
     };
-
-    
   },
   components: {
-    addWorkout
+    addWorkout,
   },
 
   created() {
@@ -96,13 +111,25 @@ export default {
   max-width: 100%;
   flex-wrap: wrap;
   min-width: 320px;
+  max-height: max-content;
 }
 
 #imgDiv {
   display: flex;
   justify-content: space-between;
+  justify-content: center;
   align-content: center;
+  width: 100%;
 }
+
+#head {
+  text-align: center;
+}
+
+#info {
+  margin-bottom: 30px;
+}
+
 
 img {
   height: 100px;
@@ -118,7 +145,7 @@ img {
   border-radius: 8px/7px;
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
-  border: solid 1px #cbc9c9;
+  border: solid 1px black;
   max-width: 275px;
   min-width: 275px;
   height: max-content;

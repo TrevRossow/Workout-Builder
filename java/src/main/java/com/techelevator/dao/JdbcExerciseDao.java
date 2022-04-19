@@ -91,9 +91,9 @@ public class JdbcExerciseDao implements ExerciseDao {
 
         String insertExercise = "INSERT INTO exercises (" +
                 "exercise_name, muscle_group, rep_range, exercise_type," +
-                "exercise_description, exercise_status_id) " +
-                "values (?, ?, ?, ?, ?, ?) RETURNING exercise_id";
-        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId());
+                "exercise_description, exercise_status_id, time_range) " +
+                "values (?, ?, ?, ?, ?, ?, ?) RETURNING exercise_id";
+        Long exerciseId = jdbcTemplate.queryForObject(insertExercise, Long.class, exercise.getName(), exercise.getMuscleGroup(), exercise.getRepRange(), exercise.getType(), exercise.getDescription(), exercise.getStatusId(), exercise.getTimeRange());
         return this.getExerciseById(exerciseId);
     }
 
@@ -117,10 +117,10 @@ public class JdbcExerciseDao implements ExerciseDao {
     @Override
     public boolean updateExercise(Long id, Exercise changedExercise) {
         String sql = "UPDATE exercises SET exercise_name = ?, exercise_description = ?, muscle_group = ?, " +
-                " rep_range = ?, exercise_type = ?, exercise_status_id = ? " +
+                " rep_range = ?, exercise_type = ?, exercise_status_id = ?, time_range = ? " +
                 "WHERE exercise_id = ?";
         return jdbcTemplate.update(sql, changedExercise.getName(), changedExercise.getDescription(), changedExercise.getMuscleGroup(),
-                changedExercise.getRepRange(), changedExercise.getType(), changedExercise.getStatusId(), id) == 1;
+                changedExercise.getRepRange(), changedExercise.getType(), changedExercise.getStatusId(), changedExercise.getTimeRange(), id) == 1;
     }
 
     private Exercise mapRowToExercise(SqlRowSet rs) {
@@ -132,6 +132,7 @@ public class JdbcExerciseDao implements ExerciseDao {
         exercise.setRepRange(rs.getString("rep_range"));
         exercise.setType(rs.getString("exercise_type"));
         exercise.setStatusId(rs.getInt("exercise_status_id"));
+        exercise.setTimeRange(rs.getInt("time_range"));
 
         return exercise;
     }

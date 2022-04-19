@@ -99,9 +99,14 @@ export default new Vuex.Store({
       state.workouts.unshift(workout);
     },
 
-    ADD_TO_WORKOUT(state, selectedExercise){
-  
-    state.selectedWorkout.exercises.unshift(selectedExercise);
+    UPDATE_WORKOUT(state, updatedWorkout){
+      let keepArr = []
+      state.workouts.forEach(workout => {
+        if (workout.workoutId !== updatedWorkout.workoutId) {
+          keepArr.push(workout);
+        }
+      });
+      state.workouts = keepArr
 
     }
   }

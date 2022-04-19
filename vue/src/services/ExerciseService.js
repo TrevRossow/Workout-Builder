@@ -31,8 +31,8 @@ export default {
     return axios.delete(`/exercise/${exercise.id}`)
   },
 
-  getStatus(exercise){
-    return axios.get(`/exercise/status/${exercise.id}`)
+  getStatus(statusID){
+    return axios.get(`/exercise/status/${statusID}`)
   }
 
 

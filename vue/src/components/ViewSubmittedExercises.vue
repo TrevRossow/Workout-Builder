@@ -62,7 +62,7 @@ export default {
       const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
-        return exercise.statusId == 1 && exerciseFilter == ""
+        return exercise.statusId === 1  && exerciseFilter == ""
           ? true
           : exerciseFilter == exercise.muscleGroup;
       });
@@ -108,12 +108,16 @@ export default {
     },
 
     reject(exercise) {
+      if (this.isAuthorized) {
+        exercise.statusId = 3;
+      } else {exercise.statusId = 1;
+      }
       exerciseService
-        .deleteExercise(exercise)
+        .updateExercise(exercise)
         .then((response) => {
-          console.log(response);
           if (response.status == 200) {
-            this.$store.commit("DELETE_EXERCISE", exercise.id);
+            this.$store.commit("UPDATE_EXERCISE", exercise);
+            this.exercise = {};
             this.getExercises();
           }
         })
@@ -124,7 +128,7 @@ export default {
             this.createError = true;
           }
         });
-    },
+    }
   },
 };
 </script>

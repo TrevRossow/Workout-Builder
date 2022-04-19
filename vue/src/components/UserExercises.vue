@@ -6,7 +6,7 @@
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
       :key="exercise.id"
-      v-on:click="getStatus(exercise)"
+         v-on:click="getStatus(exercise)"
     >
       <h2>{{ exercise.name }}</h2>
       <div vr id="imgDiv">
@@ -19,11 +19,11 @@
         </div>
         <img
           class="img"
-          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+          :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
-      <p id="status"> {(status)}</p>
+      <p id="status" v-if="status.length > 0"> {{status(exercise.statusId)}}</p>
       
       
     </div>
@@ -43,7 +43,8 @@ export default {
 
       exercises: [],
 
-      status:"",
+      statuss:["Pending", "Approved",  "Rejected", ]
+
       
     };
   },
@@ -52,6 +53,7 @@ export default {
 
   created() {
     this.getExercises();
+
   },
 
   computed: {
@@ -59,12 +61,13 @@ export default {
       const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
-        return exercise.statusId == 1  && exerciseFilter == ""
+        return exercise.statusId == 1 || exercise.statusId == 3 && exerciseFilter == ""
           ? true
           : exerciseFilter == exercise.muscleGroup;
       });
     },
-
+    
+ 
     isAuthorized() {
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
         return true;
@@ -72,8 +75,9 @@ export default {
         return false;
       }
     },
-  },
 
+    
+  },
   methods: {
     getExercises() {
       exerciseService.getExercises().then((response) => {
@@ -82,12 +86,24 @@ export default {
     },
 
     getStatus(exercise){
-        exerciseService.getStatus(exercise).then((response) => {
+        exerciseService.getStatus(exercise.statusId).then((response) => {
             this.status = response.data;
         });
-    }
-    
+    },
+
+    status(status){
+        let desc = ""
+         if(status == 1){
+             desc = "Pending" 
+         }else if(status == 3) {
+             desc = "Rejected"
+         
+      }
+      return desc
   }
+  }
+  
+    
 };
 </script>
 

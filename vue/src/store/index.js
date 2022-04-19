@@ -36,6 +36,16 @@ export default new Vuex.Store({
 
     workouts:[],
 
+    summaryWorkout: {
+      workoutId: 1,
+      name: "",
+      exercises: [],
+      focus: [],
+      trainer: "",
+      userId: "",
+      completed: false,
+    },
+
     filter:"",
 
     exercises: [],

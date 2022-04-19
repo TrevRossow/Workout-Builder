@@ -149,12 +149,4 @@ INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwp
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Request');
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
-
 COMMIT TRANSACTION;
-
-select * 
-from exercises 
-left JOIN workout_exercise ON exercises.exercise_id = workout_exercise.exercise_id 
-ORDER by exercises.exercise_id ASC
-
-Rollback;

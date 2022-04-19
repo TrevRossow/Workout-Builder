@@ -13,6 +13,7 @@
       <div vr id="imgDiv">
         <div>
           <h4 class="group">{{ exercise.muscleGroup }}</h4>
+          <h5 class="user_id"> {{exercise.user_id}} </h5>
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>

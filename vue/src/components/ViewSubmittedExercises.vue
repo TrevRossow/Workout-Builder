@@ -61,12 +61,10 @@ export default {
 
   computed: {
     filteredExercises() {
-      const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
-        return exercise.statusId === 1  && exerciseFilter == ""
-          ? true
-          : exerciseFilter == exercise.muscleGroup;
+        return exercise.statusId === 1   
+    
       });
     },
 

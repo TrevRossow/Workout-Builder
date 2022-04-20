@@ -75,18 +75,12 @@ export default {
       this.$store.commit('UPDATE_WORKOUT', updatedWorkout)
         console.log(this.selectedWorkoutId[0].workoutId)
        let obj = {
-         workoutId: this.selectedWorkoutId,
+         workoutId: this.selectedWorkoutId[0].workoutId,
          exerciseId: this.exercise.id
        }
-   
-   WorkoutService.editWorkout(obj.workoutId, updatedWorkout)
    WorkoutService.sendExercises(obj.workoutId, obj).then((response) => {
-     
-  
-       
         if(response.status == 200){
         this.updateSuccess = true;
-        
         this.hideForm();
         }
       })

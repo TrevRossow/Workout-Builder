@@ -206,7 +206,7 @@ export default {
         this.createError = true;
       }
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < focusArr.length * 3; i++) {
         let exerciseFocus =
           focusArr[Math.floor(Math.random() * focusArr.length)];
 

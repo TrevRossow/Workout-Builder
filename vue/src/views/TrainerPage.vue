@@ -11,6 +11,7 @@
           </v-btn>
            <select name="drop-down" id="filter" v-model="filter" required>
           <option value="" selected="selected" disabled="disabled">-- Filter --</option>
+          <option value="Cardio">Cardio</option>
           <option value="Chest">Chest</option>
           <option value="Back">Back</option>
           <option value="Biceps">Biceps</option>

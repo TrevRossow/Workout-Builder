@@ -16,16 +16,13 @@ public class JdbcExerciseDaoTests extends BaseDaoTests {
 
     protected static final Exercise Exercise1 = new Exercise(1L, 0L, "Stair Climbing", "Find some stairs and climb up and down. Great for inside or outside!","Cardio", "10 min","Cardio", 2, 5);
     ;
-
-    protected static final Exercise Exercise2 = new Exercise(2L, 2L, "exercise2", "this is the second best workout", "Biceps", "6-10", "strength", 1, 10);
-
+    protected static final Exercise Exercise2 = new Exercise(2L, 0L, "Elliptical Trainer", "An elliptical trainer or cross-trainer is a stationary exercise machine used to stair climb, walk, or run without causing excessive pressure to the joints, hence decreasing the risk of impact injuries.", "Cardio", "5 min", "Cardio", 2, 5);
 
     private JdbcExerciseDao sut;
 
     @Before
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
         sut = new JdbcExerciseDao(jdbcTemplate);
     }
 
@@ -46,15 +43,14 @@ public class JdbcExerciseDaoTests extends BaseDaoTests {
     @Test(expected = ExerciseNotFoundException.class)
     public void getExerciseById_when_invalid_exercise_throws_Exception() {
         sut.getExerciseById(-1L);
-
     }
 
     @Test
     public void getExerciseById_given_valid_Exercise_id_returns_exercise(){
         Exercise actualExercise = sut.getExerciseById(Exercise1.getId());
-
         Assert.assertEquals(Exercise1,actualExercise);
     }
+    
 
     
 }

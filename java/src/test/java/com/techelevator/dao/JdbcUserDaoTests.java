@@ -14,7 +14,6 @@ import java.util.List;
 
 public class JdbcUserDaoTests extends BaseDaoTests {
     protected static final User USER_1 = new User(1L, "user", "$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC", "ROLE_USER");
-
     protected static final User USER_2 = new User(2L, "admin", "$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC", "ROLE_ADMIN");
 
 

@@ -137,4 +137,23 @@ INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwp
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Request');
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
+INSERT INTO workouts (workout_id, workout_name,trainer_id,user_id,completed,workout_date)
+VALUES
+    ('1','The Mike Levy', '3', '1', 'False', '2022-04-20'),
+    ('2','The Dave Hoy', '3', '1', 'False', '2022-04-20');
+
+INSERT INTO workout_exercise ( workout_id, exercise_id)
+VALUES
+    ('1','40'),
+    ('1','17'),
+    ('1','12'),
+    ('1','39'),
+    ('1','42'),
+    ('2','35'),
+    ('2', '38'),
+    ('2', '22'),
+    ('2', '1'),
+    ('2', '3');
+
+
 COMMIT TRANSACTION;

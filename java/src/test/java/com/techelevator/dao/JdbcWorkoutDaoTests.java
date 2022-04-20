@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcWorkoutDaoTests extends BaseDaoTests {
-    protected static final Workout WORKOUT_1 = new Workout(1L,"Workout1",1L,1L,false,LocalDate.parse("2020-04-20"));
+    protected static final Workout WORKOUT_1 = new Workout(1L,"The Mike Levy",3L,1L,false,LocalDate.parse("2020-04-20"));
 
-    protected static final Workout WORKOUT_2 = new Workout(2L,"Workout1",2L,2L,true, LocalDate.parse("2020-04-20"));
+    protected static final Workout WORKOUT_2 = new Workout(2L,"The Dave Hoy",3L,1L,false, LocalDate.parse("2020-04-20"));
 
 
     private JdbcWorkoutDao sut;
@@ -23,7 +23,6 @@ public class JdbcWorkoutDaoTests extends BaseDaoTests {
     @Before
     public void setup(){
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
         sut = new JdbcWorkoutDao(jdbcTemplate);
     }
 

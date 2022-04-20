@@ -1,60 +1,55 @@
 <template>
   <div class="main">
-      <h1>Your workout summary</h1>
-      <div class="timeExercising">
-          This should display info
-      </div>
-      <div class="currentDate" >
-          <i><font-awesome-icon icon="fa-calendar"/></i>
-          {{ date }}
-      </div>
-
-      <div class="focusMostCompleted">
-
-      </div>
-      <div class="repsCompleted">
-
-      </div>
+    <h1>Your workout summary for:</h1>
+    <div class="currentDate">
+      <i><font-awesome-icon icon="fa-calendar" /></i>
+      {{ date }}
+    </div>
+    <div class="info">
+    <div class="timeExercising">
+      <img class="img" src="../../public/graph.png" alt="exercise graph" />
+      <p>Here's your workout time this week!</p>
+    </div>
+    <div class="focusMostCompleted">
+      <img class="img" src="../../public/focus.png" alt="exercise focuses" />
+      <p>Great Work! This is the breakdown <br/>on your focuses this week</p>
+    </div>
+    <div class="repsCompleted">
+      <img class="img" src="../../public/reps.png" alt="reps completed" />
+      <p>You have completed: <b>153 Reps this week!</b></p>
+    </div>
+    </div>
   </div>
 </template>
-
 <script>
 export default {
-    name: "view-summary",
-    data() {
-        return {
-            showDateTime: null,
-            date: null,
-            workout:{}
-        }
+  name: "view-summary",
+  data() {
+    return {
+      showDateTime: null,
+      date: null,
+      workout: {},
+    };
+  },
+  methods: {
+    getWorkout() {
+      this.workout = this.$store.state.summaryWorkout;
     },
-
-    methods: {
-        getWorkout(){
-            this.workout = this.$store.state.summaryWorkout;
-        },
-        
-        getCurrentDatetime(){
-            let dateTime = new Date();
-            this.showDateTime = dateTime;
-            this.date = dateTime.toJSON().slice(0,10).replace(/-/g,'/');
-            console.log(dateTime);
-        }
+    getCurrentDatetime() {
+      let dateTime = new Date();
+      this.showDateTime = dateTime;
+      this.date = dateTime.toJSON().slice(0, 10).replace(/-/g, "/");
+      console.log(dateTime);
     },
-
-    created() {
-        this.getWorkout();
-        this.getCurrentDatetime();
-    },
-        
-
-}
-
+  },
+  created() {
+    this.getWorkout();
+    this.getCurrentDatetime();
+  },
+};
 </script>
-
-<style>
-
-.currentDate{
+<style scoped>
+.currentDate {
   width: 140px;
   background-color: #3a57af;
   border-radius: 5px;
@@ -65,4 +60,20 @@ export default {
   border: solid 1px #cbc9c9;
   position: relative;
 }
+
+img {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  height: 150px;
+}
+
+p {
+  font-style: italic;
+}
+
+.info {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 </style>

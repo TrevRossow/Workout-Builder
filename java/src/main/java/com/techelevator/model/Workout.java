@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Workout {
 
-    private Long id;
+    private Long workoutId;
     private Long userId;
     private Long trainerId;
     private boolean isCompleted;
@@ -14,8 +14,8 @@ public class Workout {
 
     public Workout() {}
 
-    public Workout(Long id, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
-        this.id = id;
+    public Workout(Long workoutId, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
+        this.workoutId = workoutId;
         this.userId = userId;
         this.trainerId = trainerId;
         this.isCompleted = isCompleted;
@@ -32,11 +32,11 @@ public class Workout {
     }
 
     public long getId() {
-        return id;
+        return workoutId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(Long workoutId) {
+        this.workoutId = workoutId;
     }
 
     public long getUserId() {
@@ -66,7 +66,7 @@ public class Workout {
     @Override
     public String toString() {
         return "Workout{" +
-                "id = " + id +
+                "workoutId = " + workoutId +
                 ", userId = " + userId +
                 ", trainer Id = " + trainerId +
                 ", Completed = " + isCompleted +

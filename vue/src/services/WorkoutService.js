@@ -17,6 +17,10 @@ export default {
 
     deleteWorkout(id) {
         return axios.delete(`/workout/${id}`)
+    },
+
+    sendExercises(workoutID, Id){
+        return axios.post(`/workout/${workoutID}/exercise/${Id}`)
     }
 
 }

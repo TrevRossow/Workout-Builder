@@ -42,10 +42,7 @@ export default {
       targetedExercise: {},
 
       exercises: [],
-
-      statuses:["Pending", "Approved",  "Rejected", ]
-
-      
+    
     };
   },
   components: {
@@ -76,9 +73,8 @@ export default {
         return false;
       }
     },
-
-    
   },
+  
   methods: {
     getExercises() {
       exerciseService.getExercises().then((response) => {

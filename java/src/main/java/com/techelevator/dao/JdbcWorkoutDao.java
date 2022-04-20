@@ -36,7 +36,7 @@ public class JdbcWorkoutDao implements WorkoutDao {
     }
 
    @Override
-    public Workout getWorkoutByUserId(long userId){
+    public Workout getWorkoutByUserId(Long userId){
         String sql = "SELECT * FROM workouts WHERE user_id = ? ";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
@@ -47,7 +47,7 @@ public class JdbcWorkoutDao implements WorkoutDao {
         }
     }
     @Override
-    public Workout getWorkoutById(long workoutId) {
+    public Workout getWorkoutById(Long workoutId) {
         String sql = "SELECT * FROM workouts WHERE workout_id = ? ";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, workoutId);

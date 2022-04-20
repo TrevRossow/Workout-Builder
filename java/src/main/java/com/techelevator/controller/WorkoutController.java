@@ -2,7 +2,9 @@ package com.techelevator.controller;
 
 
 import com.techelevator.dao.WorkoutDao;
+import com.techelevator.dao.WorkoutExerciseDao;
 import com.techelevator.model.Workout;
+import com.techelevator.model.WorkoutExercise;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +20,12 @@ import java.util.List;
 public class WorkoutController {
 
     private WorkoutDao workoutDao;
+    private WorkoutExerciseDao workoutExerciseDao;
 
 
-    public WorkoutController(WorkoutDao workoutDao){
+    public WorkoutController(WorkoutDao workoutDao, WorkoutExerciseDao workoutExerciseDao){
         this.workoutDao = workoutDao;
+        this.workoutExerciseDao = workoutExerciseDao;
     }
 
     @GetMapping("/workout/{id}")
@@ -47,8 +51,9 @@ public class WorkoutController {
     }
 
     @PostMapping("/workout")
-    public void createWorkout(@RequestBody Workout workout){
-        this.workoutDao.create(workout);
+    public Workout createWorkout(@RequestBody Workout workout){
+          return this.workoutDao.create(workout);
+
     }
 
     @PutMapping("/workout/{id}")
@@ -61,6 +66,8 @@ public class WorkoutController {
         this.workoutDao.deleteWorkout(id);
     }
 
-
-
+    @PostMapping("/workout{workoutId}/exercise/exercise{Id}")
+    public void add( @PathVariable Long workoutId, Long Id ){
+        this.workoutExerciseDao.add(workoutId, Id);
+    }
 }

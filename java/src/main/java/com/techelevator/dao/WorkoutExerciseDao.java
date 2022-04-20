@@ -6,4 +6,8 @@ import com.techelevator.model.WorkoutExercise;
 public interface WorkoutExerciseDao {
 
     WorkoutExercise getExerciseByWorkoutId(long workoutId);
+
+
+    void add(Long newWorkoutId, Long exerciseId );
+
 }

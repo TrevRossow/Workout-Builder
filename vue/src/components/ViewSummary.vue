@@ -19,6 +19,11 @@
         <p>You have completed: <b>153 Reps this week!</b></p>
       </div>
     </div>
+    <div class="subBody">
+      <p>Excellent job this week! Based on your summary, we recommend focusing more
+        on <a href="">shoulders</a>
+      </p>
+    </div>
   </div>
 </template>
 <script>
@@ -64,7 +69,7 @@ export default {
 img {
   margin-top: 40px;
   margin-bottom: 10px;
-  height: 170px;
+  height: 15rem;
 }
 
 p {
@@ -74,7 +79,7 @@ p {
 
 .body {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 
@@ -84,7 +89,7 @@ p {
   margin-top: 10px;
   background-color: rgb(240, 20, 12);
   border-radius: 15px;
-  box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
+  box-shadow: 4px 4px 3px rgb(58 87 175 / 75%);
   position: relative;
 }
 
@@ -106,5 +111,11 @@ p {
   border-radius: 15px;
   box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
   position: relative;
+}
+
+.subBody {
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
 }
 </style>

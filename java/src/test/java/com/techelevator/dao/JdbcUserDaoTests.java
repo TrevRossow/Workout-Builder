@@ -17,6 +17,7 @@ public class JdbcUserDaoTests extends BaseDaoTests {
 
     protected static final User USER_2 = new User(2L, "admin", "$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC", "ROLE_ADMIN");
 
+
     private JdbcUserDao sut;
 
     @Before
@@ -81,7 +82,7 @@ public class JdbcUserDaoTests extends BaseDaoTests {
         List<User> users = sut.findAll();
 
         Assert.assertNotNull(users);
-        Assert.assertEquals(2, users.size());
+        Assert.assertEquals(3, users.size());
         Assert.assertEquals(USER_1, users.get(0));
         Assert.assertEquals(USER_2, users.get(1));
     }

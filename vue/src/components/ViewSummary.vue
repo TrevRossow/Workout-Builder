@@ -5,19 +5,19 @@
       <i><font-awesome-icon icon="fa-calendar" /></i>
       {{ date }}
     </div>
-    <div class="info">
-    <div class="timeExercising">
-      <img class="img" src="../../public/graph.png" alt="exercise graph" />
-      <p>Here's your workout time this week!</p>
-    </div>
-    <div class="focusMostCompleted">
-      <img class="img" src="../../public/focus.png" alt="exercise focuses" />
-      <p>Great Work! This is the breakdown <br/>on your focuses this week</p>
-    </div>
-    <div class="repsCompleted">
-      <img class="img" src="../../public/reps.png" alt="reps completed" />
-      <p>You have completed: <b>153 Reps this week!</b></p>
-    </div>
+    <div class="body">
+      <div class="timeExercising">
+        <img class="img" src="../../public/graph.png" alt="exercise graph" />
+        <p>Here's your workout time this week!</p>
+      </div>
+      <div class="focusMostCompleted">
+        <img class="img" src="../../public/focus.png" alt="exercise focuses" />
+        <p>Great Work! This is the breakdown <br />on your focuses this week</p>
+      </div>
+      <div class="repsCompleted">
+        <img class="img" src="../../public/reps.png" alt="reps completed" />
+        <p>You have completed: <b>153 Reps this week!</b></p>
+      </div>
     </div>
   </div>
 </template>
@@ -62,18 +62,49 @@ export default {
 }
 
 img {
-  margin-top: 50px;
+  margin-top: 40px;
   margin-bottom: 10px;
-  height: 150px;
+  height: 170px;
 }
 
 p {
   font-style: italic;
+  font-family: "Josefin Sans", sans-serif;
 }
 
-.info {
-    display: flex;
-    justify-content: space-evenly;
+.body {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
+.timeExercising {
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 10px;
+  background-color: rgb(240, 20, 12);
+  border-radius: 15px;
+  box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
+  position: relative;
+}
+
+.focusMostCompleted {
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 10px;
+  background-color: rgb(17, 226, 51);
+  border-radius: 15px;
+  box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
+  position: relative;
+}
+
+.repsCompleted {
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 10px;
+  background-color: rgb(185, 5, 155);
+  border-radius: 15px;
+  box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
+  position: relative;
+}
 </style>

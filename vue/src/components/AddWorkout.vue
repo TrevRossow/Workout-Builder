@@ -53,7 +53,9 @@ export default {
 
         name:{},
 
-      exercise:{}
+      exercise:{},
+
+      selectedWorkoutId:0,
 
     }
   },
@@ -70,14 +72,17 @@ export default {
 
     addToWorkout(){
       let updatedWorkout = this.$store.state.selectedWorkout[0].exercises.unshift(this.exercise)
-      WorkoutService.editWorkout(updatedWorkout, workOutToSend)
       this.$store.commit('UPDATE_WORKOUT', updatedWorkout)
-
-      let workOutToSend = this.$store.state.s
-
-
-      WorkoutService.editWorkout(updatedWorkout, workOutToSend).then((response) => {
-        console.log(workOutToSend)
+        console.log(this.selectedWorkoutId[0].workoutId)
+       let obj = {
+         workoutId: this.selectedWorkoutId,
+         exerciseId: this.exercise.id
+       }
+   
+   WorkoutService.editWorkout(obj.workoutId, updatedWorkout)
+   WorkoutService.sendExercises(obj.workoutId, obj).then((response) => {
+     
+  
        
         if(response.status == 200){
         this.updateSuccess = true;
@@ -92,7 +97,8 @@ export default {
       let workoutToAppend = this.$store.state.workouts.filter((workout) => {
         return workout.workoutName === name
       }); 
-       
+       this.selectedWorkoutId = workoutToAppend; 
+
        this.$store.commit('SELECT_WORKOUT', workoutToAppend)
     }
     }

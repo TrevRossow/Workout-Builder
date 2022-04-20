@@ -25,7 +25,7 @@ public class JdbcWorkoutDao implements WorkoutDao {
     public List<Workout> getAll() {
         List<Workout> workouts = new ArrayList<>();
 
-        String sql = " SELECT * FROM workouts";
+        String sql = "SELECT * FROM workouts";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {

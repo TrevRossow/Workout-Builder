@@ -83,6 +83,7 @@ export default {
 };
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,700&display=swap');
 
 #app{
 }

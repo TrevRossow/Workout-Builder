@@ -106,6 +106,7 @@
 
 <script>
 import exerciseService from "../services/ExerciseService.js";
+
 export default {
   name: "add-exercise",
   components: {},
@@ -149,7 +150,8 @@ export default {
           if (response.status != 200) {
             this.createError = true;
           }
-        });
+        })
+
     },
   },
 };

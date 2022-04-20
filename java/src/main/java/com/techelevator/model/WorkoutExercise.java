@@ -9,7 +9,7 @@ public class WorkoutExercise {
 
     public  WorkoutExercise() {}
 
-    public WorkoutExercise(long workoutId, long exerciseId){
+    public WorkoutExercise(Long workoutId, Long exerciseId){
         this.workoutId = workoutId;
         this.exerciseId = exerciseId;
     }

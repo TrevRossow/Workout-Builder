@@ -27,6 +27,14 @@ public class JdbcWorkoutExerciseDao implements WorkoutExerciseDao {
         } else {
             throw new ExerciseNotFoundException("Exercise not found.");
         }
+    }
+
+    @Override
+    public void add(Long newWorkoutId, Long exerciseId ){
+        String sql = "INSERT INTO workout_exercise(" +
+                "workout_id, exercise_id) " +
+                "VALUES (?,?)";
+        Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, newWorkoutId, exerciseId);
 
     }
 

@@ -109,7 +109,6 @@
         </label>
 
         <label id="icon" for="random">
-
           <input
             id="random"
             type="checkbox"
@@ -128,11 +127,12 @@
           placeholder="Exercise Type"
           required
           v-model="workout.trainer"
-    
+          v-on:click="generateWorkout(checkBoxes)"
         >
-          >
+          
           <option value="" disabled selected>-- Trainer --</option>
           <option
+          
             v-for="trainer in this.trainers"
             v-bind:trainer="trainer"
             :key="trainer"
@@ -167,7 +167,7 @@ export default {
       tempArr: [],
 
       workout: {
-        workoutId: 1,
+        workoutId:null,
         name: "",
         trainerId: null,
         userId: this.$store.state.user.id,
@@ -175,14 +175,12 @@ export default {
         dateCompleted: null,
       },
 
-      
-
-
-
       createError: false,
       createSuccess: false,
     };
   },
+
+  created() {},
   computed: {
     checkRandom() {
       if (this.checkBoxes.includes("Random")) {
@@ -223,13 +221,14 @@ export default {
             ids.push(exercise);
 
             this.tempArr = ids;
+  
           }
-        );
+        )
       }
     },
 
     pushWorkout() {
-     /*  const map = {};
+      const map = {};
       const newArray = [];
       this.tempArr.forEach((element) => {
         if (!map[JSON.stringify(element)]) {
@@ -237,24 +236,26 @@ export default {
           newArray.push(element);
         }
       });
-      this.workout.exercises = newArray; */
+      this.tempArr = newArray;
+   
 
-        workoutService
-        .addWorkout(this.workout)
-        .then((response) => {
-          if (response.status == 200) {
-            this.createSuccess = true;
-            this.$store.commit("ADD_WORKOUT", this.exercise);
-            this.workout = {};
-          }
-        })
-        .catch((error) => {
-          const response = error.response;
-
-          if (response.status != 200) {
-            this.createError = true;
-          }
-        });
+      workoutService.addWorkout(this.workout).then((response)  => {
+        console.log(response.data.id)
+        if (response.status == 200) {
+          this.createSuccess = true;
+          let newWorkoutId = response.data.id;
+          this.$store.commit("ADD_WORKOUT", newWorkoutId);
+           this.tempArr.forEach((exercise) => {
+            workoutService
+              .sendExercises(newWorkoutId, exercise.id)
+              .then((response) => {
+                if (response.status == 200) {
+                  this.createSuccess = true;
+                }
+              });
+          }); 
+        }
+      });
     },
   },
 };

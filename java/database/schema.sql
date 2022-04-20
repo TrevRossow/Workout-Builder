@@ -71,8 +71,8 @@ CREATE TABLE workouts (
 );
 
 CREATE TABLE workout_exercise (
-	workout_id INT NOT NULL, 
-	exercise_id INT NOT NULL,
+	workout_id int NOT NULL,
+	exercise_id int NOT NULL,
 	CONSTRAINT fk_workout_exercise_workouts FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     CONSTRAINT fk_workout_exercise_exercises FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
 );

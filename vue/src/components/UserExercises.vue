@@ -54,14 +54,9 @@ export default {
 
   computed: {
     filteredExercises() {
-      const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
         return exercise.statusId == 1 || exercise.statusId == 3
-         && exercise.userId === this.$store.state.user.id
-         && exerciseFilter == ""
-          ? true
-          : exerciseFilter == exercise.muscleGroup;
       });
     },
     

@@ -114,13 +114,11 @@ export default new Vuex.Store({
     },
 
     UPDATE_WORKOUT(state, updatedWorkout){
-      let keepArr = []
-      state.workouts.forEach(workout => {
-        if (workout.workoutId !== updatedWorkout) {
-          keepArr.push(workout);
+      state.workouts.forEach((workout) => {
+        if (workout.id === updatedWorkout.workoutId) {
+          workout = updatedWorkout;
         }
-      });
-      state.workouts = keepArr
+      })
 
     },
     DELETE_WORKOUT(state, id) {

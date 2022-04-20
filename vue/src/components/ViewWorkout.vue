@@ -7,7 +7,6 @@
       :key="workout.workoutId" 
     ><div id="head">
       <h2>{{ workout.workoutName }}</h2>
-       <h2>{{ workout.workoutId }}</h2>
       </div>
       <div id="imgDiv">
         <div id="maininfo" >
@@ -26,7 +25,7 @@
                   {{ exercise.type }}
                 </h5>
                 <h6>Reps:</h6>
-                <h4 class="reps">{{ exercise.repRange }}</h4>
+                <h4 class="reps" v-show="exercise.type != 'Cardio'">{{ exercise.repRange }}</h4>
                 <h6>Time:</h6>
                 <h4 class="time">{{ exercise.timeRange }} Mins</h4>
               </div>

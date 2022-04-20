@@ -30,6 +30,10 @@ export default {
 
     sendExercises(workoutID, exerciseObj){
         return axios.post(`/workout/${workoutID}/exercise`, exerciseObj)
+    },
+
+    updateWorkoutExercises(workoutID, exerciseObj){
+        return axios.put(`/workout/${workoutID}/exercise/update`, exerciseObj)
     }
 
 }

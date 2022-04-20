@@ -4,55 +4,67 @@
     <div
       class="exerciseDiv"
       v-for="workout in $store.state.workouts"
-      :key="workout.workoutId" 
-    ><div id="head">
-      <h2>{{ workout.workoutName }}</h2>
+      :key="workout.workoutId"
+    >
+      <div id="head">
+        <h2>{{ workout.workoutName }}</h2>
       </div>
       <div id="imgDiv">
-        <div id="maininfo" >
-          <h4 class="group">Trainer: {{ workout.trainerId}}</h4>
+        <div id="maininfo">
+          <h4 class="group">Trainer: {{ workout.trainerId }}</h4>
           <h5 class="type">User Id: {{ workout.userId }}</h5>
-          <br>
-          <v-carousel class="carousel" height="200px" 
-          hide-delimiter-background  hide-delimiters show-arrows-on-hover >
-          <v-carousel-item id="carocards"
-           v-for="exercise in workout.exercises" :key="exercise.id">
-            <h4 class="reps">{{ exercise.name }}</h4>
-            <div vr id="imgDiv">
-              <div id="info">
-                <h4 class="group">{{ exercise.muscleGroup }}</h4>
-                <h5 class="type" v-show="exercise.type != 'Cardio'">
-                  {{ exercise.type }}
-                </h5>
-                <h6>Reps:</h6>
-                <h4 class="reps" v-show="exercise.type != 'Cardio'">{{ exercise.repRange }}</h4>
-                <h6>Time:</h6>
-                <h4 class="time">{{ exercise.timeRange }} Mins</h4>
+          <br />
+          <v-carousel
+            class="carousel"
+            height="200px"
+            hide-delimiter-background
+            hide-delimiters
+            show-arrows-on-hover
+          >
+            <v-carousel-item
+              id="carocards"
+              v-for="exercise in workout.exercises"
+              :key="exercise.id"
+            >
+              <h4 class="reps">{{ exercise.name }}</h4>
+              <div vr id="imgDiv">
+                <div id="info">
+                  <h4 class="group">{{ exercise.muscleGroup }}</h4>
+                  <h5 class="type" v-show="exercise.type != 'Cardio'">
+                    {{ exercise.type }}
+                  </h5>
+                  <h6>Reps:</h6>
+                  <h4 class="reps" v-show="exercise.type != 'Cardio'">
+                    {{ exercise.repRange }}
+                  </h4>
+                  <h6>Time:</h6>
+                  <h4 class="time">{{ exercise.timeRange }} Mins</h4>
+                </div>
+                <img
+                  class="img"
+                  :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
+                />
               </div>
-              <img
-                class="img"
-                :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
-              />
-            </div>
-             </v-carousel-item>
-            </v-carousel>
-          </div>
-        </div>
-        <div class="btnDiv">
-         <button type="">Complete</button>
-        <button class="delete" v-on:click="deleteWorkout(workout)">Delete</button>
+            </v-carousel-item>
+          </v-carousel>
         </div>
       </div>
-      
+      <div class="btnDiv">
+        <button class="complete" v-if="workout.completed == false" v-on:click="completeWorkout(workout)">
+          Complete
+        </button>
+        <button class="delete" v-on:click="deleteWorkout(workout)">
+          Delete
+        </button>
+      </div>
     </div>
-
+  </div>
 </template>
 
 <script>
 import exerciseService from "../services/ExerciseService";
 import addWorkout from "../components/AddWorkout.vue";
-import workoutService from '../services/WorkoutService';
-
+import workoutService from "../services/WorkoutService";
 
 export default {
   name: "view-workout",
@@ -63,9 +75,7 @@ export default {
 
       targetedExercise: {},
 
-      newArr:[],
-
-      workouts:[],
+      newArr: [],
 
       showWorkout: false,
     };
@@ -75,11 +85,10 @@ export default {
   },
 
   created() {
-  this.getWorkouts();
+    this.getWorkouts();
   },
 
   computed: {
-    
     filteredWorkouts() {
       const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
@@ -87,10 +96,9 @@ export default {
         return exercise.statusId === 2 && exerciseFilter == ""
           ? true
           : exerciseFilter == exercise.muscleGroup;
-      })
+      });
     },
 
-        
     isAuthorized() {
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
         return true;
@@ -104,44 +112,43 @@ export default {
     getExercises() {
       exerciseService.getExercises.then((response) => {
         let exercises = response.data;
-        return exercises
-         
-      });  
-     
+        return exercises;
+      });
     },
 
-      getWorkouts(){
-        workoutService.getWorkouts().then((response) => {
-          this.workouts = response.data;
-          this.workouts.forEach((workout) => {
+    getWorkouts() {
+      workoutService.getWorkouts().then((response) => {
+        let workouts = response.data;
+        workouts.forEach((workout) => {
+          exerciseService
+            .getExercisesByWorkouts(workout.id)
+            .then((response) => {
+              workout.workoutId = workout.id;
+              workout.exercises = response.data;
+              this.$store.commit("ADD_WORKOUT", workout);
+            });
+        });
+      });
+    },
 
-            exerciseService.getExercisesByWorkouts(workout.id).then((response) => {
-            workout.workoutId = workout.id
-            workout.exercises = response.data;
-        
-           
-             console.log( this.$store.state.workouts)
-             this.$store.commit('ADD_WORKOUT', workout)
-          
-          });  
-           
-         })  
-               
-        })
-      },
-    
-      deleteWorkout(workout) {
+    deleteWorkout(workout) {
+      workoutService.deleteWorkoutExercise(workout.id).then((response) => {
+        if (response.status == 200) {
+          workoutService.deleteWorkout(workout.id);
+          this.$store.commit("DELETE_WORKOUT", workout.workoutId);
+        }
+      });
+    },
 
-        workoutService
-        .deleteWorkoutExercise(workout.id)
-        .then((response) => {
-          if (response.status == 200) {
-             workoutService
-            .deleteWorkout(workout.id)
-            this.$store.commit("DELETE_WORKOUT", workout.workoutId);
-          }
-        })
-    }, 
+    completeWorkout(workout) {
+      workout.completed = true;
+      workoutService.editWorkout(workout.id, workout).then((response) => {
+        if (response.status == 200) {
+          alert("Created")
+          this.$store.commit("UPDATE_WORKOUT", workout);
+        }
+      });
+    },
   },
 };
 </script>
@@ -160,7 +167,6 @@ export default {
   justify-content: space-between;
   justify-content: center;
   align-content: center;
-
 }
 
 #head {
@@ -170,7 +176,6 @@ export default {
 #info {
   margin-bottom: 30px;
 }
-
 
 img {
   height: 100px;

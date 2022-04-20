@@ -9,6 +9,8 @@ public interface WorkoutExerciseDao {
 
     boolean deleteWorkoutExercise(Long id);
 
+    boolean updateWorkoutExercise(Long id, WorkoutExercise updatedWorkout);
+
     void add(Long id, WorkoutExercise workoutExercise );
 
 }

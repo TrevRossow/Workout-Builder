@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin
 @PreAuthorize("isAuthenticated()")
 
 public class WorkoutController {
@@ -75,5 +75,10 @@ public class WorkoutController {
     @PostMapping("/workout/{workoutID}/exercise")
     public void add( @PathVariable Long workoutID, @RequestBody WorkoutExercise workoutExercise){
         this.workoutExerciseDao.add(workoutID, workoutExercise);
+    }
+
+    @PutMapping("/workout/{workoutID}/exercise/update")
+    public void update( @PathVariable Long workoutID, @RequestBody WorkoutExercise workoutExercise){
+        this.workoutExerciseDao.updateWorkoutExercise(workoutID, workoutExercise);
     }
 }

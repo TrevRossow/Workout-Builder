@@ -42,8 +42,14 @@ public class JdbcWorkoutExerciseDao implements WorkoutExerciseDao {
                 "VALUES (?,?) Returning workout_id ";
         Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, newWorkoutId, workoutExercise.getExerciseId());
 
-
     }
+
+    @Override
+    public boolean updateWorkoutExercise(Long id, WorkoutExercise updatedWorkout) {
+        String sql = "UPDATE workout_exercise SET workout_id = ?  WHERE workout_id = ?";
+        return jdbcTemplate.update(sql, updatedWorkout.getWorkoutId(), id) == 1;
+    }
+
 
     private WorkoutExercise mapRowToWorkoutExercise(SqlRowSet rs) {
         WorkoutExercise workoutExercise = new WorkoutExercise();

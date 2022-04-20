@@ -24,10 +24,10 @@
           required>
           <option value="" selected="selected" >-- Workout Names --</option>
            <option
-            v-for="workout in this.$store.state.workouts"
-            :key="workout.id"
+            v-for="workout in $store.state.workouts"
+            :key="workout.workoutId"
           >
-            {{ workout.name }}
+            {{ workout.workoutName }}
           </option>
          
         </select>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import WorkoutService from '../services/WorkoutService';
 
 
 export default {
@@ -51,16 +52,6 @@ export default {
       createError:false,
 
         name:{},
-
-      workout: {
-        workoutId: 1,
-        name: "",
-        exercises: [],
-        focus: [],
-        trainer: "",
-        userId: this.$store.state.user.id,
-        completed: false,
-      },
 
       exercise:{}
 
@@ -78,15 +69,28 @@ export default {
     },
 
     addToWorkout(){
-      let updateWorkout = this.$store.state.selectedWorkout[0].exercises.unshift(this.exercise)
-        this.$store.commit('UPDATE_WORKOUT' , updateWorkout)
+      let updatedWorkout = this.$store.state.selectedWorkout[0].exercises.unshift(this.exercise)
+      WorkoutService.editWorkout(updatedWorkout, workOutToSend)
+      this.$store.commit('UPDATE_WORKOUT', updatedWorkout)
+
+      let workOutToSend = this.$store.state.s
+
+
+      WorkoutService.editWorkout(updatedWorkout, workOutToSend).then((response) => {
+        console.log(workOutToSend)
+       
+        if(response.status == 200){
+        this.updateSuccess = true;
+        
         this.hideForm();
+        }
+      })
     },
 
     selectWorkout(name){
     
       let workoutToAppend = this.$store.state.workouts.filter((workout) => {
-        return workout.name === name
+        return workout.workoutName === name
       }); 
        
        this.$store.commit('SELECT_WORKOUT', workoutToAppend)

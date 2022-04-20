@@ -16,12 +16,16 @@ export default {
     addWorkout(workout) {
         return axios.post('/workout', workout)
     },
-    editWorkout(workout) {
-        return axios.put(`/workout/${workout.id}`, workout)
+    editWorkout(id, workout) {
+        return axios.put(`/workout/${id}`, workout)
     },
 
     deleteWorkout(id) {
         return axios.delete(`/workout/${id}`)
+    },
+
+    deleteWorkoutExercise(id) {
+        return axios.delete(`/workout/${id}/exercise`)
     },
 
     sendExercises(workoutID, exerciseObj){

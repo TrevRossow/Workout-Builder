@@ -43,7 +43,7 @@
           Back
         </label>
 
-        <label id="icon" for="back">
+        <label id="icon" for="shoulders">
           <input
             id="shoulders"
             type="checkbox"
@@ -88,10 +88,10 @@
 
         <label id="icon" for="abs">
           <input
-            id="legs"
+            id="abs"
             type="checkbox"
             v-if="checkRandom === false"
-            value="abs"
+            value="Abs"
             v-model="checkBoxes"
           />
           Abs
@@ -167,7 +167,6 @@ export default {
       tempArr: [],
 
       workout: {
-        workoutId:null,
         workoutName: "",
         trainerId: null,
         userId: this.$store.state.user.id,
@@ -243,8 +242,9 @@ export default {
         console.log(response.data.id)
         if (response.status == 200) {
           this.createSuccess = true;
+
           let newWorkoutId = response.data.id;
-          //this.$store.commit("ADD_WORKOUT", newWorkoutId);
+          
            this.tempArr.forEach((exercise) => {
              let temp = {
                workoutId:newWorkoutId,

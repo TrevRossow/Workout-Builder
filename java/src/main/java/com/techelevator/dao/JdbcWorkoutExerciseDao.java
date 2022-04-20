@@ -30,6 +30,12 @@ public class JdbcWorkoutExerciseDao implements WorkoutExerciseDao {
     }
 
     @Override
+    public boolean deleteWorkoutExercise(Long id) {
+        String sql = "DELETE FROM workout_exercise WHERE workout_id = ?";
+        return jdbcTemplate.update(sql, id) == 1;
+    }
+
+    @Override
     public void add(Long newWorkoutId, WorkoutExercise workoutExercise ){
         String sql = "INSERT INTO workout_exercise(" +
                 "workout_id, exercise_id) " +

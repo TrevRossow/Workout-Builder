@@ -30,8 +30,7 @@ export default new Vuex.Store({
     selectedExercise:{},
 
     selectedWorkout:{
-      workoutId:null,
-      exercises:[],
+
     },
 
     workouts:[],
@@ -106,7 +105,12 @@ export default new Vuex.Store({
     },
     
     ADD_WORKOUT(state, workout){
+      
+      let foundAt = state.workouts.findIndex( w => w.workoutId === workout.workoutId);
+      if(foundAt === -1){
       state.workouts.unshift(workout);
+      }
+
     },
 
     UPDATE_WORKOUT(state, updatedWorkout){
@@ -118,6 +122,15 @@ export default new Vuex.Store({
       });
       state.workouts = keepArr
 
-    }
+    },
+    DELETE_WORKOUT(state, id) {
+      let workoutsToKeep = [];
+      state.workouts.forEach(workout => {
+        if (workout.workoutId !== id) {
+          workoutsToKeep.push(workout);
+        }
+      });
+      state.workouts = workoutsToKeep;
+    },
   }
 })

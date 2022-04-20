@@ -16,7 +16,7 @@
         name="name"
         id="name"
         placeholder="-- Workout Name --"
-        v-model="workout.name"
+        v-model="workout.workoutName"
         required
         autofocus
       />
@@ -168,7 +168,7 @@ export default {
 
       workout: {
         workoutId:null,
-        name: "",
+        workoutName: "",
         trainerId: null,
         userId: this.$store.state.user.id,
         completed: false,

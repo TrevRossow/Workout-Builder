@@ -3,21 +3,21 @@
     <add-workout v-if="$store.state.showWorkout === true" />
     <div
       class="exerciseDiv"
-      v-for="workout in customWorkoutArr"
-      :key="workout.workoutId"
+      v-for="workouts in newArr"
+      :key="workouts.workoutId" 
     ><div id="head">
-      <h2>{{ workout }}</h2>
+      <h2>{{ workouts.workoutName }}</h2>
       </div>
       <div id="imgDiv">
         <div id="maininfo" >
-          <h4 class="group">Trainer: {{ workout.trainer }}</h4>
-          <h5 class="type">User Id: {{ workout.userId }}</h5>
+          <h4 class="group">Trainer: {{ workouts.trainerId }}</h4>
+          <h5 class="type">User Id: {{ workouts.userId }}</h5>
           <br>
           <v-carousel class="carousel" height="200px" 
           hide-delimiter-background  hide-delimiters show-arrows-on-hover >
           <v-carousel-item id="carocards"
-           v-for="exercise in customWorkoutArr" :key="exercise">
-            <h4 class="reps">{{ customWorkoutArr.exercises }}</h4>
+           v-for="exercise in newArr" :key="exercise">
+            <h4 class="reps">{{ exercise }}</h4>
             <div vr id="imgDiv">
               <div id="info">
                 <h4 class="group">{{ exercise.muscleGroup }}</h4>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="btnDiv">
-         <button type="submit" v-on:click="completeWorkout()">Complete</button>
+         <button type="" v-on:click="log(newArr)">Complete</button>
         <button class="delete" v-on:click="deleteWorkout()">Delete</button>
         </div>
       </div>
@@ -65,10 +65,9 @@ export default {
 
       exercises: [],
 
-      workouts:[],
-      
+      newArr:[],
 
-      customWorkoutArr:[],
+      workouts:[],
 
       showWorkout: false,
     };
@@ -92,6 +91,12 @@ export default {
           : exerciseFilter == exercise.muscleGroup;
       })
     },
+
+    exercisesInfo(arr){
+
+      return arr.exercises
+
+    },
         
     isAuthorized() {
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
@@ -106,43 +111,40 @@ export default {
     getExercisesByWorkout(id) {
       exerciseService.getExercisesByWorkouts(id).then((response) => {
         let exercises = response.data;
-        console.log(exercises)
         return exercises
          
       });  
      
     },
 
-     exerciseInfo(id){
-      return this.getExercisesByWorkout(id)
-
-
-
+    log(exercise){
+      console.log(exercise)
     },
+
 
       getWorkouts(){
         workoutService.getWorkouts().then((response) => {
           this.workouts = response.data;
           this.workouts.forEach((workout) => {
-            let id = workout.id
 
              let workoutObj = {
                workoutId:workout.id,
-                name: workout.name,
+                name: workout.workoutName,
                 trainerId: workout.trainerId,
                 userId: workout.userId,
                 completed: workout.completed,
                 dateCompleted: workout.dateCompleted,
-                exercises:[{
-                  dfsdsfsdf:"fdsfs"
-                }]
+                exercises:[]
             }
-
-            this.exercises.push(this.exerciseInfo(id))
-            console.log(this.exercises)
-            workoutObj.exercises = this.exercises
-            this.customWorkoutArr.push(workoutObj)
-            console.log(this.customWorkoutArr)
+            exerciseService.getExercisesByWorkouts(workout.id).then((response) => {
+            let exercises = response.data;
+             workoutObj.exercises.push(exercises[0])
+            console.log(workoutObj)
+            this.newArr.push(workoutObj)
+            });  
+           
+            
+           
           })
 
           

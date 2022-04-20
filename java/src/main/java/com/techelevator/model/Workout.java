@@ -16,7 +16,7 @@ public class Workout {
     public Workout() {}
 
 
-    
+
     public Workout(Long workoutId, String workoutName, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
         this.workoutId = workoutId;
         this.workoutName = workoutName;

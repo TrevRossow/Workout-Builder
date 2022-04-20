@@ -6,6 +6,7 @@ import java.util.Date;
 public class Workout {
 
     private Long workoutId;
+    private String workoutName;
     private Long userId;
     private Long trainerId;
     private boolean isCompleted;
@@ -14,8 +15,11 @@ public class Workout {
 
     public Workout() {}
 
-    public Workout(Long workoutId, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
+
+    
+    public Workout(Long workoutId, String workoutName, Long userId, Long trainerId, boolean isCompleted, LocalDate dateCompleted){
         this.workoutId = workoutId;
+        this.workoutName = workoutName;
         this.userId = userId;
         this.trainerId = trainerId;
         this.isCompleted = isCompleted;
@@ -63,14 +67,23 @@ public class Workout {
         isCompleted = completed;
     }
 
+    public String getWorkoutName() {
+        return workoutName;
+    }
+
+    public void setWorkoutName(String workoutName) {
+        this.workoutName = workoutName;
+    }
+
     @Override
     public String toString() {
         return "Workout{" +
                 "workoutId = " + workoutId +
+                ", workoutName = " + workoutName +
                 ", userId = " + userId +
                 ", trainer Id = " + trainerId +
                 ", Completed = " + isCompleted +
-                ", date completed = " + dateCompleted +
+                ", dateCompleted = " + dateCompleted +
                 "}";
     }
 

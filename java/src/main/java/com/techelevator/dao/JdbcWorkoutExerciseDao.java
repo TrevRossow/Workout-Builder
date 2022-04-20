@@ -30,11 +30,12 @@ public class JdbcWorkoutExerciseDao implements WorkoutExerciseDao {
     }
 
     @Override
-    public void add(Long newWorkoutId, Long exerciseId ){
+    public void add(Long newWorkoutId, WorkoutExercise workoutExercise ){
         String sql = "INSERT INTO workout_exercise(" +
                 "workout_id, exercise_id) " +
-                "VALUES (?,?)";
-        Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, newWorkoutId, exerciseId);
+                "VALUES (?,?) Returning workout_id ";
+        Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, newWorkoutId, workoutExercise.getExerciseId());
+
 
     }
 

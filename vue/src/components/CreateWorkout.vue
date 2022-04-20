@@ -244,16 +244,15 @@ export default {
         if (response.status == 200) {
           this.createSuccess = true;
           let newWorkoutId = response.data.id;
-          this.$store.commit("ADD_WORKOUT", newWorkoutId);
+          //this.$store.commit("ADD_WORKOUT", newWorkoutId);
            this.tempArr.forEach((exercise) => {
+             let temp = {
+               workoutId:newWorkoutId,
+               exerciseId:exercise.id 
+             }
             workoutService
-              .sendExercises(newWorkoutId, exercise.id)
-              .then((response) => {
-                if (response.status == 200) {
-                  this.createSuccess = true;
-                }
-              });
-          }); 
+              .sendExercises(newWorkoutId, temp)
+          });  
         }
       });
     },

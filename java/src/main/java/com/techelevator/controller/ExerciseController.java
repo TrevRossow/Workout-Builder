@@ -24,11 +24,6 @@ public class ExerciseController {
         this.exerciseStatusDao = exerciseStatusDao;
     }
 
-    @GetMapping("/exercise/{name}")
-    public Exercise getExerciseByName(@PathVariable String name) {
-
-        return exerciseDao.findByExerciseName(name);
-    }
 
     @GetMapping("/exercise/all")
     public List<Exercise> getAllExercises() {
@@ -49,11 +44,11 @@ public class ExerciseController {
         return exerciseGroup;
     }
 
-    @GetMapping("/exercise/{type}")
-    public List<Exercise> getExerciseByType(@PathVariable String type) {
-        List<Exercise> exerciseType = exerciseDao.findByType(type);
+    @GetMapping("/exercise/{Id}")
+    public List<Exercise> getExerciseByWorkout(@PathVariable Long Id) {
+        List<Exercise> exerciseList = exerciseDao.findByWorkout(Id);
 
-        return exerciseType;
+        return exerciseList;
     }
 
     @PostMapping("/exercise")

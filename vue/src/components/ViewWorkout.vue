@@ -3,10 +3,10 @@
     <add-workout v-if="$store.state.showWorkout === true" />
     <div
       class="exerciseDiv"
-      v-for="workout in $store.state.workouts"
-      :key="workout.id"
+      v-for="workout in customWorkoutArr"
+      :key="workout.workoutId"
     ><div id="head">
-      <h2>{{ workout.name }}</h2>
+      <h2>{{ workout }}</h2>
       </div>
       <div id="imgDiv">
         <div id="maininfo" >
@@ -16,8 +16,8 @@
           <v-carousel class="carousel" height="200px" 
           hide-delimiter-background  hide-delimiters show-arrows-on-hover >
           <v-carousel-item id="carocards"
-           v-for="exercise in workout.exercises" :key="exercise.id">
-            <h4 class="reps">{{ exercise.name }}</h4>
+           v-for="exercise in customWorkoutArr" :key="exercise">
+            <h4 class="reps">{{ customWorkoutArr.exercises }}</h4>
             <div vr id="imgDiv">
               <div id="info">
                 <h4 class="group">{{ exercise.muscleGroup }}</h4>
@@ -51,6 +51,9 @@
 <script>
 import exerciseService from "../services/ExerciseService";
 import addWorkout from "../components/AddWorkout.vue";
+import workoutService from '../services/WorkoutService';
+
+
 export default {
   name: "view-workout",
 
@@ -62,6 +65,11 @@ export default {
 
       exercises: [],
 
+      workouts:[],
+      
+
+      customWorkoutArr:[],
+
       showWorkout: false,
     };
   },
@@ -70,10 +78,11 @@ export default {
   },
 
   created() {
-    this.getExercisesById();
+    this.getWorkouts();
   },
 
   computed: {
+    
     filteredExercises() {
       const exerciseFilter = this.$store.state.filter;
       const exercises = this.exercises;
@@ -81,9 +90,9 @@ export default {
         return exercise.statusId === 2 && exerciseFilter == ""
           ? true
           : exerciseFilter == exercise.muscleGroup;
-      });
+      })
     },
-
+        
     isAuthorized() {
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
         return true;
@@ -94,11 +103,54 @@ export default {
   },
 
   methods: {
-    getExercisesById() {
-      exerciseService.getExercises().then((response) => {
-        this.exercises = response.data;
-      });
+    getExercisesByWorkout(id) {
+      exerciseService.getExercisesByWorkouts(id).then((response) => {
+        let exercises = response.data;
+        console.log(exercises)
+        return exercises
+         
+      });  
+     
     },
+
+     exerciseInfo(id){
+      return this.getExercisesByWorkout(id)
+
+
+
+    },
+
+      getWorkouts(){
+        workoutService.getWorkouts().then((response) => {
+          this.workouts = response.data;
+          this.workouts.forEach((workout) => {
+            let id = workout.id
+
+             let workoutObj = {
+               workoutId:workout.id,
+                name: workout.name,
+                trainerId: workout.trainerId,
+                userId: workout.userId,
+                completed: workout.completed,
+                dateCompleted: workout.dateCompleted,
+                exercises:[{
+                  dfsdsfsdf:"fdsfs"
+                }]
+            }
+
+            this.exercises.push(this.exerciseInfo(id))
+            console.log(this.exercises)
+            workoutObj.exercises = this.exercises
+            this.customWorkoutArr.push(workoutObj)
+            console.log(this.customWorkoutArr)
+          })
+
+          
+        })
+      }
+
+  
+
      /* deleteWorkout(workout) {
       workoutService
         .deleteExercise(workout)

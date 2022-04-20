@@ -8,6 +8,6 @@ public interface WorkoutExerciseDao {
     WorkoutExercise getExerciseByWorkoutId(long workoutId);
 
 
-    void add(Long newWorkoutId, Long exerciseId );
+    void add(Long id, WorkoutExercise workoutExercise );
 
 }

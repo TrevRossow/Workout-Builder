@@ -62,6 +62,7 @@ CREATE TABLE user_exercises(
 );
 CREATE TABLE workouts (
     workout_id SERIAL NOT NULL,
+    workout_name VARCHAR,
     trainer_id int ,
     user_id int REFERENCES users (user_id),
     completed bool,

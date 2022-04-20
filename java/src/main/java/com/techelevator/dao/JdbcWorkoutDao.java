@@ -71,9 +71,9 @@ public class JdbcWorkoutDao implements WorkoutDao {
     @Override
     public Workout create(Workout workout){
         String sql = "INSERT INTO workouts (" +
-                "trainer_id, user_id, completed, workout_date) " +
+                " workout_name, trainer_id, user_id, completed, workout_date) " +
                 "VALUES (?,?,?,?) RETURNING workout_id";
-        Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, workout.getTrainerId(), workout.getUserId(), workout.isCompleted(), workout.getDateCompleted());
+        Long workoutId = jdbcTemplate.queryForObject(sql, Long.class, workout.getWorkoutName(), workout.getTrainerId(), workout.getUserId(), workout.isCompleted(), workout.getDateCompleted());
         return this.getWorkoutById(workoutId);
     }
 
@@ -93,6 +93,7 @@ public class JdbcWorkoutDao implements WorkoutDao {
     private Workout mapRowToWorkout(SqlRowSet rs) {
         Workout workout = new Workout();
         workout.setId(rs.getLong("workout_id"));
+        workout.setWorkoutName(rs.getNString("workout_name"));
         workout.setTrainerId(rs.getLong("trainer_id"));
         workout.setUserId(rs.getLong("user_id"));
         workout.setCompleted(rs.getBoolean("completed"));

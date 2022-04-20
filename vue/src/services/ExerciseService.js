@@ -15,8 +15,8 @@ export default {
     return axios.get(`/exercise/group/${muscleGroup}`)
   },
   
-  getExercisesBytype(type) {
-    return axios.get(`/exercise/${type}`)
+  getExercisesByWorkouts(id) {
+    return axios.get(`/exercise/${id}`)
   },
 
   addExercise(exercise) {

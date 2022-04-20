@@ -43,7 +43,7 @@ public class WorkoutController {
         return workoutDao.getDateCompleted(date);
     }
 
-    @GetMapping("/workout/all")
+    @GetMapping("/workout")
     public List<Workout> getAllWorkouts() {
         List<Workout> allWorkouts = workoutDao.getAll();
 
@@ -66,8 +66,8 @@ public class WorkoutController {
         this.workoutDao.deleteWorkout(id);
     }
 
-    @PostMapping("/workout{workoutId}/exercise/exercise{Id}")
-    public void add( @PathVariable Long workoutId, Long Id ){
-        this.workoutExerciseDao.add(workoutId, Id);
+    @PostMapping("/workout/{workoutID}/exercise")
+    public void add( @PathVariable Long workoutID, @RequestBody WorkoutExercise workoutExercise){
+        this.workoutExerciseDao.add(workoutID, workoutExercise);
     }
 }

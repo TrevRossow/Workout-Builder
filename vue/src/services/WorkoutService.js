@@ -4,6 +4,11 @@ import axios from 'axios';
 
 export default {
 
+    getWorkouts(){
+        return axios.get(`/workout`)
+
+    },
+
     getWorkoutsByUserID(id) {
         return axios.get(`/workout/user/${id}`)
     },
@@ -19,8 +24,8 @@ export default {
         return axios.delete(`/workout/${id}`)
     },
 
-    sendExercises(workoutID, Id){
-        return axios.post(`/workout/${workoutID}/exercise/${Id}`)
+    sendExercises(workoutID, exerciseObj){
+        return axios.post(`/workout/${workoutID}/exercise`, exerciseObj)
     }
 
 }

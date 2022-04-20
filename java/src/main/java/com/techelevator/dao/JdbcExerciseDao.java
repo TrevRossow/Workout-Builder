@@ -71,12 +71,14 @@ public class JdbcExerciseDao implements ExerciseDao {
     }
 
     @Override
-    public List<Exercise> findByType(String type) {
+    public List<Exercise> findByWorkout(Long workoutId) {
         List<Exercise> exercises = new ArrayList<>();
-        String sql = "SELECT * FROM exercises WHERE exercise_type = ?";
+        String sql = "SELECT * " +
+        " FROM exercises " +
+                " Join workout_exercise ON workout_exercise.exercise_id = exercises.exercise_id" +
+                " Where workout_exercise.workout_id = ? ";
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, type);
-
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, workoutId);
         while (results.next()) {
             Exercise exercise = mapRowToExercise(results);
             exercises.add(exercise);

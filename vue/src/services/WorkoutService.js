@@ -34,6 +34,12 @@ export default {
 
     updateWorkoutExercises(workoutID, exerciseObj){
         return axios.put(`/workout/${workoutID}/exercise/update`, exerciseObj)
+    },
+
+    getLatestWorkout(userID){
+        return axios.get(`/workout/${userID}/recent`)
     }
+
+
 
 }

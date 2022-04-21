@@ -37,7 +37,7 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
-          <option value="Legs">Total Body</option>
+          <option value="TotalBody">Total Body</option>
         </select>
       </div>
       <div>
@@ -85,7 +85,7 @@
           required>
           <option value="" selected="selected" >-- Exercise Type --</option>
           <option value="Strength">Strength</option>
-          <option value="Strength">Cardio</option>
+          <option value="Cardio">Cardio</option>
         </select>
       </div>
       <div>

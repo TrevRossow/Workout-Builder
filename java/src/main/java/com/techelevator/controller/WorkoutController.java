@@ -38,9 +38,9 @@ public class WorkoutController {
         return workoutDao.getWorkoutByUserId(id);
     }
 
-    @GetMapping("/workout/{date}")
-    public Workout getDateCompleted(@PathVariable Date date){
-        return workoutDao.getDateCompleted(date);
+    @GetMapping("/workout/{userId}/recent")
+    public Workout getDateCompleted(@PathVariable Long userId){
+        return workoutDao.getDateCompleted(userId);
     }
 
     @GetMapping("/workout")

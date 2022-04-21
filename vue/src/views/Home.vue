@@ -58,6 +58,7 @@ export default {
   name: "home",
   data() {
     return {
+      
       reviews:["1","2","3","4","5"],
     
       caroImages: [

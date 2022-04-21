@@ -18,19 +18,18 @@
           <option value="Triceps">Triceps</option>
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
-          <option value="Total Body">Total Body</option>
+          <option value="TotalBody">Total Body</option>
         </select>
 
 
           <!-- DashBoard and tabs /-->
           <template v-slot:extension>
             <v-tabs v-model="tabs" align-with-title>
-              <v-tab> Summary </v-tab>
-              <v-tab > Create Workout</v-tab>
-              <v-tab > Workouts </v-tab>
-              <v-tab > Exercises </v-tab>
-              <v-tab > Add Exercise </v-tab>
-              <v-tab > Approve Exercise </v-tab>
+              <v-tab> Create Workout</v-tab>
+              <v-tab> Workouts </v-tab>
+              <v-tab> Exercises </v-tab>
+              <v-tab> Add Exercise </v-tab>
+              <v-tab> Approve Exercise </v-tab>
               <v-tabs-slider color="pink"></v-tabs-slider>
             </v-tabs>
           </template>
@@ -53,12 +52,11 @@
         </v-card-text>
       </v-card>
       <div>
-      <view-summary v-if="this.tabs === 0"/>
-      <create-workout v-if="this.tabs === 1"/>
-      <view-workout v-if="this.tabs === 2"/>
-      <view-exercises v-if="this.tabs === 3"/>
-      <add-exercise v-if="this.tabs === 4"/>
-      <view-submitted-Exercises v-if="this.tabs === 5"/>
+      <create-workout v-if="this.tabs === 0"/>
+      <view-workout v-if="this.tabs === 1"/>
+      <view-exercises v-if="this.tabs === 2"/>
+      <add-exercise v-if="this.tabs === 3"/>
+      <view-submitted-Exercises v-if="this.tabs === 4"/>
       </div>
     </v-app>
   </div>
@@ -70,7 +68,6 @@ import viewExercises from "../components/ViewExercises.vue";
 import viewSubmittedExercises from "../components/ViewSubmittedExercises.vue";
 import viewWorkout from "../components/ViewWorkout.vue";
 import createWorkout from "../components/CreateWorkout.vue";
-import ViewSummary from "../components/ViewSummary.vue";
 export default {
   name: "trainer-page",
   components: {
@@ -79,7 +76,6 @@ export default {
     viewSubmittedExercises,
     viewWorkout,
     createWorkout,
-    ViewSummary
   },
 
   data() {
@@ -90,10 +86,9 @@ export default {
       hidden: false,
       tabs: null,
       filter:""
-      
-    };
-    
+    };  
   },
+
    created(){
     this.updateFilter(this.filter)
   },
@@ -122,11 +117,6 @@ export default {
 option{
   min-width: 80px;
   width: 15%;
-
-}
-
-#vspace{
-  
 }
 
 #inspire {

@@ -6,7 +6,6 @@
       {{ date }}
     </div>
     <div class="body">
-      <summary-info/>
       <div class="timeExercising">
         <img class="img" src="../../public/graph.png" alt="exercise graph" />
         <p>Here's your workout time this week!</p>
@@ -19,6 +18,7 @@
         <img class="img" src="../../public/reps.png" alt="reps completed" />
         <p>You have completed: <b>153 Reps this week!</b></p>
       </div>
+       <summary-info/>
     </div>
     <div class="subBody">
       <p>Excellent job this week! Based on your summary, we recommend focusing more

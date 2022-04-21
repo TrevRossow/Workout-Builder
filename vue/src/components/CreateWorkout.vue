@@ -107,8 +107,18 @@
           />
           Cardio
         </label>
-
-        <label id="icon" for="random">
+        
+        <label id="icon" for="totalbody">
+          <input
+            id="toatalbody"
+            type="checkbox"
+            value="TotalBody"
+            v-model="checkBoxes"
+             v-if="checkRandom === false"
+          />
+          Total Body
+        </label>
+        <label id="icon" for="random" >
           <input
             id="random"
             type="checkbox"
@@ -213,6 +223,7 @@ export default {
           "Abs",
           "Legs",
           "Cardio",
+          "TotalBody"
         ];
       } else if (focusArr.length === 0) {
         this.createError = true;

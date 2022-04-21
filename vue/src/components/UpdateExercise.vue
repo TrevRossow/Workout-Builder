@@ -37,7 +37,7 @@
           <option value="Shoulders">Shoulders</option>
           <option value="Legs">Legs</option>
           <option value="Cardio">Cardio</option>
-          <option value="Legs">Total Body</option>
+          <option value="TotalBody">Total Body</option>
         </select>
       </div>
       <div>
@@ -71,7 +71,7 @@
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-          <option value="4">5</option>
+          <option value="5">5</option>
         </select>
       </div>
       <div>

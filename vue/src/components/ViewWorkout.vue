@@ -7,7 +7,6 @@
       :key="workout.workoutId"
     >
       <div id="head">
-        
         <h2>{{ workout.workoutName }}</h2>
       </div>
       <div id="imgDiv">
@@ -112,20 +111,14 @@ export default {
         return false;
       }
     },
-
-  
-    
   },
 
   methods: {
-   
     getUsername(id){
     AuthService.getUserNameById(id).then((response) => {
       console.log(response.data.username)
       return response.data.username
-     
       }) 
-       
     },
 
     getWorkouts() {

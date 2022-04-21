@@ -14,7 +14,7 @@ public interface WorkoutDao {
 
     Workout getWorkoutById(Long workoutId);
 
-    Workout getDateCompleted(Date dateCompleted);
+    Workout getDateCompleted(Long userId);
 
     Workout create(Workout workout);
 

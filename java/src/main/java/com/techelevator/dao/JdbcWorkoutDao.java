@@ -60,10 +60,9 @@ public class JdbcWorkoutDao implements WorkoutDao {
         }
     }
     @Override
-    public Workout getDateCompleted(Date dateCompleted){
-        String sql = "SELECT * FROM workouts WHERE workout_date = ?";
-
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+    public Workout getDateCompleted(Long userId){
+        String sql = "SELECT * FROM workouts WHERE user_id = ? ORDER BY workout_date Limit 1 ";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         if (results.next()){
             return mapRowToWorkout(results);
         } else {

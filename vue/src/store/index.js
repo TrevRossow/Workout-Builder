@@ -29,9 +29,9 @@ export default new Vuex.Store({
     
     selectedExercise:{},
 
-    selectedWorkout:{
+    selectedWorkout:{},
 
-    },
+    recentWorkout:{},
 
     workouts:[],
 
@@ -102,6 +102,10 @@ export default new Vuex.Store({
 
     SELECT_WORKOUT(state, workout){
       state.selectedWorkout = workout;
+    },
+
+    SET_RECENT(state, workout){
+      state.recentWorkout = workout;
     },
     
     ADD_WORKOUT(state, workout){

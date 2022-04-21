@@ -102,7 +102,7 @@ export default {
 
   methods: {
     getExercises() {
-      exerciseService.getExercises().then((response) => {
+      exerciseService.getExercisesByStatus(2).then((response) => {
         this.exercises = response.data;        
       });
     },

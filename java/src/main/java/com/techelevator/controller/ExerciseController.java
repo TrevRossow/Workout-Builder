@@ -37,6 +37,18 @@ public class ExerciseController {
         return exerciseDao.getExerciseById(id);
     }
 
+    @GetMapping("/exercise/view/{id}/status")
+    public List<Exercise> getExercisesByStatusId(@PathVariable int id) {
+        return exerciseDao.getExercisesByStatusId(id);
+    }
+
+    @GetMapping("/exercise/user/{id}")
+    public List<Exercise> getExercisesByUserId(@PathVariable Long id) {
+        return exerciseDao.getExercisesByUserId(id);
+    }
+
+
+
     @GetMapping("/exercise/group/{muscleGroup}")
     public List<Exercise> getExerciseByMuscleGroup(@PathVariable String muscleGroup) {
         List<Exercise> exerciseGroup = exerciseDao.findByMuscleGroup(muscleGroup);

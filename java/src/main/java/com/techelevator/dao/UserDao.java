@@ -10,6 +10,8 @@ public interface UserDao {
 
     User getUserById(Long userId);
 
+    List<User> getUsersByRole(String role);
+
     User findByUsername(String username);
 
     int findIdByUsername(String username);

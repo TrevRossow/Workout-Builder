@@ -1,12 +1,10 @@
 <template>
   <div class="main">
     <div
-   
       class="exerciseDiv"
       v-for="exercise in filteredExercises"
       v-bind:exercise="exercise"
       :key="exercise.id"
-         v-on:click="getStatus(exercise)"
     >
       <h2>{{ exercise.name }}</h2>
       <div vr id="imgDiv">
@@ -23,9 +21,14 @@
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
-      <p id="status" v-if="status.length > 0"> {{status(exercise.statusId)}}</p>
-      
-      
+      <p id="status" v-if="status.length > 0">
+        {{ status(exercise.statusId) }}
+      </p>
+      <div id="btn">
+        <button class="delete" v-on:click="deleteExercise(exercise)">
+          Delete Exercise
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -42,11 +45,9 @@ export default {
       targetedExercise: {},
 
       exercises: [],
-    
     };
   },
-  components: {
-  },
+  components: {},
 
   created() {
     this.getExercises();
@@ -56,11 +57,10 @@ export default {
     filteredExercises() {
       const exercises = this.exercises;
       return exercises.filter((exercise) => {
-        return exercise.statusId == 1 || exercise.statusId == 3
+        return exercise.statusId == 1 || exercise.statusId == 3;
       });
     },
-    
- 
+
     isAuthorized() {
       if (this.$store.state.user.authorities[0].name === "ROLE_TRAINER") {
         return true;
@@ -69,33 +69,48 @@ export default {
       }
     },
   },
-  
+
   methods: {
     getExercises() {
-      exerciseService.getExercises().then((response) => {
+      exerciseService.getExercisesByUser(this.$store.state.user.id).then((response) => {
         this.exercises = response.data;
       });
     },
 
-    getStatus(exercise){
-        exerciseService.getStatus(exercise.statusId).then((response) => {
-            this.status = response.data;
-        });
+    getStatus(exercise) {
+      exerciseService.getStatus(exercise.statusId).then((response) => {
+        this.status = response.data;
+      });
     },
 
-    status(status){
-        let desc = ""
-         if(status == 1){
-             desc = "Pending" 
-         }else if(status == 3) {
-             desc = "Rejected"
-         
+    status(status) {
+      let desc = "";
+      if (status == 1) {
+        desc = "Pending";
+      } else if (status == 3) {
+        desc = "Rejected";
       }
-      return desc
-  }
-  }
-  
-    
+      return desc;
+    },
+    deleteExercise(exercise) {
+      exerciseService
+        .deleteExercise(exercise)
+        .then((response) => {
+          console.log(response);
+          if (response.status == 200) {
+            this.$store.commit("DELETE_EXERCISE", exercise.id);
+            this.getExercises();
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.createError = true;
+          }
+        });
+    },
+  },
 };
 </script>
 
@@ -114,7 +129,7 @@ export default {
 }
 
 img {
-  height: 80px;
+  height: 100px;
   margin-bottom: 10px;
   border-radius: 5px;
   margin-right: 40px;
@@ -133,7 +148,7 @@ img {
   height: max-content;
 }
 
-.btnDiv {
+#btn {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

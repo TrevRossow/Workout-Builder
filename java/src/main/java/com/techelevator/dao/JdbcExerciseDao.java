@@ -45,6 +45,30 @@ public class JdbcExerciseDao implements ExerciseDao {
     }
 
     @Override
+    public List<Exercise> getExercisesByStatusId(int statusId) {
+        List<Exercise> exercises = new ArrayList<>();
+        String sql = "SELECT * FROM exercises WHERE exercise_status_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, statusId);
+        while (results.next()) {
+            Exercise exercise = mapRowToExercise(results);
+            exercises.add(exercise);
+        }
+        return exercises;
+    }
+
+    @Override
+    public List<Exercise> getExercisesByUserId(Long userId) {
+        List<Exercise> exercises = new ArrayList<>();
+        String sql = "SELECT * FROM exercises WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        while (results.next()) {
+            Exercise exercise = mapRowToExercise(results);
+            exercises.add(exercise);
+        }
+        return exercises;
+    }
+
+    @Override
     public Exercise findByExerciseName(String name) throws ExerciseNotFoundException {
         if (!StringUtils.hasText(name)) throw new IllegalArgumentException();
 

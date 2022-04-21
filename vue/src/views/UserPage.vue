@@ -23,8 +23,8 @@
 
 
           <!-- DashBoard and tabs /-->
-          <template v-slot:extension>
-            <v-tabs v-model="tabs" align-with-title>
+          <template v-slot:extension >
+            <v-tabs v-model="tabs" align-with-title draggable="" >
               <v-tab> Summary </v-tab>
               <v-tab> Create Workout</v-tab>
               <v-tab> Workouts </v-tab>

@@ -16,6 +16,13 @@ CREATE SEQUENCE seq_user_id
   NO MAXVALUE
   NO MINVALUE
   CACHE 1;
+
+  CREATE SEQUENCE seq_workout_id
+    INCREMENT BY 1
+    NO MAXVALUE
+    MINVALUE 3
+    CACHE 3;
+
  
  
 CREATE TABLE exercise_approval_queue(
@@ -30,7 +37,7 @@ CREATE TABLE users (
     username varchar(50) UNIQUE NOT NULL,
     password_hash varchar(200) NOT NULL,
 	join_date timestamp,
-	role varchar(50) NOT NULL,
+	role     varchar(50) NOT NULL,
     CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -61,7 +68,7 @@ CREATE TABLE user_exercises(
 
 );
 CREATE TABLE workouts (
-    workout_id SERIAL NOT NULL,
+    workout_id  int DEFAULT nextval('seq_workout_id'::regclass) NOT NULL,
     workout_name VARCHAR,
     trainer_id int ,
     user_id int REFERENCES users (user_id),
@@ -137,10 +144,10 @@ INSERT INTO users (username,password_hash,role) VALUES ('trainer','$2a$08$UkVvwp
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Request');
 INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
-INSERT INTO workouts (workout_id, workout_name,trainer_id,user_id,completed,workout_date)
+INSERT INTO workouts (workout_id, workout_name,trainer_id,user_id,completed)
 VALUES
-    ('1','The Mike Levy', '3', '1', 'False', '2022-04-20'),
-    ('2','The Dave Hoy', '3', '1', 'False', '2022-04-20');
+    ('1','The Mike Levy', '3', '1', 'False'),
+    ('2','The Dave Hoy', '3', '1', 'False');
 
 INSERT INTO workout_exercise ( workout_id, exercise_id)
 VALUES

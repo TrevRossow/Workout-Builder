@@ -126,18 +126,17 @@
           name="drop-down"
           placeholder="Exercise Type"
           required
-          v-model="workout.trainer"
+          v-model="workout.trainerId"
           v-on:click="generateWorkout(checkBoxes)"
         >
           
           <option value="" disabled selected>-- Trainer --</option>
           <option
-          
+           :value= "trainer.id"
             v-for="trainer in this.trainers"
-            v-bind:trainer="trainer"
-            :key="trainer"
+            :key="trainer.id"
           >
-            {{ trainer }}
+            {{ trainer.username }}
           </option>
         </select>
       </div>
@@ -149,6 +148,7 @@
 </template>
 
 <script>
+import authService from '../services/AuthService';
 import ExerciseService from "../services/ExerciseService";
 import workoutService from "../services/WorkoutService";
 
@@ -158,7 +158,7 @@ export default {
 
   data() {
     return {
-      trainers: ["Christoper B", "Jay Cutler", "Zyzz", "None"],
+      trainers: [],
 
       trainer: {},
 
@@ -179,7 +179,9 @@ export default {
     };
   },
 
-  created() {},
+  created() {
+    this.getTrainers();
+  },
   computed: {
     checkRandom() {
       if (this.checkBoxes.includes("Random")) {
@@ -189,6 +191,16 @@ export default {
   },
 
   methods: {
+    getTrainers(){
+      authService.getUsers().then((response)  => {
+        if (response.status == 200) {
+          let users = response.data;
+          this.trainers = users.filter((u) => {
+            return u.authorities[0].name === "ROLE_TRAINER"
+          })
+        }
+        })
+    },
     generateWorkout(focusArr) {
       let ids = [];
 
@@ -239,7 +251,7 @@ export default {
    
 
       workoutService.addWorkout(this.workout).then((response)  => {
-        console.log(response.data.id)
+        console.log(this.workout)
         if (response.status == 200) {
           this.createSuccess = true;
 

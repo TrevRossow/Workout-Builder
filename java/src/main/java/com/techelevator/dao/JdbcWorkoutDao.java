@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Exercise;
 import com.techelevator.model.Workout;
 import com.techelevator.model.WorkoutNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,17 +36,18 @@ public class JdbcWorkoutDao implements WorkoutDao {
         return workouts;
     }
 
-   @Override
-    public Workout getWorkoutByUserId(Long userId){
-        String sql = "SELECT * FROM workouts WHERE user_id = ? ";
-
+    @Override
+    public List<Workout> getWorkoutByUserId(Long userId) {
+        List<Workout> workouts = new ArrayList<>();
+        String sql = "SELECT * FROM workouts WHERE user_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        if (results.next()) {
-            return mapRowToWorkout(results);
-        } else {
-            throw new WorkoutNotFoundException("Workout not found.");
+        while (results.next()) {
+            Workout workout = mapRowToWorkout(results);
+            workouts.add(workout);
         }
+        return workouts;
     }
+
     @Override
     public Workout getWorkoutById(Long workoutId) {
         String sql = "SELECT * FROM workouts WHERE workout_id = ? ";

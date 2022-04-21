@@ -33,6 +33,14 @@ export default {
 
   getStatus(statusID){
     return axios.get(`/exercise/status/${statusID}`)
+  },
+
+  getExercisesByStatus(id){
+    return axios.get(`/exercise/view/${id}/status`)
+  },
+
+  getExercisesByUser(id){
+    return axios.get(`/exercise/user/${id}`)
   }
 
 

@@ -6,6 +6,7 @@
       {{ date }}
     </div>
     <div class="body">
+      <summary-info/>
       <div class="timeExercising">
         <img class="img" src="../../public/graph.png" alt="exercise graph" />
         <p>Here's your workout time this week!</p>
@@ -27,14 +28,21 @@
   </div>
 </template>
 <script>
+import summaryInfo from "../components/SummaryInfo.vue";
+
 export default {
   name: "view-summary",
+  components:{
+    summaryInfo
+  
+  },
   data() {
     return {
       showDateTime: null,
       date: null,
       workout: {},
     };
+    
   },
   methods: {
     getWorkout() {
@@ -44,7 +52,6 @@ export default {
       let dateTime = new Date();
       this.showDateTime = dateTime;
       this.date = dateTime.toJSON().slice(0, 10).replace(/-/g, "/");
-      console.log(dateTime);
     },
   },
   created() {

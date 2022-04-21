@@ -10,6 +10,10 @@ public interface ExerciseDao {
 
     Exercise getExerciseById(Long exerciseId);
 
+    List<Exercise> getExercisesByStatusId(int statusId);
+
+    List<Exercise> getExercisesByUserId(Long userId);
+
     Exercise findByExerciseName(String name);
 
     List<Exercise> findByMuscleGroup(String group);

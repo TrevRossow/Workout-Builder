@@ -19,7 +19,7 @@
         </div>
         <img
           class="img"
-          :src="`../WorkoutImages/${exercise.muscleGroup}.jpg`"
+          :src="`../WorkoutImages/${exercise.muscleGroup}.png`"
         />
       </div>
       <p id="desc">{{ exercise.description }}</p>
@@ -62,10 +62,8 @@ export default {
   computed: {
     filteredExercises() {
       const exercises = this.exercises;
-      return exercises.filter((exercise) => {
-        return exercise.statusId === 1   
+        return exercises
     
-      });
     },
 
     isAuthorized() {
@@ -79,8 +77,9 @@ export default {
 
   methods: {
     getExercises() {
-      exerciseService.getExercises().then((response) => {
+      exerciseService.getExercisesByStatus(1).then((response) => {
         this.exercises = response.data;
+        console.log(this.exercises)
       });
     },
     
@@ -148,7 +147,7 @@ export default {
 }
 
 img {
-  height: 80px;
+  height: 100px;
   margin-bottom: 10px;
   border-radius: 5px;
   margin-right: 40px;

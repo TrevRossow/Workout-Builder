@@ -27,24 +27,39 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public int findIdByUsername(String username) {
-        if (! StringUtils.hasText(username)) throw new IllegalArgumentException();
+        if (!StringUtils.hasText(username)) throw new IllegalArgumentException();
         try {
             return jdbcTemplate.queryForObject("select user_id from users where username = ?", Integer.class, username);
-        } catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new UsernameNotFoundException("User " + username + " was not found.");
         }
     }
 
-	@Override
-	public User getUserById(Long userId) {
-		String sql = "SELECT * FROM users WHERE user_id = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-		if(results.next()) {
-			return mapRowToUser(results);
-		} else {
-			throw new UserNotFoundException();
-		}
-	}
+    @Override
+    public User getUserById(Long userId) {
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+        if (results.next()) {
+            return mapRowToUser(results);
+        } else {
+            throw new UserNotFoundException();
+        }
+    }
+
+    @Override
+    public List<User> getUsersByRole(String  role) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE role Like ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, role );
+        while (results.next()) {
+            User user = mapRowToUser(results);
+            users.add(user);
+        }
+
+        return users;
+    }
+
+
 
     @Override
     public List<User> findAll() {

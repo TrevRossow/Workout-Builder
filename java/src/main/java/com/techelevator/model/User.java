@@ -3,6 +3,7 @@ package com.techelevator.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,14 +16,16 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
+   private LocalDate joinDate;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
 
-   public User(Long id, String username, String password, String authorities) {
+   public User(Long id, String username, String password, String authorities, LocalDate joinDate) {
       this.id = id;
       this.username = username;
       this.password = password;
+      this.joinDate = joinDate;
       this.activated = true;
       if (StringUtils.hasText(authorities)) this.setAuthorities(authorities);
    }
@@ -67,6 +70,14 @@ public class User {
       this.authorities = authorities;
    }
 
+   public LocalDate getJoinDate() {
+      return joinDate;
+   }
+
+   public void setJoinDate(LocalDate joinDate) {
+      this.joinDate = joinDate;
+   }
+
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");
       for(String role : roles) {
@@ -99,6 +110,7 @@ public class User {
               ", username='" + username + '\'' +
               ", activated=" + activated +
               ", authorities=" + authorities +
+              ", joinDate=" + joinDate +
               '}';
    }
 }

@@ -7,11 +7,13 @@
       :key="workout.workoutId"
     >
       <div id="head">
+        
         <h2>{{ workout.workoutName }}</h2>
       </div>
       <div id="imgDiv">
         <div id="maininfo">
-          <h4 class="group">Trainer: {{ workout.trainerId }}</h4>
+          <h6  v-if="workout.dateCompleted"> Completed On : {{workout.dateCompleted}} </h6>
+          <h4 class="group">Trainer: {{getUsername(workout.trainerId)}} </h4>
           <h5 class="type">User Id: {{ workout.userId }}</h5>
           <br />
           <v-carousel
@@ -33,7 +35,7 @@
                   <h5 class="type" v-show="exercise.type != 'Cardio'">
                     {{ exercise.type }}
                   </h5>
-                  <h6>Reps:</h6>
+                  <h6  v-show="exercise.type != 'Cardio'">Reps:</h6>
                   <h4 class="reps" v-show="exercise.type != 'Cardio'">
                     {{ exercise.repRange }}
                   </h4>
@@ -65,17 +67,21 @@
 import exerciseService from "../services/ExerciseService";
 import addWorkout from "../components/AddWorkout.vue";
 import workoutService from "../services/WorkoutService";
+import AuthService from '../services/AuthService';
 
 export default {
   name: "view-workout",
 
   data() {
     return {
+
       showEdit: false,
+
+      date:null,
 
       targetedExercise: {},
 
-      newArr: [],
+      defaultExercises: [3, this.$store.state.user.id ],
 
       showWorkout: false,
     };
@@ -106,18 +112,25 @@ export default {
         return false;
       }
     },
+
+  
+    
   },
 
   methods: {
-    getExercises() {
-      exerciseService.getExercises.then((response) => {
-        let exercises = response.data;
-        return exercises;
-      });
+   
+    getUsername(id){
+    AuthService.getUserNameById(id).then((response) => {
+      console.log(response.data.username)
+      return response.data.username
+     
+      }) 
+       
     },
 
     getWorkouts() {
-      workoutService.getWorkouts().then((response) => {
+      this.defaultExercises.forEach((id) => {
+      workoutService.getWorkoutsByUserID(id).then((response) => {
         let workouts = response.data;
         workouts.forEach((workout) => {
           exerciseService
@@ -126,6 +139,7 @@ export default {
               workout.workoutId = workout.id;
               workout.exercises = response.data;
               this.$store.commit("ADD_WORKOUT", workout);
+            })
             });
         });
       });
@@ -140,11 +154,18 @@ export default {
       });
     },
 
+     getCurrentDate() {
+      let dateTime = new Date();
+      return dateTime.toJSON().slice(0, 10)
+  },
+
     completeWorkout(workout) {
       workout.completed = true;
+      this.getCurrentDate;
+      workout.dateCompleted = this.getCurrentDate()
+      console.log(workout)
       workoutService.editWorkout(workout.id, workout).then((response) => {
         if (response.status == 200) {
-          alert("Created")
           this.$store.commit("UPDATE_WORKOUT", workout);
         }
       });

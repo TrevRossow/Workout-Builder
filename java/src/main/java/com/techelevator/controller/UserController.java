@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin
 @PreAuthorize("isAuthenticated()")
 public class UserController {
 
@@ -19,9 +21,18 @@ public class UserController {
         this.userDao = userDao;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/username/{id}")
     public User getUserById(@PathVariable Long id) {
         return userDao.getUserById(id);
+    }
+
+    @GetMapping("/user/role/{name}")
+    public List<User> getUsersByRole(@PathVariable String name) {
+        return userDao.getUsersByRole(name);
+    }
+        @GetMapping("/user")
+        public List<User> getUsers() {
+            return userDao.findAll();
     }
 
     @GetMapping("/user/{username}")

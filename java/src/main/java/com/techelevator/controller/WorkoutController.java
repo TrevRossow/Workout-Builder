@@ -34,7 +34,7 @@ public class WorkoutController {
     }
 
     @GetMapping("/workout/user/{id}")
-    public Workout getWorkoutByUserId(@PathVariable Long id ){
+    public List<Workout> getWorkoutsByUserId(@PathVariable Long id ){
         return workoutDao.getWorkoutByUserId(id);
     }
 

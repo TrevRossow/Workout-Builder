@@ -16,16 +16,14 @@ public class User {
    private String password;
    @JsonIgnore
    private boolean activated;
-   private LocalDate joinDate;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }
 
-   public User(Long id, String username, String password, String authorities, LocalDate joinDate) {
+   public User(Long id, String username, String password, String authorities) {
       this.id = id;
       this.username = username;
       this.password = password;
-      this.joinDate = joinDate;
       this.activated = true;
       if (StringUtils.hasText(authorities)) this.setAuthorities(authorities);
    }
@@ -70,13 +68,6 @@ public class User {
       this.authorities = authorities;
    }
 
-   public LocalDate getJoinDate() {
-      return joinDate;
-   }
-
-   public void setJoinDate(LocalDate joinDate) {
-      this.joinDate = joinDate;
-   }
 
    public void setAuthorities(String authorities) {
       String[] roles = authorities.split(",");
@@ -110,7 +101,6 @@ public class User {
               ", username='" + username + '\'' +
               ", activated=" + activated +
               ", authorities=" + authorities +
-              ", joinDate=" + joinDate +
               '}';
    }
 }

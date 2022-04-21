@@ -1,17 +1,19 @@
 <template>
   <div class="main">
-    <div
-      class="exerciseDiv"
-    >
+    <div class="exerciseDiv">
       <h2>Welcome Back!</h2>
       <div vr id="imgDiv">
         <div>
-          <h2 class="name">{{getName}}</h2>
+          <h2 class="name">{{ getName }}</h2>
           <h5 class="user_id"></h5>
-          <h6 >Reps:</h6>
-          <h4 class="reps"></h4>
+          <div class="currentDate">
+            <i><font-awesome-icon icon="fa-calendar" /></i>
+            {{ date }}
+          </div>
+          <h6>Reps:</h6>
+          <h4 class="reps">****</h4>
           <h6>Time:</h6>
-          <h4 class="time"> Mins </h4>
+          <h4 class="time">****</h4>
         </div>
       </div>
       <p id="desc"></p>
@@ -24,40 +26,37 @@
 export default {
   name: "summary-info",
 
-  data() {
+    data() {
     return {
-      showEdit: false,
-
-      targetedExercise: {},
-
-      exercises: [],
-    };
-  },
-  components: {
-
-  },
-
-  created() {
-
-  },
-
-  computed: {
-    filteredExercises() {
-      const exerciseFilter = this.$store.state.filter;
-      const exercises = this.exercises;
-      return exercises.filter((exercise) => {
-        return exercise.statusId === 2 && exerciseFilter == ""
-          ? true
-          : exerciseFilter == exercise.muscleGroup;
-      });
+      showDateTime: null,
+      date: null,
+      workout: {},
+    }
+    
     },
-      getName(){
+created(){
+  this.getCurrentDatetime()
+},
+
+
+    computed:{
+       getName(){
         return this.$store.state.user.username
-
       }
-
+      
 
     },
+
+
+  methods: {
+    getWorkout() {
+      this.workout = this.$store.state.summaryWorkout;
+    },
+    getCurrentDatetime() {
+      let dateTime = new Date();
+      this.date = dateTime.toJSON().slice(0, 10).replace(/-/g, "/");
+    },
+  }
 };
 </script>
 
@@ -81,8 +80,8 @@ img {
   border-radius: 5px;
   margin-right: 40px;
 }
-p{
-  margin-top: 10px ;
+p {
+  margin-top: 10px;
 }
 .exerciseDiv {
   display: inline-block;
@@ -102,7 +101,6 @@ p{
   flex-wrap: wrap;
   justify-content: center;
 }
-
 
 .edit {
   background-color: rgb(161, 161, 38);

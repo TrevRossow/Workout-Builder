@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.techelevator.model.UserNotFoundException;
@@ -34,6 +35,8 @@ public class JdbcUserDao implements UserDao {
             throw new UsernameNotFoundException("User " + username + " was not found.");
         }
     }
+
+
 
     @Override
     public User getUserById(Long userId) {

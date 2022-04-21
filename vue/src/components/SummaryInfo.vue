@@ -3,14 +3,14 @@
       <div class="exerciseDiv"  >
       <div id="head">
          <h2  v-show="workout.completed == true"> Recently Completed </h2>
-          <h2  v-show="workout.userId"> Recently Added </h2>
+          <h2  v-show="workout.userId && workout.completed == false"> Recently Added </h2>
          <h2 v-show="!workout.userId"> Get Started</h2>
       </div>
       <div id="imgDiv">
         <div id="maininfo">
           <h2 >{{ workout.workoutName }}</h2>
           <h6 v-if="workout.completed"> Completed On : {{workout.dateCompleted}} </h6>
-          <h4 class="group" v-show="workout.userId"> Trainer: {{ workout.trainerId}} </h4>
+          <h4 class="group" v-show="workout.userId"> Trainer: {{ workout.trainer}} </h4>
           <h5 class="type" v-show="workout.userId">User Id: {{ workout.userId }}</h5>
           <br />
           <v-carousel
@@ -57,6 +57,7 @@
 
 import workoutService from "../services/WorkoutService";
 import exerciseService from "../services/ExerciseService";
+import authService from "../services/AuthService";
 
 export default {
   name: "summary-info",
@@ -100,12 +101,14 @@ created(){
             .then((response) => {
             let exercises = response.data
             workout.exercises = exercises;
+            authService.getUserNameById(workout.trainerId).then((response) => {
+                workout.trainer = response.data.username
           this.$store.commit('SET_RECENT', workout)
           this.workout = this.$store.state.recentWorkout;
           this.createSuccess = true;
             })
         })
-      
+       })
     },
     
     getCurrentDatetime() {

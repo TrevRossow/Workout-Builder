@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS user_exercises CASCADE;
 CREATE SEQUENCE seq_user_id
   INCREMENT BY 1
   NO MAXVALUE
-  NO MINVALUE
+  No MINVALUE
   CACHE 1;
 
   CREATE SEQUENCE seq_workout_id
@@ -126,10 +126,10 @@ VALUES
     ('Cable Woodchoppers', 'Set cable pulley slightly lower than chest height. Keep body facing forward with hips stable. Grab the pulley handle, fully extend your arms and bring your arms forward and across your body. Hold for 1 second at the end of the movement and slowly return to starting position.', 'Abs', '12+', 'Strength', '2', '5'),
     ('Russian Twist', 'Get in a a position if you were to do a crunch, Ideally, the torso is kept straight with the back kept off the ground at a 45 degree angle with arms held together away from the body in a straight fashion. Next, the arms should be swung from one side to another in a twisting motion, with each swing to a side counting as one repetition.', 'Abs', '12+', 'Strength', '2', '5'),
     ('Hollow Hold', 'Get on a mat and lie on your back. Contract your abs, stretch your raise and legs and raise them (your head and shoulders are also be raised). Make sure your lower back remains in contact with the mat.', 'Abs', '2 min', 'Strength', '2', '5'),
-    ('Burpees', 'Begin in a standing position. Drop into a squat with your hands on the floor and then kick your feet back until you’re in a push-up position. Quickly return your feet to the start, then explode up, aiming to catch 6-12 inches of air while you bring your hands over your head. Land softly and immediately repeat for reps.', 'Total Body', '15', 'Strength', '2', '5'),
-    ('Jump lunges', 'Start in a lunge position with your knees touching or almost touching the floor. Jump up explosively and switch legs so that your rear leg is in the front and front leg is in the rear, then repeat as fast as you can.', 'Total Body', '15', 'Strength', '2', '5'),
-    ('Wall Balls', 'Find a wall at least nine feet high and a large medicine ball that weighs 14 pounds or more. Standing just a couple feet away from the wall, hang onto the ball at the height of your head. Squat down below parallel and as you return to the top, toss the ball at a target nine feet (or higher). Try and catch the ball on the way down to the squat position to increase your efficiency and speed.', 'Total Body', '15', 'Strength', '2', '5'),
-    ('Overhead Kettlebell Swing', 'Start with the kettlebell about 8-12 inches in front of you on the ground. Swing the kettlebell between your legs while keeping it high and tight. Violently thrust your hips to propel the bell forward and above your head, your arms perpendicular to the floor.', 'Total Body', '15', 'Strength', '2', '5'),
+    ('Burpees', 'Begin in a standing position. Drop into a squat with your hands on the floor and then kick your feet back until you’re in a push-up position. Quickly return your feet to the start, then explode up, aiming to catch 6-12 inches of air while you bring your hands over your head. Land softly and immediately repeat for reps.', 'TotalBody', '15', 'Strength', '2', '5'),
+    ('Jump lunges', 'Start in a lunge position with your knees touching or almost touching the floor. Jump up explosively and switch legs so that your rear leg is in the front and front leg is in the rear, then repeat as fast as you can.', 'TotalBody', '15', 'Strength', '2', '5'),
+    ('Wall Balls', 'Find a wall at least nine feet high and a large medicine ball that weighs 14 pounds or more. Standing just a couple feet away from the wall, hang onto the ball at the height of your head. Squat down below parallel and as you return to the top, toss the ball at a target nine feet (or higher). Try and catch the ball on the way down to the squat position to increase your efficiency and speed.', 'TotalBody', '15', 'Strength', '2', '5'),
+    ('Overhead Kettlebell Swing', 'Start with the kettlebell about 8-12 inches in front of you on the ground. Swing the kettlebell between your legs while keeping it high and tight. Violently thrust your hips to propel the bell forward and above your head, your arms perpendicular to the floor.', 'TotalBody', '15', 'Strength', '2', '5'),
     ('Dumbell Shoulder Press', 'Start by holding the dumbbells at shoulder level. Knees slightly bent, lower your torso as you exhale. Stand up straight and raise your arms above your head.', 'Shoulders', '8 - 12', 'Strength', '2', '5'),
     ('Overhead Press', 'Stand with your feet shoulder width apart apart. Lift a barbell or dumbbells to shoulder level and perform an overhead shoulder press by raising the barbell or dumbbells over your head. Hold the weight above your head for a few seconds before gradually lowering in a controlled motion.', 'Shoulders', '8 - 12', 'Strength', '2', '5'),
     ('Lateral Raise', 'To do a lateral raise stand up straight with your arms relaxed by your sides. With your pair of dumbbells in hand, resistance band, cable handle, or what have you and raise your arms until it forms a 90-degree angle with your body. Control your movement as you slowly lower the weight.', 'Shoulders', '8 - 12', 'Strength', '2', '5'),
@@ -146,8 +146,8 @@ INSERT INTO exercise_approval_queue (queue_desc) VALUES ('Send');
 
 INSERT INTO workouts (workout_id, workout_name,trainer_id,user_id,completed)
 VALUES
-    ('1','The Mike Levy', '3', '1', 'False'),
-    ('2','The Dave Hoy', '3', '1', 'False');
+    ('1','The Mike Levy', '3', '3', 'False'),
+    ('2','The Dave Hoy', '3', '3', 'False');
 
 INSERT INTO workout_exercise ( workout_id, exercise_id)
 VALUES

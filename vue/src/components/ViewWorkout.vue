@@ -12,7 +12,7 @@
       <div id="imgDiv">
         <div id="maininfo">
           <h6  v-if="workout.dateCompleted"> Completed On : {{workout.dateCompleted}} </h6>
-          <h4 class="group">Trainer: {{getUsername(workout.trainerId)}} </h4>
+          <h4 class="group">Trainer: {{workout.trainer}} </h4>
           <h5 class="type">User Id: {{ workout.userId }}</h5>
           <br />
           <v-carousel
@@ -80,7 +80,7 @@ export default {
 
       targetedExercise: {},
 
-      defaultExercises: [3, this.$store.state.user.id ],
+      defaultExercises: [ this.$store.state.user.id ],
 
       showWorkout: false,
     };
@@ -121,6 +121,20 @@ export default {
       }) 
     },
 
+    getTrainers(){
+      AuthService.getUsers().then((response)  => {
+        if (response.status == 200) {
+          let users = response.data;
+          this.trainers = users.filter((u) => {
+            return u.authorities[0].name === "ROLE_TRAINER"
+          })
+          this.trainers.forEach((t) => {
+            this.defaultExercises.push(t)
+          })
+        }
+        })
+    },
+
     getWorkouts() {
       this.defaultExercises.forEach((id) => {
       workoutService.getWorkoutsByUserID(id).then((response) => {
@@ -131,7 +145,10 @@ export default {
             .then((response) => {
               workout.workoutId = workout.id;
               workout.exercises = response.data;
+              AuthService.getUserNameById(workout.trainerId).then((response) => {
+              workout.trainer = response.data.username
               this.$store.commit("ADD_WORKOUT", workout);
+              })
             })
             });
         });

@@ -212,4 +212,11 @@ button {
   top: 3px;
   border: #4c4c4c;
 }
+
+@media only screen and (max-width: 600px) {
+  .main {
+    display: flex;
+    justify-content: center;
+  }
+}
 </style>

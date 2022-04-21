@@ -466,9 +466,13 @@ button :hover {
   border: #4c4c4c;
 }
 
-@media (max-width: 340px) {
+@media only screen and (max-width: 600px) {
   .testbox {
     max-width: 70vw;
+  }
+
+  #icon {
+    width: 200%;
   }
 }
 </style>

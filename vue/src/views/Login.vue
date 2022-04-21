@@ -1,6 +1,6 @@
 <template>
   <div id="login" class="testbox">
-    <form class="form-signin" @submit.prevent="login">
+    <form v-if= "loggingIn === false" class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div class="alert" role="alert" v-if="invalidCredentials">
         Invalid username and password!
@@ -42,6 +42,7 @@
         <router-link :to="{ name: 'register' }">Need an account?</router-link>
       </div>
     </form>
+    <img id="loading" v-else src="/WorkoutImages/output-onlinegiftools.gif" />
   </div>
 </template>
 
@@ -53,6 +54,7 @@ export default {
   components: {},
   data() {
     return {
+      loggingIn: false,
       user: {
         username: "",
         password: "",
@@ -62,9 +64,11 @@ export default {
   },
   methods: {
     login() {
+      this.loggingIn = true;
       authService
         .login(this.user)
         .then((response) => {
+          this.loggingIn = false;
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
@@ -119,6 +123,13 @@ h1 {
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
+}
+
+#loading {
+  width: 250px;
+  height: 250px;
+  margin-left: 35px;
+  margin-top: 100px;
 }
 
 .alert {
@@ -210,7 +221,6 @@ input {
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
   border: solid 0px #cbc9c9;
 }
-
 
 
 .send {

@@ -17,6 +17,8 @@ public class JdbcWorkoutDaoTests extends BaseDaoTests {
 
     protected static final Workout WORKOUT_2 = new Workout(2L,"The Dave Hoy",3L,1L,false, LocalDate.parse("2020-04-20"));
 
+    protected static final Workout WORKOUT_3 = new Workout(1L, "The Mike Levy", 1L, 3L, false, null);
+
 
     private JdbcWorkoutDao sut;
 
@@ -42,6 +44,27 @@ public class JdbcWorkoutDaoTests extends BaseDaoTests {
         Workout workout = sut.getWorkoutById(1L);
 
         Assert.assertEquals(WORKOUT_1,workout);
+    }
+
+    @Test
+    public void getAllWorkouts_returns_expected() {
+        List<Workout> actual = sut.getAll();
+
+        Assert.assertEquals(2, actual.size());
+    }
+
+    @Test
+    public void getWorkoutByUserId_returns_expected() {
+        List<Workout> actual = sut.getWorkoutByUserId(1L);
+
+        Assert.assertEquals(2, actual.size());
+    }
+
+    @Test
+    public void getWorkoutById_returns_expected() {
+        Workout actual = sut.getWorkoutById(1L);
+
+        Assert.assertEquals(WORKOUT_3, actual);
     }
 
 

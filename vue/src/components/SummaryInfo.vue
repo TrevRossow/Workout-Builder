@@ -94,7 +94,6 @@ created(){
   methods: {
     getLastWorkout() { 
        workoutService.getLatestWorkout(this.$store.state.user.id).then((response)  => {
-        console.log(response)
          let workout = response.data;
           exerciseService
             .getExercisesByWorkouts(workout.id)
@@ -123,9 +122,7 @@ created(){
 .main {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  min-width: 310px;
-  width: 440px;
+  width: max-content;
   max-height: max-content;
 }
 
@@ -154,14 +151,13 @@ img {
  .exerciseDiv {
   display: inline-block;
   justify-content: center;
-  margin: 20px;
+  margin: 15px;
   padding: 15px;
   border-radius: 8px/7px;
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
   border: solid 1px black;
-  width: 275px;
-  min-width: 275px;
+  min-width: max-content;
   height: max-content;
 } 
 

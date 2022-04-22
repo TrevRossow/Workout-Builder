@@ -22,7 +22,7 @@ public class JdbcExerciseDao implements ExerciseDao {
     @Override
     public List<Exercise> getAll() {
         List<Exercise> exercises = new ArrayList<>();
-        String sql = "select * from exercises";
+        String sql = "select * from exercises ";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
@@ -47,7 +47,7 @@ public class JdbcExerciseDao implements ExerciseDao {
     @Override
     public List<Exercise> getExercisesByStatusId(int statusId) {
         List<Exercise> exercises = new ArrayList<>();
-        String sql = "SELECT * FROM exercises WHERE exercise_status_id = ?";
+        String sql = "SELECT * FROM exercises WHERE exercise_status_id = ? ORDER BY exercise_id DESC";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, statusId);
         while (results.next()) {
             Exercise exercise = mapRowToExercise(results);

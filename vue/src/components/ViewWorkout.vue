@@ -91,6 +91,7 @@ export default {
 
   created() {
     this.getWorkouts();
+    this.getTrainers();
   },
 
   computed: {
@@ -156,14 +157,17 @@ export default {
     },
 
     deleteWorkout(workout) {
+      if(this.$store.state.user.id != workout.userId){
+         alert("Only the creating User can delete this Workout");
+          } else{
       workoutService.deleteWorkoutExercise(workout.id).then((response) => {
         if (response.status == 200) {
           workoutService.deleteWorkout(workout.id);
           this.$store.commit("DELETE_WORKOUT", workout.workoutId);
-        }
+      }
       });
+          }
     },
-
      getCurrentDate() {
       let dateTime = new Date();
       return dateTime.toJSON().slice(0, 10)

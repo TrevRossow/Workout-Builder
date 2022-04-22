@@ -64,7 +64,8 @@ export default {
   display: flex;
   justify-content: center;
   justify-content: space-around;
-  width: 240px;
+  width: 140px;
+  height: 40px;
   background-color: #3a57af;
   border-radius: 5px;
   padding: 8px 8px 8px 12px;
@@ -72,7 +73,6 @@ export default {
   color: white;
   box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
   border: solid 1px #cbc9c9;
-  position: relative;
 }
 
 img {
@@ -89,7 +89,7 @@ p {
 
 .body {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
 }
 
@@ -98,10 +98,10 @@ p {
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
+  margin-right: 20px;
   background-color: rgb(240, 20, 12);
   border-radius: 15px;
   box-shadow: 4px 4px 3px rgb(58 87 175 / 75%);
-  position: relative;
 }
 
 .focusMostCompleted {
@@ -112,7 +112,6 @@ p {
   background-color: rgb(17, 226, 51);
   border-radius: 15px;
   box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
-  position: relative;
 }
 
 .repsCompleted {
@@ -123,7 +122,6 @@ p {
   background-color: rgb(185, 5, 155);
   border-radius: 15px;
   box-shadow: 2px 3px 3px rgb(58 87 175 / 75%);
-  position: relative;
 }
 
 .subBody {
@@ -137,6 +135,10 @@ p {
 
   img{
     width: 100%;
+  }
+
+  .timeExercising{
+    margin-right: 0px;
   }
   
 }

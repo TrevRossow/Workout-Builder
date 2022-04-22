@@ -414,6 +414,7 @@ select {
   margin-top: 20px;
   padding-left: 10px;
   max-width: 100%;
+   text-align: center;
 }
 
 textarea {

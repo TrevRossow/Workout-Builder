@@ -98,7 +98,7 @@ p {
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
-  margin-right: 20px;
+  margin-right: 15px;
   background-color: rgb(240, 20, 12);
   border-radius: 15px;
   box-shadow: 4px 4px 3px rgb(58 87 175 / 75%);

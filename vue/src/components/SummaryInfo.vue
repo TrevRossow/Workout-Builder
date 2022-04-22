@@ -66,6 +66,8 @@ export default {
     return {
       showDateTime: null,
 
+      noRecent:false,
+
       date: null,
 
       workout: {},
@@ -74,6 +76,8 @@ export default {
     
     },
 created(){
+
+  this.checkStore()
   this.getCurrentDatetime();
 
   this.getLastWorkout();
@@ -92,7 +96,17 @@ created(){
 
 
   methods: {
+
+    checkStore(){
+
+        if(!this.$store.state.recentWorkout){
+          this.noRecent = false;
+        }else{
+          this.noRecent = true;
+        }
+      },
     getLastWorkout() { 
+        if(this.noRecent){
        workoutService.getLatestWorkout(this.$store.state.user.id).then((response)  => {
          let workout = response.data;
           exerciseService
@@ -108,6 +122,7 @@ created(){
             })
         })
        })
+      }
     },
     
     getCurrentDatetime() {

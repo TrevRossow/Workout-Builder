@@ -262,6 +262,7 @@ input[type="text"] {
   margin-top: 20px;
   padding-right: 5px;
   max-width: 100%;
+  text-align: center;
 }
 
 #muscle-group{

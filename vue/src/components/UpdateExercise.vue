@@ -49,7 +49,7 @@
           name="drop-down"
           v-model="exercise.repRange"
           placeholder="Exercise Type"
-          required>
+         >
           <option value="" selected="selected" >-- Rep Ranges --</option>
           <option value="Cardio">Cardio</option>
           <option value="1 - 5">1 - 5</option>

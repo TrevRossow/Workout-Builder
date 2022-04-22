@@ -141,26 +141,6 @@ input[type=radio] {
 
 form{
   margin: 0 30px;
-
-}
-label.radio {
-	cursor: pointer;
-  text-indent: 35px;
-  overflow: visible;
-  display: inline-block;
-  position: relative;
-  margin-bottom: 15px;
-}
-
-label.radio:before {
-  background: #3a57af;
-  content:'';
-  position: absolute;
-  top:2px;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
 }
 
 .alert{
@@ -178,20 +158,6 @@ label.radio:before {
   perspective: 1000px;
 }
 
-label.radio:after {
-	opacity: 0;
-	content: '';
-	position: absolute;
-	width: 0.5em;
-	height: 0.25em;
-	background: transparent;
-	top: 7.5px;
-	left: 4.5px;
-	border: 3px solid #ffffff;
-	border-top: none;
-	border-right: none;
-	transform: rotate(-45deg);
-}
 
 hr{
   color: #a9a9a9;

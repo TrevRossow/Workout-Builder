@@ -13,7 +13,7 @@
       <div vr id="imgDiv">
         <div>
           <h4 class="group">{{ exercise.muscleGroup }}</h4>
-          <h5 class="user_id"> {{exercise.userId}} </h5>
+          <h5 class="user_id" v-if="exercise.userId > 0"> {{exercise.userId}} </h5>
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>
@@ -85,7 +85,7 @@ export default {
   computed: {
     filteredExercises() {
       const exerciseFilter = this.$store.state.filter;
-      const exercises = this.exercises;
+      const exercises = this.$store.state.exercises;
       return exercises.filter((exercise) => {
         return exercise.statusId === 2 && exerciseFilter == ""
           ? true
@@ -105,7 +105,8 @@ export default {
   methods: {
     getExercises() {
       exerciseService.getExercisesByStatus(2).then((response) => {
-        this.exercises = response.data;        
+        let exercises = response.data;  
+        this.$store.state.exercises = exercises;      
       });
     },
 

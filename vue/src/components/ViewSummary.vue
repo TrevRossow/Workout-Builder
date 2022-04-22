@@ -1,11 +1,11 @@
 <template>
   <div class="main">
-    <h1>Your workout summary for:</h1>
-    <div class="currentDate">
+    <div class="body">
+      <div class="currentDate">
       <i><font-awesome-icon icon="fa-calendar" /></i>
       {{ date }}
     </div>
-    <div class="body">
+     <summary-info/>
       <div class="timeExercising">
         <img class="img" src="../../public/graph.png" alt="exercise graph" />
         <p>Here's your workout time this week!</p>
@@ -18,7 +18,6 @@
         <img class="img" src="../../public/reps.png" alt="reps completed" />
         <p>You have completed: <b>153 Reps this week!</b></p>
       </div>
-       <summary-info/>
     </div>
     <div class="subBody">
       <p>Excellent job this week! Based on your summary, we recommend focusing more
@@ -62,7 +61,10 @@ export default {
 </script>
 <style scoped>
 .currentDate {
-  width: 140px;
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  width: 240px;
   background-color: #3a57af;
   border-radius: 5px;
   padding: 8px 8px 8px 12px;
@@ -77,6 +79,7 @@ img {
   margin-top: 40px;
   margin-bottom: 10px;
   height: 15rem;
+  
 }
 
 p {
@@ -91,6 +94,7 @@ p {
 }
 
 .timeExercising {
+  max-width: 100%;
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
@@ -101,6 +105,7 @@ p {
 }
 
 .focusMostCompleted {
+    max-width: 100%;
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
@@ -111,6 +116,7 @@ p {
 }
 
 .repsCompleted {
+    max-width: 100%;
   padding-left: 30px;
   padding-right: 30px;
   margin-top: 10px;
@@ -124,5 +130,14 @@ p {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
+  margin-left: 10px;
+}
+
+@media (max-width:465px) {
+
+  img{
+    width: 100%;
+  }
+  
 }
 </style>

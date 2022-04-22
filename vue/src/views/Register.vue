@@ -12,6 +12,7 @@
   <input type="text" 
   name="name" 
   id="name" 
+  autocomplete="off"
   placeholder="Username"
   v-model="user.username"
   required
@@ -126,7 +127,7 @@ h2 {
 
 .testbox {
   margin: 20px auto;
-  width: 340px; 
+  width: 310px; 
   height: 465px; 
   border-radius: 8px/7px; 
   background-color: #ebebeb; 
@@ -192,17 +193,13 @@ label.radio:after {
 	transform: rotate(-45deg);
 }
 
-input[type=radio]:checked + label:after {
-	opacity: 1;
-}
-
 hr{
   color: #a9a9a9;
   opacity: 0.3;
 }
 
 input[type=text],input[type=password]{
-  width: 200px; 
+  width: 180px; 
   height: 39px; 
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px; 
   background-color: #fff;  

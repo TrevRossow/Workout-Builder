@@ -21,6 +21,7 @@
         name="name"
         id="name"
         placeholder="-- Exercise Name --"
+        autocomplete="off"
         v-model="exercise.name"
         required
         autofocus />
@@ -66,7 +67,7 @@
           v-model="exercise.timeRange"
           placeholder="Time Range"
           required>
-          <option value="" selected="selected" >-- Time --</option>
+          <option value="" selected="selected" >-- Time-In-Minutes --</option>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -124,6 +125,7 @@ export default {
         muscleGroup: "",
         repRange: "",
         type: "",
+        timeRange:"",
         statusId: 1,
       },
 
@@ -180,7 +182,12 @@ h1 {
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   max-width: 60vw;
+  min-width: 310px;
+  text-align: center;
+}
 
+::-webkit-input-placeholder{
+  text-align: center;
 }
 
 .success{
@@ -253,7 +260,7 @@ input[type="text"] {
   border: solid 1px #cbc9c9;
   margin-left: -5px;
   margin-top: 20px;
-  padding-left: 10px;
+  padding-right: 5px;
   max-width: 100%;
 }
 
@@ -270,9 +277,11 @@ select {
   border: solid 1px #cbc9c9;
   margin-left: -5px;
   margin-top: 20px;
-  padding-left: 10px;
+  padding-left: 0px;
   max-width: 100%;
+  text-align: center;
 }
+
 
 
 textarea {

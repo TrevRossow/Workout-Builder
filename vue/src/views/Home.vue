@@ -45,10 +45,8 @@
           Since starting with The Elevated Fitness® program I have experienced greatly improved strength,
            postural stability, and flexibility. The sleek design of the app and simple to use the features 
            make selecting and creating a workout a breeze!
-           </q><br><br>
-           
+           </q><br><br>  
       </article>
-  
     </div>
     </v-app>
 </div>
@@ -101,6 +99,10 @@ export default {
 
 #reviewDiv{
 display: flex;
+}
+
+.home{
+  min-width: 315px;
 
 }
 

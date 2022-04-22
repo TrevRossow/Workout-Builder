@@ -13,7 +13,7 @@
       <div vr id="imgDiv">
         <div>
           <h4 class="group">{{ exercise.muscleGroup }}</h4>
-          <h5 class="user_id"> {{exercise.user_id}} </h5>
+          <h5 class="user_id"> {{exercise.userId}} </h5>
           <h5 class="type" v-show="exercise.type != 'Cardio'">
             {{ exercise.type }}
           </h5>
@@ -32,22 +32,22 @@
         <div class="btnDiv">
           <button class="add" 
           v-on:click="toggleAddWorkout();
-           targetExercise(exercise)">Add To Workout</button>
+           targetExercise(exercise)">Add <span id="AddTo"> To Workout </span> </button>
           <button
             class="edit"
             v-if="isAuthorized"
             v-on:click="
-              toggleEditButton();
+              toggleEditButton();  
               targetExercise(exercise);
             ">
-            Edit Exercise
+            Edit <span>Exercise</span>
           </button>
           <button
             class="delete"
             v-if="isAuthorized"
             v-on:click="deleteExercise(exercise)"
           >
-            Delete Exercise
+            Delete <span>Exercise</span>
           </button>
         </div>
       
@@ -59,6 +59,8 @@
 import UpdateExercise from "../components/UpdateExercise.vue";
 import exerciseService from "../services/ExerciseService";
 import addWorkout from "../components/AddWorkout.vue";
+import workoutService from "../services/WorkoutService";
+
 export default {
   name: "view-exercises",
 
@@ -123,6 +125,8 @@ export default {
     },
 
     deleteExercise(exercise) {
+      workoutService.deleteExerciseWorkout(exercise.id).then((response) => {
+          if (response.status == 200){
       exerciseService
         .deleteExercise(exercise)
         .then((response) => {
@@ -130,6 +134,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("DELETE_EXERCISE", exercise.id);
             this.getExercises();
+          
           }
         })
         .catch((error) => {
@@ -139,7 +144,11 @@ export default {
             this.createError = true;
           }
         });
+          }
+      })
+        
     },
+
   },
 };
 </script>

@@ -73,7 +73,7 @@ export default new Vuex.Store({
     },
 
     ADD_EXERCISE(state, exercise){
-      state.exercises.unshift(exercise);
+      state.exercises.push(exercise);
     },
 
     UPDATE_EXERCISE(state, updatedExercise){

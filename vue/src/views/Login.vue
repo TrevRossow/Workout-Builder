@@ -1,4 +1,5 @@
 <template>
+<div class="main">
   <div id="login" class="testbox">
     <form v-if= "loggingIn === false" class="form-signin" @submit.prevent="login">
       <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
@@ -20,6 +21,7 @@
         type="text"
         name="name"
         id="name"
+        autocomplete="off"
         placeholder="Username"
         v-model="user.username"
         required
@@ -43,6 +45,7 @@
       </div>
     </form>
     <img id="loading" v-else src="/WorkoutImages/output-onlinegiftools.gif" />
+  </div>
   </div>
 </template>
 
@@ -115,10 +118,18 @@ h1 {
   margin-bottom: 10px;
 }
 
+.main{
+  min-width: 310px;
+  display: flex;
+  justify-content: center;
+  max-height:max-content;
+
+}
+
 .testbox {
-  margin: 20px auto;
-  max-width: 100%;
-  width: 340px;
+  margin: 10px auto;
+  max-width: 310px;
+  min-width: 300px;
   height: 465px;
   border-radius: 8px/7px;
   background-color: #ebebeb;
@@ -196,7 +207,7 @@ form {
 
 input[type="text"],
 input[type="password"] {
-  width: 200px;
+  width: 180px;
   height: 39px;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;

@@ -9,18 +9,21 @@
         <nav>
           <div class="navDiv">
             <button id="loginHome" class="btn" v-on:click="$router.push({name:'login'})"
-            v-if="($store.state.token === '' )">Login
+            v-if="($store.state.token === '' )">
+            <span class="Logout">Login</span>
             <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" />
             </button>
 
             <button id="dashboardBtn" class="btn" v-on:click="getUser()"
-            v-if="($store.state.token != '')"> Dashboard
+            v-if="($store.state.token != '')">
+            <span class="Logout">Dashboard</span>
             <font-awesome-icon icon="fa-dashboard"/>
             </button>
 
           <button id="loginHome" class="btn" v-on:click="$router.push({name:'logout'})"
             v-bind:to="{ name: 'logout' }"
-            v-if="($store.state.token != '')">Logout
+            v-if="($store.state.token != '')">
+             <span class="Logout">Logout</span>
             <font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" />
             </button>
           </div>
@@ -112,14 +115,20 @@ nav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  
-  
 }
 
 #head {
   display: grid;
   grid-template-areas: "header nav";
   grid-row: 1fr 1fr;
+}
+
+button{
+  width: max-content;
+}
+
+span{
+  margin-right: 5px ;
 }
 
 .btn {
@@ -204,6 +213,20 @@ nav {
 }
 
 /* Media Queries */
+
+@media (max-width: 335px) {
+
+  span{
+    display: none;
+  }
+
+  button{
+    max-width: 60px;
+  }
+
+
+  
+}
 
 @media (max-width: 600px) {
 

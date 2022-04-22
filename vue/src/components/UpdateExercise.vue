@@ -21,6 +21,7 @@
         name="name"
         id="name"
         placeholder="-- Exercise Name --"
+        autocomplete="off"
         v-model="exercise.name"
         required
         autofocus />

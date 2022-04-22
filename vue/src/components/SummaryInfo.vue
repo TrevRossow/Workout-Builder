@@ -122,9 +122,10 @@ created(){
 <style scoped>
 .main {
   display: flex;
-  max-width: 100%;
+  justify-content: center;
   flex-wrap: wrap;
-  min-width: 320px;
+  min-width: 310px;
+  width: 440px;
   max-height: max-content;
 }
 
@@ -159,7 +160,7 @@ img {
   background-color: #ebebeb;
   box-shadow: 1px 2px 5px black;
   border: solid 1px black;
-  max-width: 275px;
+  width: 275px;
   min-width: 275px;
   height: max-content;
 } 

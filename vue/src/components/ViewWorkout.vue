@@ -52,7 +52,7 @@
       </div>
       <div class="btnDiv">
         <button class="complete" v-if="workout.completed == false" v-on:click="completeWorkout(workout)">
-          Complete
+          Finish
         </button>
         <button class="delete" v-on:click="deleteWorkout(workout)">
           Delete
@@ -233,6 +233,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
 }
 
 .edit {

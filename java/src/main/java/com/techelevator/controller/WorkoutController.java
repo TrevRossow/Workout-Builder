@@ -71,6 +71,12 @@ public class WorkoutController {
         this.workoutExerciseDao.deleteWorkoutExercise(id);
     }
 
+    @DeleteMapping("workout/exercise/{id}")
+    public void deleteExerciseWorkout(@Valid @PathVariable Long id){
+        this.workoutExerciseDao.deleteExerciseWorkout(id);
+    }
+
+
 
     @PostMapping("/workout/{workoutID}/exercise")
     public void add( @PathVariable Long workoutID, @RequestBody WorkoutExercise workoutExercise){

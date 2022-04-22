@@ -3,7 +3,7 @@
     <form class="form-signin" @submit.prevent="pushWorkout()">
       <h1 class="h3 mb-3 font-weight-normal">Create Workout</h1>
       <div class="alert" role="alert" v-if="createError">
-        Unable to Generate Workout.
+        Unable to Generate Workout. <span>{{errorMsg}}</span>
       </div>
 
       <div class="success" v-if="createSuccess">Workout Submitted.</div>
@@ -16,10 +16,12 @@
         name="name"
         id="name"
         placeholder="-- Workout Name --"
+        autocomplete="off"
         v-model="workout.workoutName"
         required
         autofocus
       />
+
       <div class="focusDiv">
         <label id="icon" for="chest">
           <input
@@ -139,7 +141,6 @@
           v-model="workout.trainerId"
           v-on:click="generateWorkout(checkBoxes)"
         >
-          
           <option value="" disabled selected>-- Trainer --</option>
           <option
            :value= "trainer.id"
@@ -168,6 +169,9 @@ export default {
 
   data() {
     return {
+
+      errorMsg:"",
+
       trainers: [],
 
       trainer: {},
@@ -235,6 +239,7 @@ export default {
 
         ExerciseService.getExercisesByMuscleGroup(exerciseFocus).then(
           (response) => {
+          if(response.status == 200){
             let exercises = response.data;
 
             let exercise =
@@ -243,9 +248,15 @@ export default {
             ids.push(exercise);
 
             this.tempArr = ids;
-  
           }
-        )
+          })
+          .catch((error) => {
+            const response = error.response;
+            this.createError = true;
+            if (response.status != 400) {
+              this.errorMsg = 'No Exercises Available!';
+            }
+          });
       }
     },
 
@@ -307,10 +318,7 @@ h1 {
   box-shadow: 1px 2px 5px black;
   border: solid 1px #cbc9c9;
   max-width: 60vw;
-}
-
-i {
-  border: 1 px solid black;
+  min-width: 300px;
 }
 
 .success {
@@ -378,7 +386,7 @@ input[type="checkbox"] {
 }
 
 input[type="text"] {
-  width: 50%;
+  width: 60%;
   height: 39px;
   border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
   background-color: #fff;
@@ -386,8 +394,9 @@ input[type="text"] {
   border: solid 1px #cbc9c9;
   margin-left: -5px;
   margin-top: 20px;
-  padding-left: 10px;
+  padding-left: 0px;
   max-width: 100%;
+  text-align: center;
 }
 
 #muscle-group {
